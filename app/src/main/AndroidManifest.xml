@@ -15,9 +15,6 @@
             android:name=".random_kensaku"
             android:exported="false" />
         <activity
-            android:name=".ramdomkensaku"
-            android:exported="false" />
-        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

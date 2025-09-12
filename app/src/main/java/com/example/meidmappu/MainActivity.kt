@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
 
         //らんだむけんさく画面移動
         val random1 = findViewById<Button>(R.id.random1)
-        random1.setOnClickListener {
+                random1.setOnClickListener {
             val intent = Intent(this, random_kensaku::class.java)
             startActivity(intent)
         }

@@ -22,12 +22,17 @@ class random_kensaku : AppCompatActivity() {
         //前の画面にもどる
         val back01 =findViewById<Button>(R.id.back01)
         back01.setOnClickListener { finish() }
-        //気持ち表明がめんへ
+        //気持ちがめんへ
         val kibun = findViewById<Button>(R.id.kibun)
         kibun.setOnClickListener {
             val intent = Intent(this,kibun_sentaku::class.java)
             startActivity(intent)
         }
-
+        //コンセプト選択へ
+        val conseputo = findViewById<Button>(R.id.conseputo)
+        conseputo.setOnClickListener {
+            val intent = Intent(this,conseputo_kensaku::class.java)
+            startActivity(intent)
+        }
     }
 }

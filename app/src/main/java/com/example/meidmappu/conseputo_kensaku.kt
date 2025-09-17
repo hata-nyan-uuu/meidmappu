@@ -1,6 +1,7 @@
 package com.example.meidmappu
 
 import android.os.Bundle
+import android.widget.Button
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -16,5 +17,9 @@ class conseputo_kensaku : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        //前の画面にもどる
+        val back01 =findViewById<Button>(R.id.back03)
+        back01.setOnClickListener { finish() }
+
     }
 }

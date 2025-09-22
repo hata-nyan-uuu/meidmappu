@@ -30,7 +30,7 @@
             android:text="らんだむけんさく" />
 
         <Button
-            android:id="@+id/kodawari2"
+            android:id="@+id/kodawari"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="こだわりけんさく" />

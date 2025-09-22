@@ -12,10 +12,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Meidmappu">
         <activity
-            android:name=".conseputo_kensaku"
+            android:name=".kodawari_kensaku"
             android:exported="false" />
         <activity
-            android:name=".kibun_sentaku"
+            android:name=".random_conseputo"
+            android:exported="false" />
+        <activity
+            android:name=".random_kibun"
             android:exported="false"
             android:theme="@style/Theme.Meidmappu" />
         <activity

@@ -1,24 +1,22 @@
 package com.example.meidmappu
 
 import android.os.Bundle
-import android.widget.Button
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
-class kodawari_kensaku : AppCompatActivity() {
+class tyutoriaru01 : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_kodawari_kensaku)
+        setContentView(R.layout.activity_tyutoriaru01)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        //前の画面に戻ります
-        val back04 = findViewById<Button>(R.id.back04)
-        back04.setOnClickListener { finish() }
+
+
     }
 }

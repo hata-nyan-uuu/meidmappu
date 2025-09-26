@@ -48,4 +48,19 @@
         <item>メイドカフェ</item>
         <item>コンカフェ</item>
     </string-array>
+    <string-array name="kakaku">
+        <item>3000</item>
+        <item>5000</item>
+        <item>10000</item>
+    </string-array>
+    <string-array name="conseputo2">
+        <item>メイド系</item>
+        <item>天使系</item>
+        <item>悪魔系</item>
+    </string-array>
+    <string-array name="menu">
+        <item>ごはん</item>
+        <item>スイーツ</item>
+        <item>アルコール</item>
+    </string-array>
 </resources>

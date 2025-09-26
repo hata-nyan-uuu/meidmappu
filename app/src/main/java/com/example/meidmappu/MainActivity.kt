@@ -26,6 +26,17 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
         //こだわりけんさく画面に移動
+    val kodawari =findViewById<Button>(R.id.kodawari)
+        kodawari.setOnClickListener {
+            val intent = Intent(this,kodawari_kensaku::class.java)
+            startActivity(intent)
+        }
 
+        //チュートリアル画面に移動
+        val hazimete = findViewById<Button>(R.id.hazimete)
+            hazimete.setOnClickListener {
+                val intent = Intent(this,tyutoriaru01::class.java)
+                startActivity(intent)
+            }
     }
 }

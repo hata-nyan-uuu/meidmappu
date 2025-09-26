@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
         //こだわりけんさく画面に移動
-    val kodawari =findViewById<Button>(R.id.kodawari)
+        val kodawari =findViewById<Button>(R.id.kodawari)
         kodawari.setOnClickListener {
             val intent = Intent(this,kodawari_kensaku::class.java)
             startActivity(intent)

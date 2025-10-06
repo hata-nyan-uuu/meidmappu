@@ -12,6 +12,27 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Meidmappu">
         <activity
+            android:name=".tyutoriaru09"
+            android:exported="false" />
+        <activity
+            android:name=".tyutoriaru08"
+            android:exported="false" />
+        <activity
+            android:name=".tyutoriaru07"
+            android:exported="false" />
+        <activity
+            android:name=".tyutoriaru06"
+            android:exported="false" />
+        <activity
+            android:name=".concafe_tyutoriaru"
+            android:exported="false" />
+        <activity
+            android:name=".meido_tyutoriaru"
+            android:exported="false" />
+        <activity
+            android:name=".tyutoriaru03"
+            android:exported="false" />
+        <activity
             android:name=".tyutoriaru02"
             android:exported="false" />
         <activity

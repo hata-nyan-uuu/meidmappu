@@ -18,10 +18,11 @@ class concafe_tyutoriaru : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        //03画面に移動
-        val hazimete = findViewById<Button>(R.id.hazimete03)
-        hazimete.setOnClickListener {
-            val intent = Intent(this,tyutoriaru03::class.java)
+
+        //06画面に移動
+        val nextbtn05 = findViewById<Button>(R.id.nextbtn05)
+        nextbtn05.setOnClickListener {
+            val intent = Intent(this, tyutoriaru06::class.java)
             startActivity(intent)
         }
     }

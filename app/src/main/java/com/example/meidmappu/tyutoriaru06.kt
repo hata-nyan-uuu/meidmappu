@@ -8,23 +8,21 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
-class meido_tyutoriaru : AppCompatActivity() {
+class tyutoriaru06 : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_meido_tyutoriaru)
+        setContentView(R.layout.activity_tyutoriaru06)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        //06画面に移動
-        val nextbtn04 = findViewById<Button>(R.id.nextbtn04)
-        nextbtn04.setOnClickListener {
-            val intent = Intent(this, tyutoriaru06::class.java)
+        //07画面に移動
+        val nextbtn06 = findViewById<Button>(R.id.nextbtn06)
+        nextbtn06.setOnClickListener {
+            val intent = Intent(this, tyutoriaru07::class.java)
             startActivity(intent)
         }
-
-
     }
 }

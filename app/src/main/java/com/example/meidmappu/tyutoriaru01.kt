@@ -19,8 +19,8 @@ class tyutoriaru01 : AppCompatActivity() {
             insets
         }
         //02画面に移動
-        val hazimete = findViewById<Button>(R.id.hazimete03)
-        hazimete.setOnClickListener {
+        val nextbtn01 = findViewById<Button>(R.id.nextbtn01)
+        nextbtn01.setOnClickListener {
             val intent = Intent(this,tyutoriaru02::class.java)
             startActivity(intent)
         }

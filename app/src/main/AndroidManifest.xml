@@ -12,6 +12,63 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Meidmappu">
         <activity
+            android:name=".tyutoriaru27"
+            android:exported="false" />
+        <activity
+            android:name=".tyutoriaru26"
+            android:exported="false" />
+        <activity
+            android:name=".tyutoriaru25"
+            android:exported="false" />
+        <activity
+            android:name=".tyutoriaru24"
+            android:exported="false" />
+        <activity
+            android:name=".tyutoriaru23"
+            android:exported="false" />
+        <activity
+            android:name=".tyutoriaru22"
+            android:exported="false" />
+        <activity
+            android:name=".tyutoriaru21"
+            android:exported="false" />
+        <activity
+            android:name=".tyutoriaru20"
+            android:exported="false" />
+        <activity
+            android:name=".tyutoriaru19"
+            android:exported="false" />
+        <activity
+            android:name=".tyutoriaru18"
+            android:exported="false" />
+        <activity
+            android:name=".tyutoriaru17"
+            android:exported="false" />
+        <activity
+            android:name=".tyutoriaru16"
+            android:exported="false" />
+        <activity
+            android:name=".tyutoriaru15"
+            android:exported="false" />
+        <activity
+            android:name=".tyutoriaru14"
+            android:exported="false" />
+        <activity
+            android:name=".tyutoriaru13"
+            android:exported="false" />
+        <activity
+            android:name=".tyutoriaru12"
+            android:exported="false" />
+        <activity
+            android:name=".tyutoriaru11"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivity2"
+            android:exported="false" />
+        <activity
+            android:name=".tyutoriaru10"
+            android:exported="false" />
+        <activity
             android:name=".tyutoriaru09"
             android:exported="false" />
         <activity

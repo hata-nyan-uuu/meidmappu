@@ -5,11 +5,11 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/tyuroriaru09"
-    tools:context=".tyutoriaru09">
+    android:background="@drawable/tyutoriaru16"
+    tools:context=".tyutoriaru16">
 
     <Button
-        android:id="@+id/nextbtn09"
+        android:id="@+id/nextbtn16"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@android:color/transparent"

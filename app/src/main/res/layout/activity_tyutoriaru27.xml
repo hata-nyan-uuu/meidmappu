@@ -5,11 +5,11 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/tyuroriaru09"
-    tools:context=".tyutoriaru09">
+    android:background="@drawable/tyutoriaru27"
+    tools:context=".tyutoriaru27">
 
     <Button
-        android:id="@+id/nextbtn09"
+        android:id="@+id/nextbtn27"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@android:color/transparent"
@@ -19,5 +19,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

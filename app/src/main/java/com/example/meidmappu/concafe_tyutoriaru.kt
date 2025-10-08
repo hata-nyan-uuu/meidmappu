@@ -19,11 +19,6 @@ class concafe_tyutoriaru : AppCompatActivity() {
             insets
         }
 
-        //06画面に移動
-        val nextbtn05 = findViewById<Button>(R.id.nextbtn05)
-        nextbtn05.setOnClickListener {
-            val intent = Intent(this, tyutoriaru06::class.java)
-            startActivity(intent)
-        }
+
     }
 }

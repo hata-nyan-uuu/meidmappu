@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Meidmappu">
         <activity
+            android:name=".shop_db"
+            android:exported="false" />
+        <activity
             android:name=".tyutoriaru27"
             android:exported="false" />
         <activity

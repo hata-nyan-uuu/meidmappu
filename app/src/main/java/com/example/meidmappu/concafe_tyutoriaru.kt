@@ -18,6 +18,12 @@ class concafe_tyutoriaru : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        //testデータベース
+        val dbWTF =findViewById<Button>(R.id.nextbtn05)
+        dbWTF.setOnClickListener {
+            val intent = Intent(this,shop_dbActivity::class.java)
+            startActivity(intent)
+        }
 
 
     }

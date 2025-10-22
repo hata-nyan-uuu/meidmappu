@@ -28,4 +28,7 @@ interface ShopDao {
     // データ更新
     @Update
     suspend fun update(shop: Shop)
+    //店名から1件だけ取得
+    @Query("SELECT * FROM shops WHERE name = :name LIMIT 1")
+    suspend fun getShopByName(name: String): Shop?
 }

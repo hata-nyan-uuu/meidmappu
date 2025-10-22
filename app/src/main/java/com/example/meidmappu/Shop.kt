@@ -1,5 +1,5 @@
 package com.example.meidmappu
-//ローカルDBでーす
+//お店ローカルDBでーす
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

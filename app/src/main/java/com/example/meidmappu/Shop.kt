@@ -9,5 +9,10 @@ data class Shop(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
     val name: String,
     val address: String,
-    val description: String
+    val feeling: String,
+    val concept: String,
+    val menu: String,
+    val type: String,
+    val price_range: Int,
+    val times: String?
 )

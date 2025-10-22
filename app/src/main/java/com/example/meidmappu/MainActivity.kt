@@ -71,7 +71,7 @@ class MainActivity : AppCompatActivity() {
                     val intent = Intent(this@MainActivity, shop_shop::class.java).apply {
                         putExtra("shop_name", shop.name)
                         putExtra("shop_address", shop.address)
-                        putExtra("shop_description", shop.description)
+                        putExtra("shop_feeling", shop.feeling)
                     }
                     startActivity(intent)
                 } else {

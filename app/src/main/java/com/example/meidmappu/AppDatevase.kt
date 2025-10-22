@@ -31,13 +31,13 @@ abstract class AppDatabase : RoomDatabase() {
                             super.onCreate(db)
                             CoroutineScope(Dispatchers.IO).launch {
                                 val dao = getDatabase(context).shopDao()
-                                dao.insert(Shop(name = "カフェ東京", address = "東京都渋谷区", description = "おしゃれなカフェ"))
-                                dao.insert(Shop(name = "寿司太郎", address = "東京都新宿区", description = "新鮮なネタが自慢"))
-                                dao.insert(Shop(name = "パン工房花", address = "東京都世田谷区", description = "焼き立てパンが人気"))
+                                dao.insert(Shop(name = "こもれび亭", address = "東京都千代田区外神田", feeling = "ゆっくりしたい", concept = "", type = "", menu = "", price_range = 3000, times = ""))
+                                dao.insert(Shop(name = "メルシーメイド", address = "東京都千代田区外神田", feeling = "ごはんをたべたい", concept = "", type = "", menu = "", price_range = 3000, times = ""))
+                                dao.insert(Shop(name = "ハートフル・エンジェル", address = "東京都千代田区外神田", feeling = "だれかとはなしたい" , concept = "", type = "", menu = "", price_range = 3000, times = ""))
                             }
                         }
                     })
-
+                    .fallbackToDestructiveMigration()
                     .build()
 
                 INSTANCE = instance

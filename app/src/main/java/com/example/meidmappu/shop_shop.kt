@@ -20,11 +20,11 @@ class shop_shop : AppCompatActivity() {
         }
         val name = intent.getStringExtra("shop_name")
         val address = intent.getStringExtra("shop_address")
-        val description = intent.getStringExtra("shop_description")
+        val feeling = intent.getStringExtra("shop_feeling")
 
         findViewById<TextView>(R.id.shop_name).text = name
         findViewById<TextView>(R.id.shop_address).text = address
-        findViewById<TextView>(R.id.shop_description).text = description
+        findViewById<TextView>(R.id.shop_description).text = feeling
 
     }
 }

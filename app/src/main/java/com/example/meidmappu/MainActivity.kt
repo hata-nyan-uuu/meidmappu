@@ -17,72 +17,80 @@ import kotlinx.coroutines.withContext
 class MainActivity : AppCompatActivity() {
 
     private lateinit var db: AppDatabase
-    // 画像と対応する店舗名をリストで管理
-    private val shopImages = listOf(R.id.omise01, R.id.omise02, R.id.omise03)
-    private val shopNames = listOf("カフェ東京", "寿司太郎", "パン工房花")
+
+    // 画像と店舗名の対応リスト（1対1）
+    private val shopMap = mapOf(
+        R.id.omise01 to "こもれび亭",
+        R.id.omise02 to "メルシーメイド",
+        R.id.omise03 to "ハートフル・エンジェル"
+    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
 
-        // Edge-to-Edge 設定
+        // ステータスバー・ナビゲーションバー分の余白を調整
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            val bars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(bars.left, bars.top, bars.right, bars.bottom)
             insets
         }
 
-        // データベースを初期化
+        // データベース初期化
         db = AppDatabase.getDatabase(this)
 
-
-        // 画像クリックで店舗詳細を開く
-        shopImages.forEachIndexed { index, imageId ->
+        // 各画像にクリックイベントを設定
+        shopMap.forEach { (imageId, shopName) ->
             findViewById<ImageView>(imageId).setOnClickListener {
-                openShopDetail(shopNames[index])
+                openShopDetail(shopName)
             }
         }
 
-
-
-        // 既存のボタン処理
-        val random1 = findViewById<Button>(R.id.random1)
-        random1.setOnClickListener {
-            startActivity(Intent(this, random_kensaku::class.java))
-        }
-
-        val kodawari = findViewById<Button>(R.id.kodawari)
-        kodawari.setOnClickListener {
-            startActivity(Intent(this, kodawari_kensaku::class.java))
-        }
-
-        val hazimete = findViewById<Button>(R.id.hazimete)
-        hazimete.setOnClickListener {
-            startActivity(Intent(this, tyutoriaru01::class.java))
-        }
+        // ボタン処理（ナビゲーション）
+        setButtonListeners()
     }
 
+    /** 詳細画面を開く処理 */
     private fun openShopDetail(shopName: String) {
         lifecycleScope.launch(Dispatchers.IO) {
             val shop = db.shopDao().getShopByName(shopName)
             withContext(Dispatchers.Main) {
-                if (shop != null) {
-                    val intent = Intent(this@MainActivity, shop_shop::class.java).apply {
-                        putExtra("shop_name", shop.name)
-                        putExtra("shop_address", shop.address)
-                        putExtra("shop_feeling", shop.feeling)
-                    }
-                    startActivity(intent)
-                } else {
-                    Toast.makeText(
-                        this@MainActivity,
-                        "データが見つかりませんでした。",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                if (shop == null) {
+                    showToast("データが見つかりませんでした。")
+                    return@withContext
                 }
+
+                val intent = Intent(this@MainActivity, shop_shop::class.java).apply {
+                    putExtra("shop_name", shop.name)
+                    putExtra("shop_address", shop.address)
+                    putExtra("shop_feeling", shop.feeling)
+                    putExtra("shop_concept", shop.concept)
+                    putExtra("shop_menu", shop.menu)
+                    putExtra("shop_type", shop.type)
+                    putExtra("shop_price_range", shop.price_range)
+                    putExtra("shop_times", shop.times)
+                }
+                startActivity(intent)
             }
         }
     }
-}
 
+    /** トースト表示を共通化 */
+    private fun showToast(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+
+    /** 各ボタンの遷移処理をまとめて設定 */
+    private fun setButtonListeners() {
+        findViewById<Button>(R.id.random1).setOnClickListener {
+            startActivity(Intent(this, random_kensaku::class.java))
+        }
+        findViewById<Button>(R.id.kodawari).setOnClickListener {
+            startActivity(Intent(this, kodawari_kensaku::class.java))
+        }
+        findViewById<Button>(R.id.hazimete).setOnClickListener {
+            startActivity(Intent(this, tyutoriaru01::class.java))
+        }
+    }
+}

@@ -5,7 +5,7 @@ import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Delete
 import androidx.room.Update
-
+//お店のデータをいじるためのコマンドたち
 @Dao
 interface ShopDao {
 

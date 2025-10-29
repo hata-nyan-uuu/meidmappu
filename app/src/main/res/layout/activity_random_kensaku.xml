@@ -28,7 +28,7 @@
         android:id="@+id/imageButton11"
         android:layout_width="65dp"
         android:layout_height="65dp"
-        android:background="#00000"
+        android:background="@android:color/transparent"
         android:contentDescription="戻るボタン"
         android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="parent"

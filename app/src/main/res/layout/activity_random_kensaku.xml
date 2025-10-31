@@ -5,24 +5,27 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".random_kensaku"
+    tools:context=".RandomKensaku"
     android:background="@drawable/midemaphaikei"
     >
 
 
-    <Button
-        android:id="@+id/conseputo"
-        android:layout_width="408dp"
-        android:layout_height="107dp"
-        android:layout_marginBottom="492dp"
-        android:background="#100F0F"
-        android:text="ランダムスタート"
-        android:textSize="40dp"
+    <ImageButton
+        android:id="@+id/randomStart"
+        app:srcCompat="@drawable/randomstart"
+        android:background="@android:color/transparent"
+        android:scaleType="fitXY"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        app:layout_constraintWidth_percent="1.0"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.333"
-        app:layout_constraintStart_toStartOf="parent" />
-
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintVertical_bias="0.2"
+        android:contentDescription="RamdomStart" />
 
     <ImageButton
         android:id="@+id/imageButton11"
@@ -40,22 +43,29 @@
         app:srcCompat="@drawable/modoru2" />
 
     <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="183dp"
-        android:layout_height="330dp"
-        android:layout_marginStart="224dp"
-        android:layout_marginTop="396dp"
+        android:id="@+id/imageView2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        app:layout_constraintWidth_percent="0.6"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintVertical_bias="0.59"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/sample" />
+        app:srcCompat="@drawable/randamu_fukidasi" />
 
     <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="258dp"
-        android:layout_height="268dp"
-        android:layout_marginBottom="196dp"
+        android:id="@+id/imageView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        app:layout_constraintWidth_percent="0.5"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/randamu_fukidasi" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:srcCompat="@drawable/sample" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

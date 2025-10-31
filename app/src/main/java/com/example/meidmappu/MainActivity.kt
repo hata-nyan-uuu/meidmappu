@@ -66,10 +66,10 @@ class MainActivity : AppCompatActivity() {
                     putExtra("shop_address", shop.address)
                     putExtra("shop_feeling", shop.feeling)
                     putExtra("shop_concept", shop.concept)
-                    putExtra("shop_menu", shop.menu)
+                   /* putExtra("shop_menu", shop.menu)
                     putExtra("shop_type", shop.type)
                     putExtra("shop_price_range", shop.price_range)
-                    putExtra("shop_times", shop.times)
+                    putExtra("shop_times", shop.times)*/
                 }
                 startActivity(intent)
             }
@@ -84,7 +84,7 @@ class MainActivity : AppCompatActivity() {
     /** 各ボタンの遷移処理をまとめて設定 */
     private fun setButtonListeners() {
         findViewById<Button>(R.id.random1).setOnClickListener {
-            startActivity(Intent(this, random_kensaku::class.java))
+            startActivity(Intent(this, RandomKensaku::class.java))
         }
         findViewById<Button>(R.id.kodawari).setOnClickListener {
             startActivity(Intent(this, kodawari_kensaku::class.java))

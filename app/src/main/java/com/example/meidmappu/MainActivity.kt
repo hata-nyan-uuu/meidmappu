@@ -92,5 +92,8 @@ class MainActivity : AppCompatActivity() {
         findViewById<Button>(R.id.hazimete).setOnClickListener {
             startActivity(Intent(this, tyutoriaru01::class.java))
         }
+        findViewById<Button>(R.id.settingbtn).setOnClickListener {
+            startActivity(Intent(this,setting::class.java))
+        }
     }
 }

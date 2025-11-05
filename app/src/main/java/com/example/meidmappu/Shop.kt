@@ -14,5 +14,6 @@ data class Shop(
     val menu: String,
     val type: String,
     val price_range: Int,
-    val times: String?
+    val times: String?,
+    val image: Int?=null
 )

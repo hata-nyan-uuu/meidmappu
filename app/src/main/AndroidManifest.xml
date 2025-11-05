@@ -12,6 +12,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Meidmappu">
         <activity
+            android:name=".ContactActivity"
+            android:exported="false" />
+        <activity
+            android:name=".KodawariShop"
+            android:exported="false" />
+        <activity
+            android:name=".setting"
+            android:exported="false" />
+        <activity
             android:name=".shop_shop"
             android:exported="false" />
         <activity
@@ -32,7 +41,6 @@
         <activity
             android:name=".kodawari_kensaku"
             android:exported="false" />
-
         <activity
             android:name=".RandomKensaku"
             android:exported="false" />

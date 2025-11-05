@@ -16,30 +16,7 @@ class meido_tyutoriaru : AppCompatActivity() {
 
     // メイドカフェチュートリアル画像
     private val meidoImages = arrayOf(
-        R.drawable.tyutoriaru04,
-        R.drawable.tyutoriaru06,
-        R.drawable.tyutoriaru07,
-        R.drawable.tyutoriaru08,
-        R.drawable.tyutoriaru09,
-        R.drawable.tyutoriaru10,
-        R.drawable.tyutoriaru11,
-        R.drawable.tyutoriaru11_5,
-        R.drawable.tyutoriaru12,
-        R.drawable.tyutoriaru13,
-        R.drawable.tyutoriaru14,
-        R.drawable.tyutoriaru15,
-        R.drawable.tyutoriaru16,
-        R.drawable.tyutoriaru17,
-        R.drawable.tyutoriaru18,
-        R.drawable.tyutoriaru19,
-        R.drawable.tyutoriaru20,
-        R.drawable.tyutoriaru21,
-        R.drawable.tyutoriaru22,
-        R.drawable.tyutoriaru23,
-        R.drawable.tyutoriaru24,
-        R.drawable.tyutoriaru25,
-        R.drawable.tyutoriaru26,
-        R.drawable.tyutoriaru27
+     R.drawable.tyutoriaru01
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {

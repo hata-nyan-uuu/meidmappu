@@ -45,22 +45,30 @@
 
     //こだわりけんさく画面のプルダウンデータ
     <string-array name="mise_type">
+        <item>-</item>
         <item>メイドカフェ</item>
         <item>コンカフェ</item>
     </string-array>
+
     <string-array name="kakaku">
-        <item>3000</item>
-        <item>5000</item>
-        <item>10000</item>
+        <item>-</item>
+        <item>3000円</item>
+        <item>5000円</item>
+        <item>10000円</item>
     </string-array>
+
     <string-array name="conseputo2">
+        <item>-</item>
         <item>メイド系</item>
         <item>天使系</item>
         <item>悪魔系</item>
     </string-array>
+
     <string-array name="menu">
+        <item>-</item>
         <item>ごはん</item>
         <item>スイーツ</item>
         <item>アルコール</item>
     </string-array>
+
 </resources>

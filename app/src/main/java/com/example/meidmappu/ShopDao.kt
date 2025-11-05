@@ -5,7 +5,7 @@ import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Delete
 import androidx.room.Update
-//お店のデータをいじるためのコマンドたち
+
 @Dao
 interface ShopDao {
 
@@ -28,10 +28,23 @@ interface ShopDao {
     // データ更新
     @Update
     suspend fun update(shop: Shop)
-    //店名から1件だけ取得
+
+    // 店名から1件だけ取得
     @Query("SELECT * FROM shops WHERE name = :name LIMIT 1")
     suspend fun getShopByName(name: String): Shop?
 
-    @Query("SELECT * FROM shops")
-    suspend fun getAllShops(): List<Shop>
+    //複数条件の取得コード
+    @Query("""
+        SELECT * FROM shops
+        WHERE (:type IS NULL OR type = :type)
+        AND (:maxPrice IS NULL OR price_range <= :maxPrice)
+        AND (:concept IS NULL OR concept = :concept)
+        AND (:menu IS NULL OR menu = :menu)
+    """)
+    suspend fun filterShops(
+        type: String?,
+        maxPrice: Int?,
+        concept: String?,
+        menu: String?
+    ): List<Shop>
 }

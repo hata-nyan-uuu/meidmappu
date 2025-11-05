@@ -10,7 +10,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 // ローカルデータベース（Shopデータを保存）
-@Database(entities = [Shop::class], version = 1)
+@Database(entities = [Shop::class], version = 2, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun shopDao(): ShopDao
@@ -59,7 +59,8 @@ abstract class AppDatabase : RoomDatabase() {
                     type = "メイドカフェ",
                     menu = "コーヒー、抹茶ラテ、和菓子セット",
                     price_range = 3000,
-                    times = "10:00~22:00"
+                    times = "10:00~22:00",
+                    image =R.drawable.image_fx__1_
                 ),
                 Shop(
                     name = "メルシーメイド",
@@ -69,7 +70,8 @@ abstract class AppDatabase : RoomDatabase() {
                     type = "メイドカフェ",
                     menu = "マカロン、パン、タルト",
                     price_range = 5000,
-                    times = "10:00~22:00"
+                    times = "10:00~22:00",
+                    image = R.drawable.image_fx
                 ),
                 Shop(
                     name = "ハートフル・エンジェル",
@@ -79,7 +81,8 @@ abstract class AppDatabase : RoomDatabase() {
                     type = "メイドカフェ",
                     menu = "オムライス、ナポリタン、パフェ",
                     price_range = 5000,
-                    times = "10:00~22:00"
+                    times = "10:00~22:00",
+                    image = R.drawable.image_fx__2_
                 ),
                 Shop(
                     name = "ノワールアンジュ",
@@ -89,7 +92,8 @@ abstract class AppDatabase : RoomDatabase() {
                     type = "コンカフェ",
                     menu = "オリジナルシャンパン、おつまみ",
                     price_range = 5000,
-                    times = "17:00~24:00"
+                    times = "17:00~24:00",
+                    image = R.drawable.image_fx__2_
                 ),
                 Shop(
                     name = "デビルリリィ",
@@ -99,7 +103,7 @@ abstract class AppDatabase : RoomDatabase() {
                     type = "コンカフェ",
                     menu = "オリジナルシャンパン、おつまみ",
                     price_range = 5000,
-                    times = "17:00~24:00"
+                    times = "17:00~24:00",
                 ),
                 Shop(
                     name = "リトルメイドハウス",
@@ -109,7 +113,7 @@ abstract class AppDatabase : RoomDatabase() {
                     type = "コンカフェ",
                     menu = "オリジナルシャンパン、おつまみ",
                     price_range = 5000,
-                    times = "17:00~24:00"
+                    times = "17:00~24:00",
                 )
             )
             shops.forEach { dao.insert(it) }

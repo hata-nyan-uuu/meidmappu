@@ -38,7 +38,7 @@ class RandomKensaku : AppCompatActivity() {
         // 🔹 ランダム取得ボタン
         findViewById<ImageButton>(R.id.randomStart).setOnClickListener {
             lifecycleScope.launch(Dispatchers.IO) {
-                val allShops = db.shopDao().getAllShops()
+                val allShops = db.shopDao().getAll()
                 if (allShops.isNotEmpty()) {
                     val randomShop = allShops.random()
                     withContext(Dispatchers.Main) {

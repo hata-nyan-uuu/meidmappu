@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/tyutoriaru04"
+    android:background="@drawable/image_fx"
     tools:context=".meido_tyutoriaru">
 
     <Button

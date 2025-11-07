@@ -5,19 +5,18 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/image_fx"
+    android:background="@drawable/maid0"
     tools:context=".meido_tyutoriaru">
 
-    <Button
-        android:id="@+id/nextbtn04"
+    <ImageView
+        android:id="@+id/maidImage"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/transparent"
-        android:contentDescription="nextpage"
-        android:text=""
+        android:scaleType="fitCenter"
+        android:src="@drawable/maid0"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

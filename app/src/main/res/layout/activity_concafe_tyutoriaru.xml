@@ -8,17 +8,16 @@
     android:background="@drawable/image_fx"
     tools:context=".concafe_tyutoriaru">
 
-    <Button
-        android:id="@+id/nextbtn05"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="→"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.9"
-        app:layout_constraintStart_toStartOf="parent"
+    <ImageView
+        android:id="@+id/concafeImage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitCenter"
+        android:src="@drawable/cafe0"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.86" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

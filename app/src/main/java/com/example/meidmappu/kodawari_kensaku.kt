@@ -36,7 +36,7 @@ class kodawari_kensaku : AppCompatActivity() {
 
             val maxPrice = priceStr?.toIntOrNull()  // 数字ならIntへ変換、違うならnull
 
-            val intent = Intent(this, ResultActivity::class.java).apply {
+            val intent = Intent(this, KodawariSearchResult::class.java).apply {
                 putExtra("type", type)
                 putExtra("maxPrice", maxPrice)
                 putExtra("concept", concept)

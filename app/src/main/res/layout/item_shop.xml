@@ -3,15 +3,19 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="8dp"
-    android:gravity="center_horizontal">
+    android:gravity="center_horizontal"
+    android:background="?attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true">
 
     <!-- 店舗画像 -->
     <ImageView
         android:id="@+id/shopImage"
-        android:layout_width="379dp"
-        android:layout_height="176dp"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:scaleType="centerCrop"
         android:background="@drawable/image_fx"
-        android:scaleType="centerCrop" />
+        android:contentDescription="Shop image" />
 
     <!-- 店舗名 -->
     <TextView
@@ -19,8 +23,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="6dp"
-        android:text="メルシーメイド"
+        android:text="店名"
         android:textSize="18sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:textColor="#000000" />
 
 </LinearLayout>

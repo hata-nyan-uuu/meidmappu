@@ -10,7 +10,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 // ローカルデータベース（Shopデータを保存）
-@Database(entities = [Shop::class], version = 2, exportSchema = false)
+@Database(entities = [Shop::class], version = 1, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun shopDao(): ShopDao
@@ -104,6 +104,7 @@ abstract class AppDatabase : RoomDatabase() {
                     menu = "オリジナルシャンパン、おつまみ",
                     price_range = 5000,
                     times = "17:00~24:00",
+                    image = R.drawable.image_fx__2_
                 ),
                 Shop(
                     name = "リトルメイドハウス",
@@ -114,6 +115,7 @@ abstract class AppDatabase : RoomDatabase() {
                     menu = "オリジナルシャンパン、おつまみ",
                     price_range = 5000,
                     times = "17:00~24:00",
+                    image = R.drawable.image_fx__2_
                 )
             )
             shops.forEach { dao.insert(it) }

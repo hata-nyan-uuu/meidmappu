@@ -18,9 +18,6 @@
             android:name=".ContactActivity"
             android:exported="false" />
         <activity
-            android:name=".KodawariShop"
-            android:exported="false" />
-        <activity
             android:name=".setting"
             android:exported="false" />
         <activity

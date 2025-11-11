@@ -33,18 +33,18 @@ interface ShopDao {
     @Query("SELECT * FROM shops WHERE name = :name LIMIT 1")
     suspend fun getShopByName(name: String): Shop?
 
-    //複数条件の取得コード
+    // 複数条件検索（部分一致対応）
     @Query("""
-        SELECT * FROM shops
-        WHERE (:type IS NULL OR type = :type)
-        AND (:maxPrice IS NULL OR price_range <= :maxPrice)
-        AND (:concept IS NULL OR concept = :concept)
-        AND (:menu IS NULL OR menu = :menu)
-    """)
+    SELECT * FROM shop
+    WHERE (:type IS NULL OR type = :type)
+      AND (:maxPrice IS NULL OR price_range <= :maxPrice)
+      AND (:concept IS NULL OR concept LIKE '%' || :concept || '%')
+      AND (:feeling IS NULL OR feeling LIKE '%' || :feeling || '%')
+""")
     suspend fun filterShops(
         type: String?,
         maxPrice: Int?,
         concept: String?,
-        menu: String?
+        feeling: String?   // ← menu ではなく feeling に変更
     ): List<Shop>
 }

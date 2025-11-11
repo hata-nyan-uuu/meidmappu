@@ -1,5 +1,5 @@
 package com.example.meidmappu
-
+import android.util.Log
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
@@ -34,7 +34,9 @@ class kodawari_kensaku : AppCompatActivity() {
             val concept = getSpinnerValue(findViewById(R.id.conseputo2))
             val menu = getSpinnerValue(findViewById(R.id.menu))
 
-            val maxPrice = priceStr?.toIntOrNull()  // 数字ならIntへ変換、違うならnull
+            val maxPrice = priceStr?.toIntOrNull()
+
+            Log.d("DEBUG", "検索条件: type=$type maxPrice=$maxPrice concept=$concept menu=$menu")
 
             val intent = Intent(this, KodawariSearchResult::class.java).apply {
                 putExtra("type", type)
@@ -42,7 +44,6 @@ class kodawari_kensaku : AppCompatActivity() {
                 putExtra("concept", concept)
                 putExtra("menu", menu)
             }
-
             startActivity(intent)
         }
     }

@@ -1,8 +1,9 @@
 package com.example.meidmappu
-
+import android.graphics.drawable.GradientDrawable
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -81,9 +82,15 @@ class MainActivity : AppCompatActivity() {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
-    /** 各ボタンの遷移処理をまとめて設定 */
+    // 各ボタンの処理をまとめて設定
     private fun setButtonListeners() {
-        findViewById<Button>(R.id.random1).setOnClickListener {
+        val random1=findViewById<ImageButton>(R.id.random1)
+        val drawable = GradientDrawable().apply {
+            shape = GradientDrawable.RECTANGLE
+            cornerRadius = 24f.dp(this@MainActivity) // ← 角の丸み
+            setColor(Color.WHITE) // 背景色（必要に応じて変更）
+        }
+            random1.setOnClickListener {
             startActivity(Intent(this, RandomKensaku::class.java))
         }
         findViewById<Button>(R.id.kodawari).setOnClickListener {

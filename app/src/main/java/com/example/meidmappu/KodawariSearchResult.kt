@@ -1,5 +1,5 @@
 package com.example.meidmappu
-import com.example.meidmappu.Shop
+
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -25,13 +25,13 @@ class KodawariSearchResult : AppCompatActivity() {
         val type = intent.getStringExtra("type")
         val maxPrice = intent.getIntExtra("maxPrice", -1).takeIf { it >= 0 }
         val concept = intent.getStringExtra("concept")
-        val menu = intent.getStringExtra("menu")
+        val feeling = intent.getStringExtra("feeling")
 
-        Log.d("DEBUG", "受け取った検索条件: type=$type maxPrice=$maxPrice concept=$concept menu=$menu")
+        Log.d("DEBUG", "受け取った検索条件: type=$type maxPrice=$maxPrice concept=$concept feeling=$feeling")
 
         CoroutineScope(Dispatchers.IO).launch {
             val db = AppDatabase.getDatabase(applicationContext)
-            val results = db.shopDao().filterShops(type, maxPrice, concept, menu)
+            val results = db.shopDao().filterShops(type, maxPrice, concept, feeling) // ← 同じく変更！
 
             // DB全件確認用ログ
             val allShops = db.shopDao().getAll()

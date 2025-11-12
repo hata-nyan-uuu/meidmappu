@@ -35,7 +35,7 @@ interface ShopDao {
 
     // 複数条件検索（部分一致対応）
     @Query("""
-    SELECT * FROM shop
+    SELECT * FROM shops
     WHERE (:type IS NULL OR type = :type)
       AND (:maxPrice IS NULL OR price_range <= :maxPrice)
       AND (:concept IS NULL OR concept LIKE '%' || :concept || '%')
@@ -45,6 +45,6 @@ interface ShopDao {
         type: String?,
         maxPrice: Int?,
         concept: String?,
-        feeling: String?   // ← menu ではなく feeling に変更
+        feeling: String?
     ): List<Shop>
 }

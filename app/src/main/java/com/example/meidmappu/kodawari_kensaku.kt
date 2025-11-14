@@ -48,9 +48,9 @@ class kodawari_kensaku : AppCompatActivity() {
         }
     }
 
-    // Spinnerの選択値を取得（「選択してください」などをnull扱いにする処理も今後追加可能）
     private fun getSpinnerValue(spinner: Spinner): String? {
         val value = spinner.selectedItem.toString()
-        return if (value.isBlank() || value == "選択してください") null else value
+        // 未選択値（"選択してください" または "-"）を null に変換
+        return if (value.isBlank() || value == "選択してください" || value == "-") null else value
     }
 }

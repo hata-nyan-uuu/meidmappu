@@ -66,9 +66,9 @@
 
     <string-array name="feeling">
         <item>-</item>
-        <item>ごはん</item>
-        <item>スイーツ</item>
-        <item>アルコール</item>
+        <item>ごはんをたべたい</item>
+        <item>ゆっくりしたい</item>
+        <item>だれかとはなしたい</item>
     </string-array>
 
 </resources>

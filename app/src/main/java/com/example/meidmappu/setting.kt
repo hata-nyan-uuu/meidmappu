@@ -22,5 +22,11 @@ class setting : AppCompatActivity() {
         findViewById<Button>(R.id.buttonSetting4).setOnClickListener {
             startActivity(Intent(this,ContactActivity::class.java))
         }
+        // ▼ 「ログイン」ボタン（buttonSetting2）を取得
+        val loginButton = findViewById<Button>(R.id.buttonSetting2)
+        loginButton.setOnClickListener {
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+        }
     }
 }

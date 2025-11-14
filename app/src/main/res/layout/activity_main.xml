@@ -31,6 +31,7 @@
             android:cropToPadding="true"
             android:padding="0dp"
             android:scaleType="centerCrop"
+            android:contentDescription=" "
             app:srcCompat="@drawable/randombutton" />
 
         <Button
@@ -38,12 +39,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Button" />
-
-        <Button
-            android:id="@+id/random1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="らんだむけんさく" />
 
         <Button
             android:id="@+id/kodawari"

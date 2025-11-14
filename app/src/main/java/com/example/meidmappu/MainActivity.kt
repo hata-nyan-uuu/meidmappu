@@ -81,16 +81,10 @@ class MainActivity : AppCompatActivity() {
     private fun showToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
-
     // 各ボタンの処理をまとめて設定
     private fun setButtonListeners() {
-        val random1=findViewById<ImageButton>(R.id.random1)
-        val drawable = GradientDrawable().apply {
-            shape = GradientDrawable.RECTANGLE
-            cornerRadius = 24f.dp(this@MainActivity) // ← 角の丸み
-            setColor(Color.WHITE) // 背景色（必要に応じて変更）
-        }
-            random1.setOnClickListener {
+
+            findViewById<ImageButton>(R.id.random1).setOnClickListener {
             startActivity(Intent(this, RandomKensaku::class.java))
         }
         findViewById<Button>(R.id.kodawari).setOnClickListener {

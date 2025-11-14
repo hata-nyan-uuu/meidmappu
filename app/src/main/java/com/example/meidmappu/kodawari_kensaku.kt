@@ -32,17 +32,17 @@ class kodawari_kensaku : AppCompatActivity() {
             val type = getSpinnerValue(findViewById(R.id.mise_type))
             val priceStr = getSpinnerValue(findViewById(R.id.kakaku))
             val concept = getSpinnerValue(findViewById(R.id.conseputo2))
-            val menu = getSpinnerValue(findViewById(R.id.menu))
+            val feeling = getSpinnerValue(findViewById(R.id.feeling))
 
             val maxPrice = priceStr?.toIntOrNull()
 
-            Log.d("DEBUG", "検索条件: type=$type maxPrice=$maxPrice concept=$concept menu=$menu")
+            Log.d("DEBUG", "検索条件: type=$type maxPrice=$maxPrice concept=$concept feeling=$feeling")
 
             val intent = Intent(this, KodawariSearchResult::class.java).apply {
                 putExtra("type", type)
                 putExtra("maxPrice", maxPrice)
                 putExtra("concept", concept)
-                putExtra("menu", menu)
+                putExtra("feeling", feeling)
             }
             startActivity(intent)
         }

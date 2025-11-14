@@ -63,10 +63,10 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 val intent = Intent(this@MainActivity, shop_shop::class.java).apply {
-                    putExtra("shop_name", shop.name)
-                    putExtra("shop_address", shop.address)
-                    putExtra("shop_feeling", shop.feeling)
-                    putExtra("shop_concept", shop.concept)
+                    putExtra("shopName", shop.name)
+                    putExtra("shopAddress", shop.address)
+                    putExtra("feeling", shop.feeling)
+                    //utExtra("shop_concept", shop.concept)
                    /* putExtra("shop_menu", shop.menu)
                     putExtra("shop_type", shop.type)
                     putExtra("shop_price_range", shop.price_range)

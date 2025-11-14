@@ -34,7 +34,8 @@ class kodawari_kensaku : AppCompatActivity() {
             val concept = getSpinnerValue(findViewById(R.id.conseputo2))
             val feeling = getSpinnerValue(findViewById(R.id.feeling))
 
-            val maxPrice = priceStr?.toIntOrNull()
+            // 表示用の文字列から「円」と「カンマ」を除去して整数に変換
+            val maxPrice = priceStr?.replace(",", "")?.replace("円", "")?.toIntOrNull()
 
             Log.d("DEBUG", "検索条件: type=$type maxPrice=$maxPrice concept=$concept feeling=$feeling")
 

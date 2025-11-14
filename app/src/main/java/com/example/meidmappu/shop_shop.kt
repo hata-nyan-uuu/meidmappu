@@ -18,9 +18,10 @@ class shop_shop : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        val name = intent.getStringExtra("shop_name")
-        val address = intent.getStringExtra("shop_address")
-        val feeling = intent.getStringExtra("shop_feeling")
+        val name = intent.getStringExtra("shopName")
+        val address = intent.getStringExtra("shopAddress")  // 必要に応じて送る
+        val feeling = intent.getStringExtra("feeling")      // 必要に応じて送る
+
 
         findViewById<TextView>(R.id.shop_name).text = name
         findViewById<TextView>(R.id.shop_address).text = address

@@ -45,27 +45,27 @@
 
     //こだわりけんさく画面のプルダウンデータ
     <string-array name="mise_type">
-        <item>-</item>
+        <item>お店のタイプは？</item>
         <item>メイドカフェ</item>
         <item>コンカフェ</item>
     </string-array>
 
     <string-array name="kakaku">
-        <item>-</item>
+        <item>予算は？</item>
         <item>3000円</item>
         <item>5000円</item>
         <item>10000円</item>
     </string-array>
 
     <string-array name="conseputo2">
-        <item>-</item>
+        <item>コンセプトは？</item>
         <item>メイド系</item>
         <item>天使系</item>
         <item>悪魔系</item>
     </string-array>
 
     <string-array name="feeling">
-        <item>-</item>
+        <item>いまの気分は？</item>
         <item>ごはんをたべたい</item>
         <item>ゆっくりしたい</item>
         <item>だれかとはなしたい</item>

@@ -1,11 +1,8 @@
 package com.example.meidmappu
-import android.graphics.drawable.GradientDrawable
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -14,77 +11,71 @@ import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.LinearLayoutManager
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var db: AppDatabase
-
-    // 画像と店舗名の対応リスト（1対1）
-    private val shopMap = mapOf(
-        R.id.omise01 to "こもれび亭",
-        R.id.omise02 to "メルシーメイド",
-        R.id.omise03 to "ハートフル・エンジェル"
-    )
+    private lateinit var adapter: ShopAdapter2
+    private val shopList = mutableListOf<Shop>()   // DBの店舗一覧を保持
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
 
-        // ステータスバー・ナビゲーションバー分の余白を調整
+        // インセット調整
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val bars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(bars.left, bars.top, bars.right, bars.bottom)
             insets
         }
 
-        // データベース初期化
+        // DB
         db = AppDatabase.getDatabase(this)
 
-        // 各画像にクリックイベントを設定
-        shopMap.forEach { (imageId, shopName) ->
-            findViewById<ImageView>(imageId).setOnClickListener {
-                openShopDetail(shopName)
-            }
+        // RecyclerView 初期化
+        val recyclerView = findViewById<RecyclerView>(R.id.homeRecyclerView)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        adapter = ShopAdapter2(shopList) { shop ->
+            openShopDetail(shop)
         }
+        recyclerView.adapter = adapter
 
-        // ボタン処理（ナビゲーション）
+        // DBから全店舗読み込み
+        loadAllShops()
+
+        // ボタン設定
         setButtonListeners()
     }
 
-    /** 詳細画面を開く処理 */
-    private fun openShopDetail(shopName: String) {
+    /** DBから全店舗を取得してRecyclerViewに表示 */
+    private fun loadAllShops() {
         lifecycleScope.launch(Dispatchers.IO) {
-            val shop = db.shopDao().getShopByName(shopName)
-            withContext(Dispatchers.Main) {
-                if (shop == null) {
-                    showToast("データが見つかりませんでした。")
-                    return@withContext
-                }
+            val list = db.shopDao().getAll()   // ← DAOに必要
 
-                val intent = Intent(this@MainActivity, shop_shop::class.java).apply {
-                    putExtra("shopName", shop.name)
-                    putExtra("shopAddress", shop.address)
-                    putExtra("feeling", shop.feeling)
-                    //utExtra("shop_concept", shop.concept)
-                   /* putExtra("shop_menu", shop.menu)
-                    putExtra("shop_type", shop.type)
-                    putExtra("shop_price_range", shop.price_range)
-                    putExtra("shop_times", shop.times)*/
-                }
-                startActivity(intent)
+            withContext(Dispatchers.Main) {
+                shopList.clear()
+                shopList.addAll(list)
+                adapter.notifyDataSetChanged()
             }
         }
     }
 
-    /** トースト表示を共通化 */
-    private fun showToast(message: String) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    /** 詳細画面を開く */
+    private fun openShopDetail(shop: Shop) {
+        val intent = Intent(this, shop_shop::class.java).apply {
+            putExtra("shopName", shop.name)
+            putExtra("shopAddress", shop.address)
+            putExtra("feeling", shop.feeling)
+        }
+        startActivity(intent)
     }
-    // 各ボタンの処理をまとめて設定
-    private fun setButtonListeners() {
 
-            findViewById<ImageButton>(R.id.random1).setOnClickListener {
+    /** ボタン設定 */
+    private fun setButtonListeners() {
+        findViewById<ImageButton>(R.id.random1).setOnClickListener {
             startActivity(Intent(this, RandomKensaku::class.java))
         }
         findViewById<Button>(R.id.kodawari).setOnClickListener {
@@ -94,7 +85,7 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this, tyutoriaru01::class.java))
         }
         findViewById<Button>(R.id.settingbtn).setOnClickListener {
-            startActivity(Intent(this,setting::class.java))
+            startActivity(Intent(this, setting::class.java))
         }
     }
 }

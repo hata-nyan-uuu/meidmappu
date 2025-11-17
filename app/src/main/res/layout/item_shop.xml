@@ -8,14 +8,6 @@
     android:clickable="true"
     android:focusable="true">
 
-    <!-- 店舗画像 -->
-    <ImageView
-        android:id="@+id/shopImage"
-        android:layout_width="match_parent"
-        android:layout_height="180dp"
-        android:scaleType="centerCrop"
-        android:background="@drawable/image_fx"
-        android:contentDescription="Shop image" />
 
     <!-- 店舗名 -->
     <TextView
@@ -27,5 +19,14 @@
         android:textSize="18sp"
         android:textStyle="bold"
         android:textColor="#000000" />
+    <!-- 店舗画像 -->
+    <ImageView
+        android:id="@+id/shopImage"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/image_fx"
+        android:contentDescription="Shop image" />
+
 
 </LinearLayout>

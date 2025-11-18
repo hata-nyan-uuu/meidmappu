@@ -51,7 +51,11 @@ class kodawari_kensaku : AppCompatActivity() {
 
     private fun getSpinnerValue(spinner: Spinner): String? {
         val value = spinner.selectedItem.toString()
-        // 未選択値（"選択してください" または "-"）を null に変換
-        return if (value.isBlank() || value == "選択してください" || value == "-") null else value
+        // Spinner の先頭行は未選択扱いにする
+        return when (value) {
+            "お店のタイプは？", "予算は？", "コンセプトは？", "いまの気分は？" -> null
+            else -> value
+        }
     }
+
 }

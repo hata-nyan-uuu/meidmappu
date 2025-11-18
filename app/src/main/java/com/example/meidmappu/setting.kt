@@ -28,5 +28,11 @@ class setting : AppCompatActivity() {
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
         }
+        // ★ メイン画面へ戻るボタン（例: buttonSetting1 として追加）
+        findViewById<Button>(R.id.buttonSetting1).setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP) // ← 戻った後に設定画面を消す
+            startActivity(intent)
+        }
     }
 }

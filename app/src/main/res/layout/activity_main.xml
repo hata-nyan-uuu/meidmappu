@@ -6,15 +6,17 @@
     android:id="@+id/main"
     android:background="@drawable/midemaphaikei">
 
+    <!-- ★ 店舗一覧（DBから表示）★ -->
     <LinearLayout
         android:id="@+id/topMenu"
-        android:orientation="vertical"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:padding="16dp"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/textView"
@@ -22,16 +24,27 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="めいどまっぷ"
-            android:textSize="48sp"/>
+            android:textSize="48sp" />
 
-        <ImageButton
+        <com.google.android.material.card.MaterialCardView
             android:id="@+id/random1"
             android:layout_width="match_parent"
             android:layout_height="55dp"
-            android:scaleType="centerCrop"
-            android:contentDescription=" "
-            app:srcCompat="@drawable/randombutton"/>
+            android:layout_margin="8dp"
+            android:clickable="true"
+            android:foreground="?attr/selectableItemBackground"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="4dp">
 
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/randomImage"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                app:srcCompat="@drawable/randombutton"
+                android:contentDescription="ランダム検索"
+                app:shapeAppearanceOverlay="@style/RoundedImage"/>
+        </com.google.android.material.card.MaterialCardView>
         <Button
             android:id="@+id/settingbtn"
             android:layout_width="match_parent"
@@ -52,7 +65,6 @@
 
     </LinearLayout>
 
-    <!-- ★ 店舗一覧（DBから表示）★ -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/homeRecyclerView"
         android:layout_width="0dp"

@@ -2,7 +2,7 @@ package com.example.meidmappu
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
-import android.widget.ImageButton
+import com.google.android.material.card.MaterialCardView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -75,7 +75,7 @@ class MainActivity : AppCompatActivity() {
 
     /** ボタン設定 */
     private fun setButtonListeners() {
-        findViewById<ImageButton>(R.id.random1).setOnClickListener {
+        findViewById<MaterialCardView>(R.id.random1).setOnClickListener {
             startActivity(Intent(this, RandomKensaku::class.java))
         }
         findViewById<Button>(R.id.kodawari).setOnClickListener {

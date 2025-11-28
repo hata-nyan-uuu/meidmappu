@@ -73,7 +73,7 @@ abstract class AppDatabase : RoomDatabase() {
                     price_range = 5000,
                     times = "10:00~22:00",
                     image = R.drawable.image_fx,
-                    image2 = R.drawable.merusiMeido
+                    image2 = R.drawable.merusimeido
                 ),
                 Shop(
                     name = "ハートフル・エンジェル",
@@ -97,7 +97,7 @@ abstract class AppDatabase : RoomDatabase() {
                     price_range = 5000,
                     times = "17:00~24:00",
                     image = R.drawable.image_fx__2_,
-                    image2 = R.drawable.nowaaruAnjuu
+                    image2 = R.drawable.nowaaruanjuu
                 ),
                 Shop(
                     name = "デビルリリィ",
@@ -109,7 +109,7 @@ abstract class AppDatabase : RoomDatabase() {
                     price_range = 5000,
                     times = "17:00~24:00",
                     image = R.drawable.image_fx__2_,
-                    image2 = R.drawable.nowaaruAnjuu
+                    image2 = R.drawable.nowaaruanjuu
                 ),
                 Shop(
                     name = "リトルメイドハウス",
@@ -121,7 +121,7 @@ abstract class AppDatabase : RoomDatabase() {
                     price_range = 5000,
                     times = "17:00~24:00",
                     image = R.drawable.image_fx__2_,
-                    image2 = R.drawable.nowaaruAnjuu
+                    image2 = R.drawable.nowaaruanjuu
                 )
             )
             shops.forEach { dao.insert(it) }

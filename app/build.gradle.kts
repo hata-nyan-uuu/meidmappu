@@ -2,7 +2,6 @@ plugins {
     id("com.android.application")
     alias(libs.plugins.kotlin.android)
     kotlin("kapt")
-    id("com.google.gms.google-services")
 }
 
 android {
@@ -57,11 +56,7 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
-    // Firebase
-    implementation(platform("com.google.firebase:firebase-bom:34.6.0"))
-    implementation("com.google.firebase:firebase-analytics")
-    implementation("com.google.firebase:firebase-storage")   // 画像アップロード用
-    implementation("com.google.firebase:firebase-auth")
+
 
     // Room (少しバージョン更新して警告回避)
     implementation("androidx.room:room-runtime:2.8.4")

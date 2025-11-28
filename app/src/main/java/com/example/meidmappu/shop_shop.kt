@@ -24,8 +24,6 @@ class shop_shop : AppCompatActivity() {
 
 
         findViewById<TextView>(R.id.shop_name).text = name
-        findViewById<TextView>(R.id.shop_address).text = address
-        findViewById<TextView>(R.id.shop_description).text = feeling
 
     }
 }

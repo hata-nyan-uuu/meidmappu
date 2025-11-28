@@ -1,6 +1,7 @@
 package com.example.meidmappu
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.widget.ImageView
 import androidx.activity.enableEdgeToEdge
@@ -70,6 +71,8 @@ class meido_tyutoriaru : AppCompatActivity() {
                 tutorialImage.setImageResource(meidoImages[currentIndex])
             } else {
                 // 最後まで見たら閉じる（または次画面へ）
+                val intent=Intent(this,MainActivity::class.java)
+                startActivity(intent)
                 finish()
             }
         }

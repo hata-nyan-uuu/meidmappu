@@ -78,10 +78,10 @@ class MainActivity : AppCompatActivity() {
         findViewById<MaterialCardView>(R.id.random1).setOnClickListener {
             startActivity(Intent(this, RandomKensaku::class.java))
         }
-        findViewById<Button>(R.id.kodawari).setOnClickListener {
+        findViewById<MaterialCardView>(R.id.kodawari).setOnClickListener {
             startActivity(Intent(this, kodawari_kensaku::class.java))
         }
-        findViewById<Button>(R.id.hazimete).setOnClickListener {
+        findViewById<MaterialCardView>(R.id.hazimete).setOnClickListener {
             startActivity(Intent(this, tyutoriaru01::class.java))
         }
         findViewById<Button>(R.id.settingbtn).setOnClickListener {

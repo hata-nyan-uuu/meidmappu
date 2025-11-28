@@ -1,5 +1,6 @@
 package com.example.meidmappu
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.ImageView
 import androidx.activity.enableEdgeToEdge
@@ -38,8 +39,10 @@ class concafe_tyutoriaru : AppCompatActivity() {
             if (currentIndex < concafeImages.size) {
                 tutorialImage.setImageResource(concafeImages[currentIndex])
             } else {
-                finish() // 全部見たら終了
-            }
-        }
+                // 最後まで見たら閉じる（または次画面へ）
+                val intent= Intent(this,MainActivity::class.java)
+                startActivity(intent)
+                finish()
+            }        }
     }
 }

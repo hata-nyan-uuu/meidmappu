@@ -1,9 +1,11 @@
 plugins {
-    alias(libs.plugins.android.application)
+    id("com.android.application")
     alias(libs.plugins.kotlin.android)
     // Glide の annotation processor を使う場合は kapt を有効化
     kotlin("kapt")
+    id("com.google.gms.google-services")
 }
+
 
 android {
     namespace = "com.example.meidmappu"
@@ -56,6 +58,9 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    //firebase
+    implementation(platform("com.google.firebase:firebase-bom:34.6.0"))
+    implementation("com.google.firebase:firebase-analytics")
     //ローカルDBでつかえるためのコード
     implementation("androidx.room:room-runtime:2.6.1")
     kapt("androidx.room:room-compiler:2.6.1")

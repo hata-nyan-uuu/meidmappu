@@ -60,7 +60,8 @@ abstract class AppDatabase : RoomDatabase() {
                     menu = "コーヒー、抹茶ラテ、和菓子セット",
                     price_range = 3000,
                     times = "10:00~22:00",
-                    image =R.drawable.image_fx__1_
+                    image =R.drawable.image_fx__1_,
+                    image2 = R.drawable.komorebi
                 ),
                 Shop(
                     name = "メルシーメイド",
@@ -71,7 +72,8 @@ abstract class AppDatabase : RoomDatabase() {
                     menu = "マカロン、パン、タルト",
                     price_range = 5000,
                     times = "10:00~22:00",
-                    image = R.drawable.image_fx
+                    image = R.drawable.image_fx,
+                    image2 = R.drawable.merusiMeido
                 ),
                 Shop(
                     name = "ハートフル・エンジェル",
@@ -82,7 +84,8 @@ abstract class AppDatabase : RoomDatabase() {
                     menu = "オムライス、ナポリタン、パフェ",
                     price_range = 5000,
                     times = "10:00~22:00",
-                    image = R.drawable.image_fx__2_
+                    image = R.drawable.image_fx__2_,
+                    image2 = R.drawable.haatofuru
                 ),
                 Shop(
                     name = "ノワールアンジュ",
@@ -93,7 +96,8 @@ abstract class AppDatabase : RoomDatabase() {
                     menu = "オリジナルシャンパン、おつまみ",
                     price_range = 5000,
                     times = "17:00~24:00",
-                    image = R.drawable.image_fx__2_
+                    image = R.drawable.image_fx__2_,
+                    image2 = R.drawable.nowaaruAnjuu
                 ),
                 Shop(
                     name = "デビルリリィ",
@@ -104,7 +108,8 @@ abstract class AppDatabase : RoomDatabase() {
                     menu = "オリジナルシャンパン、おつまみ",
                     price_range = 5000,
                     times = "17:00~24:00",
-                    image = R.drawable.image_fx__2_
+                    image = R.drawable.image_fx__2_,
+                    image2 = R.drawable.nowaaruAnjuu
                 ),
                 Shop(
                     name = "リトルメイドハウス",
@@ -115,7 +120,8 @@ abstract class AppDatabase : RoomDatabase() {
                     menu = "オリジナルシャンパン、おつまみ",
                     price_range = 5000,
                     times = "17:00~24:00",
-                    image = R.drawable.image_fx__2_
+                    image = R.drawable.image_fx__2_,
+                    image2 = R.drawable.nowaaruAnjuu
                 )
             )
             shops.forEach { dao.insert(it) }

@@ -2,6 +2,7 @@ plugins {
     id("com.android.application")
     alias(libs.plugins.kotlin.android)
     kotlin("kapt")
+
 }
 
 android {

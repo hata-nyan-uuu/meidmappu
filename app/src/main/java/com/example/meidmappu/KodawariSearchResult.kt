@@ -42,8 +42,13 @@ class KodawariSearchResult : AppCompatActivity() {
 
             runOnUiThread {
                 adapter = ShopAdapter(results) { shop ->
+
+                    //値の渡しコード
                     val intent = Intent(this@KodawariSearchResult, shop_shop::class.java)
                     intent.putExtra("shopName", shop.name)
+                    intent.putExtra("shopAddress", shop.address)
+                    intent.putExtra("image1", shop.image ?: 0)
+                    intent.putExtra("image2", shop.image2 ?: 0)
                     startActivity(intent)
                 }
                 recyclerView.adapter = adapter

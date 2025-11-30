@@ -1,6 +1,7 @@
 package com.example.meidmappu
 //お店ローカルDBの変数決め設計図みたいなもん
 
+
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 

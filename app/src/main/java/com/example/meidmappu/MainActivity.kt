@@ -67,8 +67,10 @@ class MainActivity : AppCompatActivity() {
     private fun openShopDetail(shop: Shop) {
         val intent = Intent(this, shop_shop::class.java).apply {
             putExtra("shopName", shop.name)
+            // Int? (Null許容) を Int に安全に変換 (Nullなら0)
+            putExtra("image1", shop.image ?: 0)
+            putExtra("image2", shop.image2 ?: 0)
             putExtra("shopAddress", shop.address)
-            putExtra("feeling", shop.feeling)
         }
         startActivity(intent)
     }

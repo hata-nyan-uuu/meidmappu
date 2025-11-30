@@ -13,7 +13,7 @@ class ShopAdapter(
 ) : RecyclerView.Adapter<ShopAdapter.ShopViewHolder>() {
 
     class ShopViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val shopImage: ImageView = itemView.findViewById(R.id.shopImage)
+        val image: ImageView = itemView.findViewById(R.id.shopImage)
         val shopName: TextView = itemView.findViewById(R.id.shopName)
     }
 
@@ -29,9 +29,16 @@ class ShopAdapter(
         // 店名表示
         holder.shopName.text = shop.name
 
-        // 画像設定（仮）後で差し替え → 今は仮画像を利用
-       holder.shopImage.setImageResource(R.drawable.image_fx)
+        // 店舗画像
+        val imageResourceId = shop.image ?: R.drawable.noimage // Nullを代替画像IDに変換
 
+        if (imageResourceId != R.drawable.noimage) {
+            // 安全なInt型になった imageResourceId を渡す
+            holder.image.setImageResource(imageResourceId)
+        } else {
+            // 画像がない店舗の場合、noimageを設定
+            holder.image.setImageResource(R.drawable.noimage)
+        }
         // クリック処理
         holder.itemView.setOnClickListener {
             onItemClick(shop)

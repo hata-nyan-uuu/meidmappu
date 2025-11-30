@@ -28,8 +28,16 @@ class ShopAdapter2(
 
         holder.name.text = shop.name
 
-        // 店舗画像（DBに画像IDがあるなら差し替え）
-       // holder.image.setImageResource(shop.image)
+        // 店舗画像
+        val imageResourceId = shop.image ?: R.drawable.noimage // Nullを代替画像IDに変換
+
+        if (imageResourceId != R.drawable.noimage) {
+            // 安全なInt型になった imageResourceId を渡す
+            holder.image.setImageResource(imageResourceId)
+        } else {
+            // 画像がない店舗の場合、noimageを設定
+            holder.image.setImageResource(R.drawable.noimage)
+        }
 
         holder.itemView.setOnClickListener { onClick(shop) }
     }

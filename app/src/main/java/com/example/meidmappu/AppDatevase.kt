@@ -60,7 +60,7 @@ abstract class AppDatabase : RoomDatabase() {
                     menu = "コーヒー、抹茶ラテ、和菓子セット",
                     price_range = 3000,
                     times = "10:00~22:00",
-                    image =R.drawable.image_fx__1_,
+                    image =R.drawable.komorebiout,
                     image2 = R.drawable.komorebi
                 ),
                 Shop(

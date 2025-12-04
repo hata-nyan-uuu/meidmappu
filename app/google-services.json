@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "612331473742",
+    "project_id": "meidomappu",
+    "storage_bucket": "meidomappu.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:612331473742:android:f0395bb02d69758c64ac1f",
+        "android_client_info": {
+          "package_name": "com.example.meidmappu"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB0H3l12y_86j_hEOkEyWQ8UKi_NCziIpI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

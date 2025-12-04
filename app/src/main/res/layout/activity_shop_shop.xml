@@ -59,6 +59,25 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/menuname" />
 
+        <TextView
+            android:id="@+id/shop_address"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="32dp"
+            android:text="住所: 〇〇県〇〇市 (タップでマップを開く)"
+            android:textSize="18sp"
+            android:textColor="@color/design_default_color_primary"
+            android:textStyle="italic"
+            app:layout_constraintTop_toBottomOf="@id/imageView5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </ScrollView>

@@ -71,6 +71,7 @@ class MainActivity : AppCompatActivity() {
             putExtra("image1", shop.image ?: 0)
             putExtra("image2", shop.image2 ?: 0)
             putExtra("shopAddress", shop.address)
+            putExtra("store_id", shop.id)
         }
         startActivity(intent)
     }

@@ -27,9 +27,19 @@ class LoginActivity : AppCompatActivity() {
             val email = emailEdit.text.toString()
             val password = passwordEdit.text.toString()
 
-            if (db.login(email, password)) {
+            // --- ユーザーIDを取得 ---
+            val userId = db.getUserIdByEmailAndPassword(email, password)
+
+            if (userId != -1) {
+                // ログイン成功
                 Toast.makeText(this, "ログイン成功！", Toast.LENGTH_SHORT).show()
+
+                // SharedPreferences に保存
+                val prefs = getSharedPreferences("user_session", MODE_PRIVATE)
+                prefs.edit().putInt("login_user_id", userId).apply()
+
                 startActivity(Intent(this, MainActivity::class.java))
+                finish()
             } else {
                 Toast.makeText(this, "メールまたはパスワードが違います", Toast.LENGTH_SHORT).show()
             }

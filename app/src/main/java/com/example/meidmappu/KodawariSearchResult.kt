@@ -49,6 +49,7 @@ class KodawariSearchResult : AppCompatActivity() {
                     intent.putExtra("shopAddress", shop.address)
                     intent.putExtra("image1", shop.image ?: 0)
                     intent.putExtra("image2", shop.image2 ?: 0)
+                    intent.putExtra("store_id", shop.id)
                     startActivity(intent)
                 }
                 recyclerView.adapter = adapter

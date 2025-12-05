@@ -12,10 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Meidmappu">
         <activity
-            android:name=".AddEditShopActivity"
-            android:exported="false" />
-        <activity
-            android:name=".AdminActivity"
+            android:name=".ReviewPostActivity"
             android:exported="false" />
         <activity android:name=".RegisterActivity" />
         <activity

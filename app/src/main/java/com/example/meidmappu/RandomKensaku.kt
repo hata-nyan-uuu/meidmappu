@@ -42,12 +42,19 @@ class RandomKensaku : AppCompatActivity() {
                 if (allShops.isNotEmpty()) {
                     val randomShop = allShops.random()
                     withContext(Dispatchers.Main) {
-                        val intent = Intent(this@RandomKensaku, shop_shop::class.java).apply {
-                            putExtra("shopName", randomShop.name)
-                            putExtra("shopAddress", randomShop.address)
-                            putExtra("feeling", randomShop.feeling)
+                        val randomShop = allShops.random()
+                        withContext(Dispatchers.Main) {
+                            val intent = Intent(this@RandomKensaku, shop_shop::class.java).apply {
+                                putExtra("shopName", randomShop.name)
+                                putExtra("shopAddress", randomShop.address)
+                                putExtra("feeling", randomShop.feeling)
+                                putExtra("store_id", randomShop.id)
+                                // image と image2 は Null許容なので ?: で回避
+                                putExtra("image1", randomShop.image ?: 0)
+                                putExtra("image2", randomShop.image2 ?: 0)
+                            }
+                            startActivity(intent)
                         }
-                        startActivity(intent)
                     }
                 }
             }

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="24dp">
+
+    <!-- タイトル -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="レビューを投稿"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="20dp" />
+
+    <!-- 星評価 RatingBar -->
+    <RatingBar
+        android:id="@+id/reviewRatingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:numStars="5"
+        android:stepSize="1"
+        android:layout_marginBottom="20dp" />
+
+    <!-- コメント入力欄 -->
+    <EditText
+        android:id="@+id/reviewComment"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:hint="コメントを入力してください"
+        android:gravity="top"
+        android:background="@android:drawable/edit_text"
+        android:padding="12dp"
+        android:layout_marginBottom="20dp" />
+
+    <!-- 投稿ボタン -->
+    <Button
+        android:id="@+id/buttonReviewSubmit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="投稿する"
+        android:layout_marginBottom="10dp" />
+
+    <!-- 戻るボタン -->
+    <Button
+        android:id="@+id/buttonReviewBack"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="戻る" />
+
+
+
+</LinearLayout>

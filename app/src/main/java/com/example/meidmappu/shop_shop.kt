@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -35,9 +36,10 @@ class shop_shop : AppCompatActivity() {
 
 
         // ====== ② UI 部品 ======
-        findViewById<ImageView>(R.id.back_button).setOnClickListener {
-            finish()
-        }
+        //前の画面にもどる
+        val back01 = findViewById<ImageButton>(R.id.backbtn)
+        back01.setOnClickListener { finish() }
+
         val nameText: TextView = findViewById(R.id.shop_name)
         val addressText: TextView = findViewById(R.id.shop_address)
         val reviewButton: Button = findViewById(R.id.review_button)

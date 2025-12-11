@@ -13,18 +13,22 @@
 
 
         <!-- ▼ 戻るボタン ▼ -->
+        <!-- ▼ お店詳細エリア ▼ -->
+
         <ImageButton
-            android:id="@+id/back_button"
+            android:id="@+id/backbtn"
             android:layout_width="65dp"
             android:layout_height="65dp"
             android:background="@android:color/transparent"
             android:contentDescription="戻るボタン"
             android:scaleType="fitXY"
-            app:srcCompat="@drawable/modoru2"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.046"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_margin="8dp" />
-        <!-- ▼ お店詳細エリア ▼ -->
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.024"
+            app:srcCompat="@drawable/modoru2" />
 
         <TextView
             android:id="@+id/shop_name"

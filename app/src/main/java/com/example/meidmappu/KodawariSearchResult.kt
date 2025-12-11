@@ -3,6 +3,7 @@ package com.example.meidmappu
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -21,6 +22,10 @@ class KodawariSearchResult : AppCompatActivity() {
 
         recyclerView = findViewById(R.id.shopRecyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
+
+        //前の画面にもどる
+        val back01 = findViewById<ImageButton>(R.id.backbtn3)
+        back01.setOnClickListener { finish() }
 
         val type = intent.getStringExtra("type")
         val maxPrice = intent.getIntExtra("maxPrice", -1).takeIf { it >= 0 }

@@ -3,6 +3,7 @@ import android.util.Log
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.Spinner
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -22,10 +23,9 @@ class kodawari_kensaku : AppCompatActivity() {
             insets
         }
 
-        // 前の画面に戻る
-        findViewById<Button>(R.id.back04).setOnClickListener {
-            finish()
-        }
+        //前の画面にもどる
+        val back01 = findViewById<ImageButton>(R.id.backbtn2)
+        back01.setOnClickListener { finish() }
 
         // 検索ボタン
         findViewById<Button>(R.id.kensaku).setOnClickListener {

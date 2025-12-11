@@ -32,7 +32,7 @@ class RandomKensaku : AppCompatActivity() {
         db = AppDatabase.getDatabase(this)
 
         //前の画面にもどる
-        val back01 = findViewById<ImageButton>(R.id.imageButton11)
+        val back01 = findViewById<ImageButton>(R.id.backbtn1)
         back01.setOnClickListener { finish() }
 
         // 🔹 ランダム取得ボタン

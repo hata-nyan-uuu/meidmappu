@@ -1,9 +1,9 @@
-        plugins {
-            id("com.android.application")
-            alias(libs.plugins.kotlin.android)
-            id("com.google.devtools.ksp") version "1.9.22-1.0.17"
-
-        }
+plugins {
+    id("com.android.application")
+    alias(libs.plugins.kotlin.android)
+    id("com.google.devtools.ksp") version "1.9.22-1.0.17"
+    id("com.google.gms.google-services")
+}
 
 android {
     namespace = "com.example.meidmappu"
@@ -15,6 +15,7 @@ android {
         targetSdk = 36
         versionCode = 1
         versionName = "1.0"
+
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -52,14 +53,27 @@ dependencies {
     implementation(libs.androidx.recyclerview)
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
+    implementation(libs.androidx.annotation)
+    implementation(libs.androidx.lifecycle.livedata.ktx)
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
+    // Glide (Google Drive の画像読み込みに必要)
+    implementation("com.github.bumptech.glide:glide:4.16.0")
+    annotationProcessor("com.github.bumptech.glide:compiler:4.16.0")
 
+    // Firebase BOM（まとめバージョン管理）
+    implementation(platform("com.google.firebase:firebase-bom:33.6.0"))
 
-    // Room (少しバージョン更新して警告回避)
+    // Firestore
+    implementation("com.google.firebase:firebase-firestore-ktx")
+
+    implementation("com.google.android.gms:play-services-ads:23.0.0")
+
+    // Room（あとで削除予定） ← 今は残しておいてOK
     val room_version = "2.6.1"
     implementation("androidx.room:room-runtime:$room_version")
     ksp("androidx.room:room-compiler:$room_version")

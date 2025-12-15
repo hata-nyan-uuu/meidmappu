@@ -9,8 +9,7 @@ import android.widget.Button
 import android.widget.ImageButton
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import com.bumptech.glide.Glide
 
 class shop_shop : AppCompatActivity() {
 
@@ -28,33 +27,40 @@ class shop_shop : AppCompatActivity() {
         // ====== ① お店データを受け取る ======
         val name = intent.getStringExtra("shopName")
         val address = intent.getStringExtra("shopAddress")
-        val image1Id = intent.getIntExtra("image1", 0)
-        val image2Id = intent.getIntExtra("image2", 0)
+        val image1Url = intent.getStringExtra("image")
+        val image2Url = intent.getStringExtra("menu")
+        val type = intent.getStringExtra("shopType")
 
-        // ※ 店IDも必須（レビュー表示のため）
         storeId = intent.getIntExtra("store_id", -1)
 
-
         // ====== ② UI 部品 ======
-        //前の画面にもどる
         val back01 = findViewById<ImageButton>(R.id.backbtn)
         back01.setOnClickListener { finish() }
 
         val nameText: TextView = findViewById(R.id.shop_name)
         val addressText: TextView = findViewById(R.id.shop_address)
         val reviewButton: Button = findViewById(R.id.review_button)
-        val mainImage: ImageView = findViewById(R.id.imageView4)
-        val menuImage: ImageView = findViewById(R.id.imageView5)
-        reviewContainer = findViewById(R.id.review_container)
+        val image: ImageView = findViewById(R.id.imageView4)
+        val menu: ImageView = findViewById(R.id.imageView5)
+        val typeText: TextView = findViewById(R.id.textshoptype)
 
+        reviewContainer = findViewById(R.id.review_container)
+        typeText.text = type ?: ""
 
         // ====== ③ お店情報の表示 ======
         nameText.text = name ?: ""
         addressText.text = address ?: ""
 
-        if (image1Id != 0) mainImage.setImageResource(image1Id)
-        if (image2Id != 0) menuImage.setImageResource(image2Id)
+        // URL → Glide で画像を表示
+        Glide.with(this)
+            .load(image1Url)
+            .placeholder(R.drawable.noimage)
+            .into(image)
 
+        Glide.with(this)
+            .load(image2Url)
+            .placeholder(R.drawable.noimage)
+            .into(menu)
 
         // --- 住所 → Googleマップを開く ---
         if (!address.isNullOrEmpty()) {
@@ -65,12 +71,10 @@ class shop_shop : AppCompatActivity() {
             }
         }
 
-
         // ====== ④ レビュー一覧の表示 ======
         if (storeId != -1) {
             loadReviews(storeId)
         }
-
 
         // ====== ⑤ レビュー投稿ボタン ======
         reviewButton.setOnClickListener {
@@ -79,7 +83,6 @@ class shop_shop : AppCompatActivity() {
             startActivity(intent)
         }
     }
-
 
     // ====== レビュー読み込み ======
     private fun loadReviews(storeId: Int) {

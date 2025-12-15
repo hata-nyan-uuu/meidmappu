@@ -1,4 +1,9 @@
 package com.example.meidmappu
+
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdView
+import com.google.android.gms.ads.MobileAds
+
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
@@ -7,23 +12,29 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.lifecycle.lifecycleScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.firebase.firestore.FirebaseFirestore
+import android.util.Log
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var db: AppDatabase
-    private lateinit var adapter: ShopAdapter2
-    private val shopList = mutableListOf<Shop>()   // DBの店舗一覧を保持
+    private lateinit var adapter: ShopFirestoreAdapter
+    private val shopList = mutableListOf<ShopFirestore>()   // Firestore から取るデータ
+    private val db = FirebaseFirestore.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
+
+        //AD
+        MobileAds.initialize(this)
+
+        val adView = findViewById<AdView>(R.id.adView)
+        val adRequest = AdRequest.Builder().build()
+        adView.loadAd(adRequest)
+
 
         // インセット調整
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
@@ -32,51 +43,56 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        // DB
-        db = AppDatabase.getDatabase(this)
-
         // RecyclerView 初期化
         val recyclerView = findViewById<RecyclerView>(R.id.homeRecyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
-        adapter = ShopAdapter2(shopList) { shop ->
+
+        adapter = ShopFirestoreAdapter(shopList) { shop ->
             openShopDetail(shop)
         }
         recyclerView.adapter = adapter
 
-        // DBから全店舗読み込み
+        // Firestore から店舗データ読み込み
         loadAllShops()
 
         // ボタン設定
         setButtonListeners()
     }
 
-    /** DBから全店舗を取得してRecyclerViewに表示 */
+    /** Firestoreから全店舗を取得してRecyclerViewに表示 */
     private fun loadAllShops() {
-        lifecycleScope.launch(Dispatchers.IO) {
-            val list = db.shopDao().getAll()   // ← DAOに必要
-
-            withContext(Dispatchers.Main) {
+        db.collection("shop")
+            .get()
+            .addOnSuccessListener { result ->
                 shopList.clear()
-                shopList.addAll(list)
+                for (document in result) {
+                    val shop = document.toObject(ShopFirestore::class.java)
+                    shopList.add(shop)
+                }
                 adapter.notifyDataSetChanged()
             }
-        }
+            .addOnFailureListener { e ->
+                Log.e("Firestore", "データ取得失敗: ", e)
+            }
     }
 
-    /** 詳細画面を開く */
-    private fun openShopDetail(shop: Shop) {
+    /** 詳細画面を開く（URLをそのまま渡す仕様に変更） */
+    private fun openShopDetail(shop: ShopFirestore) {
         val intent = Intent(this, shop_shop::class.java).apply {
             putExtra("shopName", shop.name)
-            // Int? (Null許容) を Int に安全に変換 (Nullなら0)
-            putExtra("image1", shop.image ?: 0)
-            putExtra("image2", shop.image2 ?: 0)
+            putExtra("image", shop.image)       // 店舗画像URL
+            putExtra("menu", shop.menu)         // メニュー画像URL
             putExtra("shopAddress", shop.address)
-            putExtra("store_id", shop.id)
+            putExtra("shopType", shop.type)     // お店タイプ
+            putExtra("feeling", shop.feeling)   // 雰囲気
+            putExtra("concept", shop.concept)   // コンセプト
+            putExtra("priceRange", shop.priceRange)
+            putExtra("time", shop.time)
         }
         startActivity(intent)
     }
 
-    /** ボタン設定 */
+    /** ボタン設定（Roomの時と同じ） */
     private fun setButtonListeners() {
         findViewById<MaterialCardView>(R.id.random1).setOnClickListener {
             startActivity(Intent(this, RandomKensaku::class.java))

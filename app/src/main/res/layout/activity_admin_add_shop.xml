@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="店舗追加"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            />
+
+        <EditText
+            android:id="@+id/editName"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:hint="店名" />
+
+        <EditText
+            android:id="@+id/editAddress"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:hint="住所"
+            android:layout_marginTop="12dp"/>
+
+        <Spinner
+            android:id="@+id/spinnerConcept"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:entries="@array/conseputo2"
+            android:layout_marginTop="12dp"/>
+
+
+        <Spinner
+            android:id="@+id/spinnerFeeling"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:entries="@array/feeling"
+            android:layout_marginTop="12dp"/>
+
+        <Spinner
+            android:id="@+id/spinnerType"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:entries="@array/mise_type"/>
+
+        <Spinner
+            android:id="@+id/spinnerPrice"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:entries="@array/kakaku"
+            android:layout_marginTop="12dp"/>
+
+
+        <EditText
+            android:id="@+id/editTime"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:hint="営業時間"
+            android:layout_marginTop="12dp"/>
+
+        <EditText
+            android:id="@+id/editImage"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:hint="メイン画像URL"
+            android:layout_marginTop="12dp"/>
+
+        <EditText
+            android:id="@+id/editMenu"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:hint="メニュー画像URL"
+            android:layout_marginTop="12dp"/>
+
+        <Button
+            android:id="@+id/btnSaveShop"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:text="保存"
+            android:textSize="30sp"
+            android:layout_marginTop="24dp"/>
+
+    </LinearLayout>
+</ScrollView>

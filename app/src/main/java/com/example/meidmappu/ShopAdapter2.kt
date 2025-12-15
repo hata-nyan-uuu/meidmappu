@@ -6,11 +6,12 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 
-class ShopAdapter2(
-    private val shopList: List<Shop>,
-    private val onClick: (Shop) -> Unit
-) : RecyclerView.Adapter<ShopAdapter2.ViewHolder>() {
+class ShopFirestoreAdapter(
+    private val shopList: List<ShopFirestore>,
+    private val onClick: (ShopFirestore) -> Unit
+) : RecyclerView.Adapter<ShopFirestoreAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val image: ImageView = view.findViewById(R.id.shopImage)
@@ -28,16 +29,15 @@ class ShopAdapter2(
 
         holder.name.text = shop.name
 
-        // 店舗画像
-        val imageResourceId = shop.image ?: R.drawable.noimage // Nullを代替画像IDに変換
+        // Firestore の image フィールドを使用
+        val imageUrl = shop.image
+            ?: "https://imgur.com/oYta9hf"
 
-        if (imageResourceId != R.drawable.noimage) {
-            // 安全なInt型になった imageResourceId を渡す
-            holder.image.setImageResource(imageResourceId)
-        } else {
-            // 画像がない店舗の場合、noimageを設定
-            holder.image.setImageResource(R.drawable.noimage)
-        }
+        Glide.with(holder.itemView.context)
+            .load(imageUrl)
+            .placeholder(R.drawable.noimage)
+            .error(R.drawable.noimage)
+            .into(holder.image)
 
         holder.itemView.setOnClickListener { onClick(shop) }
     }

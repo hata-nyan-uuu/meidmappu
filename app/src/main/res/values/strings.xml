@@ -45,7 +45,7 @@
 
     //こだわりけんさく画面のプルダウンデータ
     <string-array name="mise_type">
-        <item>お店のタイプは？</item>
+        <item>お店のジャンルは？</item>
         <item>メイドカフェ</item>
         <item>コンカフェ</item>
     </string-array>
@@ -70,5 +70,14 @@
         <item>ゆっくりしたい</item>
         <item>だれかとはなしたい</item>
     </string-array>
+    <string name="title_activity_admin_login">AdminLoginActivity</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
 
 </resources>

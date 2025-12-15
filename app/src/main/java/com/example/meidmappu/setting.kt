@@ -34,5 +34,10 @@ class setting : AppCompatActivity() {
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP) // ← 戻った後に設定画面を消す
             startActivity(intent)
         }
+        //管理者ログイン
+        findViewById<Button>(R.id.buttonSetting5).setOnClickListener {
+            val intent= Intent(this, AdminLoginActivity::class.java)
+            startActivity(intent)
+        }
     }
 }

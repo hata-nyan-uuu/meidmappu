@@ -31,5 +31,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/tyutoriaru02"/>
 
+    <ImageButton
+        android:id="@+id/homeback1"
+        android:contentDescription="ホームに戻る"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="15dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/homeicon" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

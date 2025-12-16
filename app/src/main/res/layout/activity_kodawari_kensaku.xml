@@ -39,11 +39,12 @@
 
     <Spinner
         android:id="@+id/mise_type"
-        android:layout_width="350dp"
+        android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="56dp"
         android:entries="@array/mise_type"
         android:textColor="@color/black"
+        android:textSize="28sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
@@ -51,7 +52,7 @@
 
     <Spinner
         android:id="@+id/kakaku"
-        android:layout_width="350dp"
+        android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="70dp"
         android:entries="@array/kakaku"
@@ -63,7 +64,7 @@
 
     <Spinner
         android:id="@+id/conseputo2"
-        android:layout_width="350dp"
+        android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="70dp"
         android:entries="@array/conseputo2"
@@ -75,7 +76,7 @@
 
     <Spinner
         android:id="@+id/feeling"
-        android:layout_width="350dp"
+        android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="70dp"
         android:entries="@array/feeling"

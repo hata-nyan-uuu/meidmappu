@@ -8,15 +8,14 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-
 import androidx.lifecycle.lifecycleScope
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 
 class RandomKensaku : AppCompatActivity() {
-
-    private lateinit var db: AppDatabase
 
     @SuppressLint("WrongViewCast")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,35 +28,42 @@ class RandomKensaku : AppCompatActivity() {
             insets
         }
 
-        db = AppDatabase.getDatabase(this)
+        // 戻るボタン
+        findViewById<ImageButton>(R.id.backbtn1).setOnClickListener { finish() }
 
-        //前の画面にもどる
-        val back01 = findViewById<ImageButton>(R.id.backbtn1)
-        back01.setOnClickListener { finish() }
-
-        // 🔹 ランダム取得ボタン
+        // ランダム取得ボタン
         findViewById<ImageButton>(R.id.randomStart).setOnClickListener {
-            lifecycleScope.launch(Dispatchers.IO) {
-                val allShops = db.shopDao().getAll()
-                if (allShops.isNotEmpty()) {
-                    val randomShop = allShops.random()
-                    withContext(Dispatchers.Main) {
-                        val randomShop = allShops.random()
-                        withContext(Dispatchers.Main) {
-                            val intent = Intent(this@RandomKensaku, shop_shop::class.java).apply {
-                                putExtra("shopName", randomShop.name)
-                                putExtra("shopAddress", randomShop.address)
-                                putExtra("feeling", randomShop.feeling)
-                                putExtra("store_id", randomShop.id)
-                                // image と image2 は Null許容なので ?: で回避
-                                putExtra("image1", randomShop.image ?: 0)
-                                putExtra("image2", randomShop.image2 ?: 0)
-                            }
-                            startActivity(intent)
-                        }
-                    }
-                }
+            lifecycleScope.launch {
+                fetchRandomShop()
             }
+        }
+    }
+
+    private suspend fun fetchRandomShop() {
+        val db = FirebaseFirestore.getInstance()
+        try {
+            val result = db.collection("shop").get().await()
+            val shops = result.documents.mapNotNull { it.toObject(ShopFirestore::class.java) }
+
+            if (shops.isNotEmpty()) {
+                val randomShop = shops.random()
+
+                val intent = Intent(this@RandomKensaku, shop_shop::class.java).apply {
+                    putExtra("shopName", randomShop.name)
+                    putExtra("shopAddress", randomShop.address)
+                    putExtra("feeling", randomShop.feeling)
+                    putExtra("concept", randomShop.concept)
+                    putExtra("shopType", randomShop.type)
+                    putExtra("priceRange", randomShop.priceRange)
+                    putExtra("time", randomShop.time)
+                    putExtra("image", randomShop.image)
+                    putExtra("menu", randomShop.menu)
+                    putExtra("store_id", randomShop.name) // Firestore ID 代わりに
+                }
+                startActivity(intent)
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
     }
 }

@@ -8,7 +8,7 @@ data class ShopFirestore(
     var concept: String = "",
     var menu: String? = null,
     var type: String = "",
-    var priceRange: Int = 0,
+    var priceRange: Long = 0L,
     var time: String? = null,
     var image: String? = null
 )

@@ -6,10 +6,12 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+
 
 class ShopAdapter(
-    private val shopList: List<Shop>,
-    private val onItemClick: (Shop) -> Unit   // ← クリック時に呼ばれる関数
+    private val shopList: List<ShopFirestore>,
+    private val onItemClick: (ShopFirestore) -> Unit
 ) : RecyclerView.Adapter<ShopAdapter.ShopViewHolder>() {
 
     class ShopViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -26,24 +28,20 @@ class ShopAdapter(
     override fun onBindViewHolder(holder: ShopViewHolder, position: Int) {
         val shop = shopList[position]
 
-        // 店名表示
         holder.shopName.text = shop.name
 
-        // 店舗画像
-        val imageResourceId = shop.image ?: R.drawable.noimage // Nullを代替画像IDに変換
+        // Firestore の image URL
+        val imageUrl = shop.image ?: "https://i.imgur.com/oYta9hf.jpeg"
 
-        if (imageResourceId != R.drawable.noimage) {
-            // 安全なInt型になった imageResourceId を渡す
-            holder.image.setImageResource(imageResourceId)
-        } else {
-            // 画像がない店舗の場合、noimageを設定
-            holder.image.setImageResource(R.drawable.noimage)
-        }
-        // クリック処理
-        holder.itemView.setOnClickListener {
-            onItemClick(shop)
-        }
+        Glide.with(holder.itemView.context)
+            .load(imageUrl)
+            .placeholder(R.drawable.noimage)
+            .error(R.drawable.noimage)
+            .into(holder.image)
+
+        holder.itemView.setOnClickListener { onItemClick(shop) }
     }
 
     override fun getItemCount(): Int = shopList.size
 }
+

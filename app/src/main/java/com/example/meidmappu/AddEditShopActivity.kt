@@ -10,8 +10,6 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.activity.enableEdgeToEdge
 
 class AddEditShopActivity : AppCompatActivity() {
-    // データベースアクセス用のDAOは後で注入します
-    // private lateinit var shopDao: ShopDao
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

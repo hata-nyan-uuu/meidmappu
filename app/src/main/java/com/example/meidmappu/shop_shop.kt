@@ -3,11 +3,7 @@ package com.example.meidmappu
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Button
-import android.widget.ImageButton
-import android.widget.LinearLayout
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 
@@ -27,40 +23,38 @@ class shop_shop : AppCompatActivity() {
         // ====== ① お店データを受け取る ======
         val name = intent.getStringExtra("shopName")
         val address = intent.getStringExtra("shopAddress")
-        val image1Url = intent.getStringExtra("image")
-        val image2Url = intent.getStringExtra("menu")
-        val type = intent.getStringExtra("shopType")
-
+        val feeling = intent.getStringExtra("feeling")
+        val image1Url = intent.getStringExtra("image") // Firestore の image
+        val image2Url = intent.getStringExtra("menu") // Firestore の menu
         storeId = intent.getIntExtra("store_id", -1)
 
         // ====== ② UI 部品 ======
-        val back01 = findViewById<ImageButton>(R.id.backbtn)
-        back01.setOnClickListener { finish() }
+        val backBtn = findViewById<ImageButton>(R.id.backbtn)
+        backBtn.setOnClickListener { finish() }
 
         val nameText: TextView = findViewById(R.id.shop_name)
         val addressText: TextView = findViewById(R.id.shop_address)
+        val feelingText: TextView = findViewById(R.id.textshoptype)
         val reviewButton: Button = findViewById(R.id.review_button)
-        val image: ImageView = findViewById(R.id.imageView4)
-        val menu: ImageView = findViewById(R.id.imageView5)
-        val typeText: TextView = findViewById(R.id.textshoptype)
-
+        val imageView: ImageView = findViewById(R.id.imageView4)
+        val menuView: ImageView = findViewById(R.id.imageView5)
         reviewContainer = findViewById(R.id.review_container)
-        typeText.text = type ?: ""
 
         // ====== ③ お店情報の表示 ======
         nameText.text = name ?: ""
         addressText.text = address ?: ""
+        feelingText.text = feeling ?: ""
 
-        // URL → Glide で画像を表示
+        // URL → Glide で画像表示
         Glide.with(this)
             .load(image1Url)
             .placeholder(R.drawable.noimage)
-            .into(image)
+            .into(imageView)
 
         Glide.with(this)
             .load(image2Url)
             .placeholder(R.drawable.noimage)
-            .into(menu)
+            .into(menuView)
 
         // --- 住所 → Googleマップを開く ---
         if (!address.isNullOrEmpty()) {
@@ -72,7 +66,7 @@ class shop_shop : AppCompatActivity() {
         }
 
         // ====== ④ レビュー一覧の表示 ======
-        if (storeId != -1) {
+        if (storeId!= -1) {
             loadReviews(storeId)
         }
 
@@ -87,9 +81,7 @@ class shop_shop : AppCompatActivity() {
     // ====== レビュー読み込み ======
     private fun loadReviews(storeId: Int) {
         reviewContainer.removeAllViews()
-
         val reviews = db.getReviewsByStoreId(storeId)
-
         for (review in reviews) {
             val textView = TextView(this)
             textView.text = "★${review.rating}  ${review.comment}"

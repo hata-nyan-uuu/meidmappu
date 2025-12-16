@@ -1,4 +1,5 @@
 package com.example.meidmappu
+
 import android.util.Log
 import android.content.Intent
 import android.os.Bundle
@@ -34,14 +35,16 @@ class kodawari_kensaku : AppCompatActivity() {
             val concept = getSpinnerValue(findViewById(R.id.conseputo2))
             val feeling = getSpinnerValue(findViewById(R.id.feeling))
 
-            // 表示用の文字列から「円」と「カンマ」を除去して整数に変換
-            val maxPrice = priceStr?.replace(",", "")?.replace("円", "")?.toIntOrNull()
+            val priceRange = priceStr
+                ?.replace(",", "")
+                ?.replace("円", "")
+                ?.toLongOrNull()
 
-            Log.d("DEBUG", "検索条件: type=$type maxPrice=$maxPrice concept=$concept feeling=$feeling")
+            Log.d("DEBUG", "検索条件: type=$type priceRange=$priceRange concept=$concept feeling=$feeling")
 
             val intent = Intent(this, KodawariSearchResult::class.java).apply {
                 putExtra("type", type)
-                putExtra("maxPrice", maxPrice)
+                putExtra("priceRange", priceRange)
                 putExtra("concept", concept)
                 putExtra("feeling", feeling)
             }
@@ -49,13 +52,12 @@ class kodawari_kensaku : AppCompatActivity() {
         }
     }
 
+    // Spinner の先頭項目は null（未選択）として扱う安全版
     private fun getSpinnerValue(spinner: Spinner): String? {
-        val value = spinner.selectedItem.toString()
-        // Spinner の先頭行は未選択扱いにする
-        return when (value) {
-            "お店のタイプは？", "予算は？", "コンセプトは？", "いまの気分は？" -> null
-            else -> value
+        return if (spinner.selectedItemPosition == 0) {
+            null
+        } else {
+            spinner.selectedItem.toString()
         }
     }
-
 }

@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:paddingBottom="40dp"> <!-- ScrollView 下に余白 -->
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -36,6 +38,7 @@
             android:text="店名"
             android:textSize="30sp"
             android:textStyle="bold"
+            android:textColor="@android:color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -61,6 +64,7 @@
             android:text="menu"
             android:textSize="30sp"
             android:textStyle="bold"
+            android:textColor="@android:color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/imageView4" />
@@ -86,11 +90,23 @@
             android:text="type"
             android:textSize="25sp"
             android:textStyle="italic"
+            android:textColor="@android:color/black"
             app:layout_constraintTop_toBottomOf="@+id/imageView5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
         <!-- ▼ 住所 ▼ -->
+
+        <TextView
+            android:id="@+id/addressname"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="住所"
+            android:textColor="@android:color/black"
+            app:layout_constraintBottom_toTopOf="@+id/shop_address"
+            app:layout_constraintStart_toStartOf="parent" />
+
         <TextView
             android:id="@+id/shop_address"
             android:layout_width="0dp"
@@ -98,7 +114,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
-            android:text="住所: 〇〇県〇〇市 (タップでマップを開く)"
+            android:text="住所: 〇〇県〇〇市"
             android:textSize="18sp"
             android:textStyle="italic"
             app:layout_constraintTop_toBottomOf="@+id/textshoptype"
@@ -122,31 +138,36 @@
             app:layout_constraintEnd_toEndOf="parent" />
 
         <!-- ▼ レビュータイトル ▼ -->
+
+        <!-- ▼ レビュー一覧コンテナ ▼ -->
+
+        <!-- ▼ レビュー投稿ボタン ▼ -->
+
         <TextView
             android:id="@+id/review_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
             android:text="レビュー一覧"
+            android:textColor="@android:color/black"
             android:textSize="22sp"
             android:textStyle="bold"
-            app:layout_constraintTop_toBottomOf="@+id/address_tap_hint"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/address_tap_hint" />
 
-        <!-- ▼ レビュー一覧コンテナ ▼ -->
         <LinearLayout
             android:id="@+id/review_container"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="108dp"
             android:orientation="vertical"
             android:padding="16dp"
-            android:layout_marginBottom="16dp"
-            app:layout_constraintTop_toBottomOf="@+id/review_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/review_title" />
 
-        <!-- ▼ レビュー投稿ボタン ▼ -->
         <Button
             android:id="@+id/review_button"
             android:layout_width="wrap_content"

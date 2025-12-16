@@ -5,13 +5,14 @@
     android:id="@+id/kodawariResultLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".KodawariSearchResult">
 
     <!-- RecyclerView（リスト表示） -->
     <ImageButton
         android:id="@+id/backbtn3"
-        android:layout_width="65dp"
-        android:layout_height="65dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:background="@android:color/transparent"
         android:contentDescription="戻るボタン"
         android:scaleType="fitXY"
@@ -29,6 +30,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="56dp"
         android:text="検索結果"
+        android:textColor="@color/black"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"

@@ -12,6 +12,16 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // ★ すでにログインしていたらMainへ
+        val prefs = getSharedPreferences("user_session", MODE_PRIVATE)
+        val savedUserId = prefs.getInt("login_user_id", -1)
+        if (savedUserId != -1) {
+            startActivity(Intent(this, MainActivity::class.java))
+            finish()
+            return
+        }
+
         setContentView(R.layout.activity_login)
 
         val db = UserDatabaseHelper(this)
@@ -23,21 +33,18 @@ class LoginActivity : AppCompatActivity() {
         val goRegister = findViewById<TextView>(R.id.textGoRegister)
 
         loginButton.setOnClickListener {
-
             val email = emailEdit.text.toString()
             val password = passwordEdit.text.toString()
 
-            // --- ユーザーIDを取得 ---
             val userId = db.getUserIdByEmailAndPassword(email, password)
 
             if (userId != -1) {
-                // ログイン成功
+                // ★ ログイン成功 → 保存
+                prefs.edit()
+                    .putInt("login_user_id", userId)
+                    .apply()
+
                 Toast.makeText(this, "ログイン成功！", Toast.LENGTH_SHORT).show()
-
-                // SharedPreferences に保存
-                val prefs = getSharedPreferences("user_session", MODE_PRIVATE)
-                prefs.edit().putInt("login_user_id", userId).apply()
-
                 startActivity(Intent(this, MainActivity::class.java))
                 finish()
             } else {

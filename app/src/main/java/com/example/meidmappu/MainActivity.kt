@@ -60,7 +60,6 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-
     /** Firestoreから全店舗を取得してRecyclerViewに表示 */
     private fun loadAllShops() {
         db.collection("shop")

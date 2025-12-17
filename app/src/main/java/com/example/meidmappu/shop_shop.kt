@@ -10,13 +10,14 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.activity.enableEdgeToEdge
 import com.bumptech.glide.Glide
-import android.view.View
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
 class shop_shop : AppCompatActivity() {
 
-    private var storeId: Int = -1
+    private lateinit var storeId: String             // ← Int から String に変更
     private lateinit var reviewContainer: LinearLayout
-    private lateinit var db: UserDatabaseHelper
+    private val firestore = Firebase.firestore
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,19 +38,21 @@ class shop_shop : AppCompatActivity() {
             insets
         }
 
-        // DB
-        db = UserDatabaseHelper(this)
-
         // ====== ① お店データを受け取る ======
         val name = intent.getStringExtra("shopName")
         val address = intent.getStringExtra("shopAddress")
         val feeling = intent.getStringExtra("feeling")
-        val janruname=intent.getStringExtra("shopType")
-        val concept=intent.getStringExtra("concept")
-        val time=intent.getStringExtra("time")
-        val image1Url = intent.getStringExtra("image") // Firestore の image
-        val image2Url = intent.getStringExtra("menu") // Firestore の menu
-        storeId = intent.getIntExtra("store_id", -1)
+        val janruname = intent.getStringExtra("shopType")
+        val concept = intent.getStringExtra("concept")
+        val time = intent.getStringExtra("time")
+        val image1Url = intent.getStringExtra("image")
+        val image2Url = intent.getStringExtra("menu")
+        storeId = intent.getStringExtra("shopId") ?: run {     // ← String 型で受け取る
+            Toast.makeText(this, "お店情報が取得できません",
+                Toast.LENGTH_SHORT).show()
+            finish()
+            return
+        }
 
         // ====== ② UI 部品 ======
         val backBtn = findViewById<ImageButton>(R.id.backbtn)
@@ -58,10 +61,10 @@ class shop_shop : AppCompatActivity() {
         val nameText: TextView = findViewById(R.id.shop_name)
         val addressText: TextView = findViewById(R.id.shop_address)
         val reviewButton: Button = findViewById(R.id.review_button)
-        val janruText: TextView=findViewById(R.id.janru_name)
-        val conceptText: TextView=findViewById(R.id.concept_name)
-        val timeText: TextView=findViewById(R.id.time_value)
-        val feelingText: TextView=findViewById(R.id.feeling_value)
+        val janruText: TextView = findViewById(R.id.janru_name)
+        val conceptText: TextView = findViewById(R.id.concept_name)
+        val timeText: TextView = findViewById(R.id.time_value)
+        val feelingText: TextView = findViewById(R.id.feeling_value)
         val imageView: ImageView = findViewById(R.id.imageView4)
         val menuView: ImageView = findViewById(R.id.imageView5)
         reviewContainer = findViewById(R.id.review_container)
@@ -72,7 +75,7 @@ class shop_shop : AppCompatActivity() {
         janruText.text = janruname ?: ""
         conceptText.text = concept ?: ""
         timeText.text = time ?: ""
-        feelingText.text=feeling ?: ""
+        feelingText.text = feeling ?: ""
 
         // URL → Glide で画像表示
         Glide.with(this)
@@ -95,28 +98,43 @@ class shop_shop : AppCompatActivity() {
         }
 
         // ====== ④ レビュー一覧の表示 ======
-        if (storeId!= -1) {
-            loadReviews(storeId)
-        }
+        loadReviews()  // ← storeId はフィールドなので引数不要
 
         // ====== ⑤ レビュー投稿ボタン ======
         reviewButton.setOnClickListener {
             val intent = Intent(this, ReviewPostActivity::class.java)
-            intent.putExtra("store_id", storeId)
+            intent.putExtra("shopId", storeId)   // ← 文字列のまま渡す
             startActivity(intent)
         }
     }
 
-    // ====== レビュー読み込み ======
-    private fun loadReviews(storeId: Int) {
-        reviewContainer.removeAllViews()
-        val reviews = db.getReviewsByStoreId(storeId)
-        for (review in reviews) {
-            val textView = TextView(this)
-            textView.text = "★${review.rating}  ${review.comment}"
-            textView.textSize = 16f
-            reviewContainer.addView(textView)
-        }
+    override fun onResume() {
+        super.onResume()
+        loadReviews()
+    }
 
+    // ====== レビュー読み込み ======
+    private fun loadReviews() {
+        reviewContainer.removeAllViews()
+
+        firestore.collection("shop")
+            .document(storeId)
+            .collection("reviews")
+            .orderBy("timestamp")
+            .get()
+            .addOnSuccessListener { result ->
+                for (document in result) {
+                    val rating = document.getLong("rating")?.toInt() ?: 0
+                    val comment = document.getString("comment") ?: ""
+                    val textView = TextView(this)
+                    textView.text = "★$rating  $comment"
+                    textView.textSize = 16f
+                    reviewContainer.addView(textView)
+                }
+            }
+            .addOnFailureListener {
+                Toast.makeText(this, "レビューの読み込みに失敗しました",
+                    Toast.LENGTH_SHORT).show()
+            }
     }
 }

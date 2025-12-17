@@ -24,7 +24,7 @@ class LoginActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_login)
 
-        val db = UserDatabaseHelper(this)
+//        val db = UserDatabaseHelper(this)
 
         val emailEdit = findViewById<EditText>(R.id.editEmail)
         val passwordEdit = findViewById<EditText>(R.id.editPassword)
@@ -36,20 +36,20 @@ class LoginActivity : AppCompatActivity() {
             val email = emailEdit.text.toString()
             val password = passwordEdit.text.toString()
 
-            val userId = db.getUserIdByEmailAndPassword(email, password)
-
-            if (userId != -1) {
-                // ★ ログイン成功 → 保存
-                prefs.edit()
-                    .putInt("login_user_id", userId)
-                    .apply()
-
-                Toast.makeText(this, "ログイン成功！", Toast.LENGTH_SHORT).show()
-                startActivity(Intent(this, MainActivity::class.java))
-                finish()
-            } else {
-                Toast.makeText(this, "メールまたはパスワードが違います", Toast.LENGTH_SHORT).show()
-            }
+////            val userId = db.getUserIdByEmailAndPassword(email, password)
+//
+//            if (userId != -1) {
+//                // ★ ログイン成功 → 保存
+//                prefs.edit()
+//                    .putInt("login_user_id", userId)
+//                    .apply()
+//
+//                Toast.makeText(this, "ログイン成功！", Toast.LENGTH_SHORT).show()
+//                startActivity(Intent(this, MainActivity::class.java))
+//                finish()
+//            } else {
+//                Toast.makeText(this, "メールまたはパスワードが違います", Toast.LENGTH_SHORT).show()
+//            }
         }
 
         backButton.setOnClickListener {

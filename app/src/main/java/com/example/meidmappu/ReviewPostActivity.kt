@@ -1,77 +1,71 @@
 package com.example.meidmappu
 
-import android.content.Intent
 import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
 class ReviewPostActivity : AppCompatActivity() {
+
+    private lateinit var firestore: FirebaseFirestore
+    private lateinit var shopId: String
+    private lateinit var ratingBar: RatingBar
+    private lateinit var commentEditText: EditText
+    private lateinit var postButton: Button
+    private lateinit var backButton: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_review_post)
 
-        val db = UserDatabaseHelper(this)
-
-        // --- 店IDを受け取る ---
-        val storeId = intent.getIntExtra("store_id", -1)
-        if (storeId == -1) {
-            Toast.makeText(this, "お店情報が取得できません", Toast.LENGTH_SHORT).show()
+        firestore = Firebase.firestore
+        shopId = intent.getStringExtra("shopId") ?: run {
+            Toast.makeText(this, "お店情報が取得できません",
+                Toast.LENGTH_SHORT).show()
             finish()
             return
         }
 
-        // --- ログインユーザーID ---
-        val prefs = getSharedPreferences("user_session", MODE_PRIVATE)
-        val userId = prefs.getInt("login_user_id", -1)
+        ratingBar = findViewById(R.id.reviewRatingBar)
+        commentEditText = findViewById(R.id.reviewComment)
+        postButton = findViewById(R.id.buttonReviewSubmit)
+        backButton = findViewById(R.id.buttonReviewBack)
 
-        if (userId == -1) {
-            Toast.makeText(this, "ログインが必要です", Toast.LENGTH_SHORT).show()
-            startActivity(Intent(this, LoginActivity::class.java))
-            finish()
-            return
-        }
-
-        // --- UI ---
-        val ratingBar = findViewById<RatingBar>(R.id.reviewRatingBar)
-        val commentEdit = findViewById<EditText>(R.id.reviewComment)
-        val submitButton = findViewById<Button>(R.id.buttonReviewSubmit)
-        val backButton = findViewById<Button>(R.id.buttonReviewBack)
-
-        // --- 投稿処理 ---
-        submitButton.setOnClickListener {
-
+        // 投稿処理
+        postButton.setOnClickListener {
             val rating = ratingBar.rating.toInt()
-            val comment = commentEdit.text.toString()
-
-            if (comment.isEmpty()) {
-                Toast.makeText(this, "コメントを入力してください", Toast.LENGTH_SHORT).show()
+            val comment = commentEditText.text.toString()
+            if (comment.isBlank()) {
+                Toast.makeText(this, "コメントを入力してください",
+                    Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
+            postReview(rating, comment)
+        }
 
-            val success = db.insertReview(
-                userId = userId,
-                storeId = storeId,
-                rating = rating,
-                comment = comment
-            )
+        backButton.setOnClickListener { finish() }
+    }
 
-            if (success) {
+    private fun postReview(rating: Int, comment: String) {
+        val review = hashMapOf(
+            "userId" to "", // 後でログイン機能を追加する場合に Firebase UID
+            "rating" to rating,
+            "comment" to comment,
+            "timestamp" to System.currentTimeMillis()
+        )
+
+        firestore.collection("shop")
+            .document(shopId)
+            .collection("reviews")
+            .add(review)
+            .addOnSuccessListener {
                 Toast.makeText(this, "レビューを投稿しました", Toast.LENGTH_SHORT).show()
-
-                // --- reviews 更新フラグを返す ---
-                val resultIntent = Intent()
-                resultIntent.putExtra("review_updated", true)
-                setResult(RESULT_OK, resultIntent)
-
-                finish()
-            } else {
+                finish() // shop_shop に戻る
+            }
+            .addOnFailureListener {
                 Toast.makeText(this, "投稿に失敗しました", Toast.LENGTH_SHORT).show()
             }
-        }
-
-        backButton.setOnClickListener {
-            finish()
-        }
     }
 }

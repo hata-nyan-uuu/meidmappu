@@ -69,6 +69,7 @@ class MainActivity : AppCompatActivity() {
                 for (document in result) {
                     val shop = document.toObject(ShopFirestore::class.java)
                     shopList.add(shop)
+                    shop.id=document.id
                 }
                 adapter.notifyDataSetChanged()
             }
@@ -89,6 +90,7 @@ class MainActivity : AppCompatActivity() {
             putExtra("concept", shop.concept)   // コンセプト
             putExtra("priceRange", shop.priceRange)
             putExtra("time", shop.time)
+            putExtra("shopId", shop.id)
         }
         startActivity(intent)
     }

@@ -15,7 +15,7 @@ class RegisterActivity : AppCompatActivity() {
         setContentView(R.layout.activity_register)
 
         // DB
-        val db = UserDatabaseHelper(this)
+//        val db = UserDatabaseHelper(this)
 
         // XMLと対応したView取得
         val emailEdit = findViewById<EditText>(R.id.registerEmail)
@@ -48,16 +48,16 @@ class RegisterActivity : AppCompatActivity() {
             }
 
             // --- DB登録 ---
-            val success = db.registerUser(email, password)
-
-            if (success) {
-                Toast.makeText(this, "登録が完了しました。ログインしてください", Toast.LENGTH_SHORT).show()
-                startActivity(Intent(this, LoginActivity::class.java))
-                finish()
-            } else {
-                Toast.makeText(this, "このメールアドレスは既に登録されています", Toast.LENGTH_SHORT).show()
-            }
-        }
+//            val success = db.registerUser(email, password)
+//
+//            if (success) {
+//                Toast.makeText(this, "登録が完了しました。ログインしてください", Toast.LENGTH_SHORT).show()
+//                startActivity(Intent(this, LoginActivity::class.java))
+//                finish()
+//            } else {
+//                Toast.makeText(this, "このメールアドレスは既に登録されています", Toast.LENGTH_SHORT).show()
+//            }
+       }
 
         // 戻るボタン
         backButton.setOnClickListener {

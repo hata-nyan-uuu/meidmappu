@@ -2,6 +2,7 @@ package com.example.meidmappu
 
 
 data class ShopFirestore(
+    var id: String = "",
     var name: String = "",
     var address: String = "",
     var feeling: String = "",

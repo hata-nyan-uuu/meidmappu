@@ -13,6 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:src="@drawable/cafe0"
+        android:scaleType="fitCenter"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,12 +21,13 @@
 
     <ImageButton
         android:id="@+id/homeback3"
-        android:contentDescription="ホームに戻る"
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="15dp"
         android:scaleType="centerCrop"
+        android:background="@android:color/transparent"
+        android:contentDescription="ホームに戻る"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/homeicon" />

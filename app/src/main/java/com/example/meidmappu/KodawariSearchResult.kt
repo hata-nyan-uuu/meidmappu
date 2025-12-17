@@ -64,10 +64,14 @@ class KodawariSearchResult : AppCompatActivity() {
                 adapter = ShopFirestoreAdapter(shopList) { shop ->
                     val intent = Intent(this, shop_shop::class.java).apply {
                         putExtra("shopName", shop.name)
+                        putExtra("image", shop.image)       // 店舗画像URL
+                        putExtra("menu", shop.menu)         // メニュー画像URL
                         putExtra("shopAddress", shop.address)
-                        putExtra("feeling", shop.feeling)
-                        putExtra("image", shop.image)
-                        putExtra("menu", shop.menu)
+                        putExtra("shopType", shop.type)     // お店タイプ
+                        putExtra("feeling", shop.feeling)   // 雰囲気
+                        putExtra("concept", shop.concept)   // コンセプト
+                        putExtra("priceRange", shop.priceRange)
+                        putExtra("time", shop.time)
                     }
                     startActivity(intent)
                 }

@@ -58,7 +58,8 @@ class RandomKensaku : AppCompatActivity() {
                     putExtra("time", randomShop.time)
                     putExtra("image", randomShop.image)
                     putExtra("menu", randomShop.menu)
-                    putExtra("store_id", randomShop.name) // Firestore ID 代わりに
+                    putExtra("from_random", true)
+//                    putExtra("store_id", randomShop.name)
                 }
                 startActivity(intent)
             }

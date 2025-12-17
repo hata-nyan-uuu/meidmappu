@@ -2,9 +2,11 @@ package com.example.meidmappu
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.ImageButton
 import android.widget.ImageView
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 
 class concafe_tyutoriaru : AppCompatActivity() {
 
@@ -25,24 +27,41 @@ class concafe_tyutoriaru : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_meido_tyutoriaru)
+        setContentView(R.layout.activity_concafe_tyutoriaru)
 
-        val tutorialImage = findViewById<ImageView>(R.id.maidImage)
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(
+                systemBars.left,
+                systemBars.top,
+                systemBars.right,
+                systemBars.bottom
+            )
+            insets
+        }
 
-        // 最初の画像設定
+        val tutorialImage = findViewById<ImageView>(R.id.concafeImage)
+
+        // 最初の画像
         tutorialImage.setImageResource(concafeImages[currentIndex])
 
-        // タップで次へ
+        // 画像タップで次へ
         tutorialImage.setOnClickListener {
             currentIndex++
             if (currentIndex < concafeImages.size) {
                 tutorialImage.setImageResource(concafeImages[currentIndex])
             } else {
-                // 最後まで見たら閉じる（または次画面へ）
-                val intent= Intent(this,MainActivity::class.java)
+                val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
                 finish()
-            }        }
+            }
+        }
+
+        // ホームに戻る
+        val homeback3 = findViewById<ImageButton>(R.id.homeback3)
+        homeback3.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+        }
     }
 }

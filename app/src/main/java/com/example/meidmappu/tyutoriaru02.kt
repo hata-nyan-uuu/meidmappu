@@ -3,6 +3,7 @@ package com.example.meidmappu
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import android.widget.ImageButton
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -22,6 +23,12 @@ class tyutoriaru02 : AppCompatActivity() {
         val nextbtn02 = findViewById<Button>(R.id.nextbtn02)
         nextbtn02.setOnClickListener {
             val intent = Intent(this, tyutoriaru03::class.java)
+            startActivity(intent)
+        }
+        //ホーム画面に戻る
+        val homeback1=findViewById<ImageButton>(R.id.homeback1)
+        homeback1.setOnClickListener {
+            val intent= Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
     }

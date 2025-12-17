@@ -1,184 +1,231 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    android:paddingBottom="40dp"> <!-- ScrollView 下に余白 -->
+    android:fillViewport="true"
+    android:background="@drawable/midemaphaikei">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/main"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
 
-        <!-- ▼ 戻るボタン ▼ -->
-        <ImageButton
-            android:id="@+id/backbtn"
-            android:layout_width="65dp"
-            android:layout_height="65dp"
-            android:background="@android:color/transparent"
-            android:contentDescription="戻るボタン"
-            android:scaleType="fitXY"
-            android:layout_marginBottom="30dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.046"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.024"
-            app:srcCompat="@drawable/modoru2" />
+            <!-- 戻るボタン -->
+            <ImageButton
+                android:id="@+id/backbtn"
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/modoru2"
+                android:contentDescription="戻るボタン" />
 
-        <!-- ▼ 店名 ▼ -->
+
+
+
+        <!-- 店名 -->
         <TextView
             android:id="@+id/shop_name"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="70dp"
             android:text="店名"
             android:textSize="30sp"
             android:textStyle="bold"
-            android:textColor="@android:color/black"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:gravity="center"
+            android:layout_marginTop="16dp" />
 
-        <!-- ▼ 店舗画像 ▼ -->
+        <!-- 店舗画像 -->
         <ImageView
             android:id="@+id/imageView4"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
             android:scaleType="fitCenter"
-            android:layout_marginTop="20dp"
-            app:layout_constraintTop_toBottomOf="@+id/shop_name"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            android:src="@drawable/komorebiout"
+            android:layout_marginTop="16dp" />
 
-        <!-- ▼ メニュー名 ▼ -->
+        <!-- メニュータイトル -->
         <TextView
             android:id="@+id/menuname"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
             android:text="menu"
             android:textSize="30sp"
             android:textStyle="bold"
-            android:textColor="@android:color/black"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/imageView4" />
+            android:gravity="center"
+            android:layout_marginTop="8dp" />
 
-        <!-- ▼ メニュー画像 ▼ -->
+        <!-- メニュー画像 -->
         <ImageView
             android:id="@+id/imageView5"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
             android:scaleType="fitCenter"
-            android:layout_marginTop="16dp"
-            app:layout_constraintTop_toBottomOf="@+id/menuname"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            android:src="@drawable/komorebi"
+            android:layout_marginTop="12dp" />
 
-        <!-- ▼ お店タイプ ▼ -->
-        <TextView
-            android:id="@+id/textshoptype"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="type"
-            android:textSize="25sp"
-            android:textStyle="italic"
-            android:textColor="@android:color/black"
-            app:layout_constraintTop_toBottomOf="@+id/imageView5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
-
-        <!-- ▼ 住所 ▼ -->
-
+        <!-- 住所 -->
         <TextView
             android:id="@+id/addressname"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
             android:text="住所"
+            android:textSize="18sp"
             android:textColor="@android:color/black"
-            app:layout_constraintBottom_toTopOf="@+id/shop_address"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:layout_marginTop="16dp" />
 
         <TextView
             android:id="@+id/shop_address"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:text="住所: 〇〇県〇〇市"
-            android:textSize="18sp"
-            android:textStyle="italic"
-            app:layout_constraintTop_toBottomOf="@+id/textshoptype"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            android:text="〇〇県〇〇市"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_marginTop="4dp" />
 
-        <!-- ▼ 住所タップヒント ▼ -->
         <TextView
             android:id="@+id/address_tap_hint"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
             android:text="（タップでマップを開く）"
             android:textSize="14sp"
             android:textStyle="italic"
             android:textColor="#666666"
-            app:layout_constraintTop_toBottomOf="@id/shop_address"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            android:layout_marginTop="2dp" />
 
-        <!-- ▼ レビュータイトル ▼ -->
-
-        <!-- ▼ レビュー一覧コンテナ ▼ -->
-
-        <!-- ▼ レビュー投稿ボタン ▼ -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp">
 
         <TextView
-            android:id="@+id/review_title"
+            android:id="@+id/sharp1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            android:text="レビュー一覧"
-            android:textColor="@android:color/black"
+            android:text="#"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_marginTop="12dp"
+            />
+        <TextView
+            android:id="@+id/janru_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="メイドカフェ"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_marginTop="12dp" />
+        </LinearLayout>
+
+<!--コンセプトゾーン-->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp">
+
+        <TextView
+            android:id="@+id/sharp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="#"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_marginTop="4dp"
+            />
+
+        <TextView
+            android:id="@+id/concept_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="メイド系"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_marginTop="4dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp">
+        <TextView
+            android:id="@+id/fellintitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="#"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:layout_marginTop="4dp"/>
+        <TextView
+            android:id="@+id/feeling_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ゆっくりしたい"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_marginTop="4dp"/>
+    </LinearLayout>
+
+        <!-- 営業時間 一列表示 -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp">
+
+            <TextView
+                android:id="@+id/time_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="営業時間"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_marginTop="14dp"/>
+
+            <TextView
+                android:id="@+id/time_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="10:00~22:00"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:layout_marginTop="14dp" />
+
+        </LinearLayout>
+
+        <!-- レビュー -->
+        <TextView
+            android:id="@+id/review_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="レビュー"
             android:textSize="22sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/address_tap_hint" />
+            android:layout_marginTop="16dp" />
 
         <LinearLayout
             android:id="@+id/review_container"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="108dp"
             android:orientation="vertical"
-            android:padding="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/review_title" />
+            android:padding="8dp"
+            android:layout_marginTop="8dp" />
 
+        <!-- レビュー投稿ボタン -->
         <Button
             android:id="@+id/review_button"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="70dp"
             android:text="レビューを書く"
-            app:layout_constraintTop_toBottomOf="@+id/review_container"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="24dp" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
+    </LinearLayout>
 </ScrollView>

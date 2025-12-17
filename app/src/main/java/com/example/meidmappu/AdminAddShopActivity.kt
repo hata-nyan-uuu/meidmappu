@@ -3,6 +3,9 @@ package com.example.meidmappu
 import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.activity.enableEdgeToEdge
 import com.google.firebase.firestore.FirebaseFirestore
 
 class AdminAddShopActivity : AppCompatActivity() {
@@ -11,7 +14,29 @@ class AdminAddShopActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // ★ edge-to-edge 有効化
+        enableEdgeToEdge()
+
         setContentView(R.layout.activity_admin_add_shop)
+
+        // ★ Insets 設定（systemBars + ime）
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+            val paddingInsets = insets.getInsets(
+                WindowInsetsCompat.Type.systemBars() or
+                        WindowInsetsCompat.Type.ime()
+            )
+
+            v.setPadding(
+                paddingInsets.left,
+                paddingInsets.top,
+                paddingInsets.right,
+                paddingInsets.bottom
+            )
+            insets
+        }
+
+        // -------- ここからいつもの処理 --------
 
         // EditText
         val editName = findViewById<EditText>(R.id.editName)
@@ -27,10 +52,14 @@ class AdminAddShopActivity : AppCompatActivity() {
         val spinnerPrice = findViewById<Spinner>(R.id.spinnerPrice)
 
         val btnSave = findViewById<Button>(R.id.btnSaveShop)
+        val btnBack = findViewById<Button>(R.id.btnBack)
+
+        btnBack.setOnClickListener {
+            finish()
+        }
 
         btnSave.setOnClickListener {
 
-            // 未選択チェック（0番目は「〜は？」）
             if (
                 spinnerType.selectedItemPosition == 0 ||
                 spinnerConcept.selectedItemPosition == 0 ||
@@ -41,13 +70,20 @@ class AdminAddShopActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
+            val price = when (spinnerPrice.selectedItemPosition) {
+                1 -> 3000
+                2 -> 5000
+                3 -> 10000
+                else -> 0
+            }
+
             val shopData = hashMapOf(
                 "name" to editName.text.toString(),
                 "address" to editAddress.text.toString(),
                 "type" to spinnerType.selectedItem.toString(),
                 "concept" to spinnerConcept.selectedItem.toString(),
                 "feeling" to spinnerFeeling.selectedItem.toString(),
-                "priceRange" to spinnerPrice.selectedItemPosition,
+                "priceRange" to price,
                 "time" to editTime.text.toString(),
                 "image" to editImage.text.toString(),
                 "menu" to editMenu.text.toString()

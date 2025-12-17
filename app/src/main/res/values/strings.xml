@@ -60,8 +60,19 @@
     <string-array name="conseputo2">
         <item>コンセプトは？</item>
         <item>メイド系</item>
+        <item>クラシカルメイド系</item>
         <item>天使系</item>
         <item>悪魔系</item>
+        <item>カノジョ系</item>
+        <item>アイドル系</item>
+        <item>和風系</item>
+        <item>妖精系</item>
+        <item>ナース系</item>
+        <item>魔法少女系</item>
+        <item>チャイナ系</item>
+
+
+
     </string-array>
 
     <string-array name="feeling">

@@ -1,13 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:fillViewport="true"
+    android:fitsSystemWindows="false">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="24dp">
+
+        <Button
+            android:id="@+id/btnBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="戻る"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -31,13 +41,26 @@
             android:hint="住所"
             android:layout_marginTop="12dp"/>
 
-        <Spinner
-            android:id="@+id/spinnerConcept"
+        <EditText
+            android:id="@+id/editTime"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:entries="@array/conseputo2"
+            android:hint="営業時間"
             android:layout_marginTop="12dp"/>
 
+        <EditText
+            android:id="@+id/editImage"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:hint="メイン画像URL"
+            android:layout_marginTop="12dp"/>
+
+        <EditText
+            android:id="@+id/editMenu"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:hint="メニュー画像URL"
+            android:layout_marginTop="12dp"/>
 
         <Spinner
             android:id="@+id/spinnerFeeling"
@@ -59,26 +82,11 @@
             android:entries="@array/kakaku"
             android:layout_marginTop="12dp"/>
 
-
-        <EditText
-            android:id="@+id/editTime"
+        <Spinner
+            android:id="@+id/spinnerConcept"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:hint="営業時間"
-            android:layout_marginTop="12dp"/>
-
-        <EditText
-            android:id="@+id/editImage"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:hint="メイン画像URL"
-            android:layout_marginTop="12dp"/>
-
-        <EditText
-            android:id="@+id/editMenu"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:hint="メニュー画像URL"
+            android:entries="@array/conseputo2"
             android:layout_marginTop="12dp"/>
 
         <Button

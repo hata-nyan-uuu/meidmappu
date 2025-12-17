@@ -4,8 +4,13 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.widget.*
+import androidx.core.net.toUri
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.activity.enableEdgeToEdge
 import com.bumptech.glide.Glide
+import android.view.View
 
 class shop_shop : AppCompatActivity() {
 
@@ -15,7 +20,22 @@ class shop_shop : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
         setContentView(R.layout.activity_shop_shop)
+
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+            val paddingInsets = insets.getInsets(
+                WindowInsetsCompat.Type.systemBars() or
+                        WindowInsetsCompat.Type.ime()
+            )
+            v.setPadding(
+                paddingInsets.left,
+                paddingInsets.top,
+                paddingInsets.right,
+                paddingInsets.bottom
+            )
+            insets
+        }
 
         // DB
         db = UserDatabaseHelper(this)
@@ -24,6 +44,9 @@ class shop_shop : AppCompatActivity() {
         val name = intent.getStringExtra("shopName")
         val address = intent.getStringExtra("shopAddress")
         val feeling = intent.getStringExtra("feeling")
+        val janruname=intent.getStringExtra("shopType")
+        val concept=intent.getStringExtra("concept")
+        val time=intent.getStringExtra("time")
         val image1Url = intent.getStringExtra("image") // Firestore の image
         val image2Url = intent.getStringExtra("menu") // Firestore の menu
         storeId = intent.getIntExtra("store_id", -1)
@@ -34,8 +57,11 @@ class shop_shop : AppCompatActivity() {
 
         val nameText: TextView = findViewById(R.id.shop_name)
         val addressText: TextView = findViewById(R.id.shop_address)
-        val feelingText: TextView = findViewById(R.id.textshoptype)
         val reviewButton: Button = findViewById(R.id.review_button)
+        val janruText: TextView=findViewById(R.id.janru_name)
+        val conceptText: TextView=findViewById(R.id.concept_name)
+        val timeText: TextView=findViewById(R.id.time_value)
+        val feelingText: TextView=findViewById(R.id.feeling_value)
         val imageView: ImageView = findViewById(R.id.imageView4)
         val menuView: ImageView = findViewById(R.id.imageView5)
         reviewContainer = findViewById(R.id.review_container)
@@ -43,7 +69,10 @@ class shop_shop : AppCompatActivity() {
         // ====== ③ お店情報の表示 ======
         nameText.text = name ?: ""
         addressText.text = address ?: ""
-        feelingText.text = feeling ?: ""
+        janruText.text = janruname ?: ""
+        conceptText.text = concept ?: ""
+        timeText.text = time ?: ""
+        feelingText.text=feeling ?: ""
 
         // URL → Glide で画像表示
         Glide.with(this)
@@ -59,7 +88,7 @@ class shop_shop : AppCompatActivity() {
         // --- 住所 → Googleマップを開く ---
         if (!address.isNullOrEmpty()) {
             addressText.setOnClickListener {
-                val mapUri = Uri.parse("geo:0,0?q=" + Uri.encode(address))
+                val mapUri = "geo:0,0?q=${Uri.encode(address)}".toUri()
                 val mapIntent = Intent(Intent.ACTION_VIEW, mapUri)
                 startActivity(mapIntent)
             }
@@ -88,5 +117,6 @@ class shop_shop : AppCompatActivity() {
             textView.textSize = 16f
             reviewContainer.addView(textView)
         }
+
     }
 }

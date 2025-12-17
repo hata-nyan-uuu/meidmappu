@@ -77,7 +77,7 @@ class MainActivity : AppCompatActivity() {
             }
     }
 
-    /** 詳細画面を開く（URLをそのまま渡す仕様に変更） */
+    /** 詳細画面を開く */
     private fun openShopDetail(shop: ShopFirestore) {
         val intent = Intent(this, shop_shop::class.java).apply {
             putExtra("shopName", shop.name)

@@ -43,23 +43,27 @@ class RandomKensaku : AppCompatActivity() {
         val db = FirebaseFirestore.getInstance()
         try {
             val result = db.collection("shop").get().await()
-            val shops = result.documents.mapNotNull { it.toObject(ShopFirestore::class.java) }
+            val shop = result.documents.mapNotNull { doc ->
+                val shop = doc.toObject(ShopFirestore::class.java)
+                shop?.id = doc.id
+                shop
+            }
 
-            if (shops.isNotEmpty()) {
-                val randomShop = shops.random()
+
+            if (shop.isNotEmpty()) {
+                val randomShop = shop.random()
 
                 val intent = Intent(this@RandomKensaku, shop_shop::class.java).apply {
                     putExtra("shopName", randomShop.name)
-                    putExtra("shopAddress", randomShop.address)
-                    putExtra("feeling", randomShop.feeling)
-                    putExtra("concept", randomShop.concept)
-                    putExtra("shopType", randomShop.type)
-                    putExtra("priceRange", randomShop.priceRange)
-                    putExtra("time", randomShop.time)
                     putExtra("image", randomShop.image)
                     putExtra("menu", randomShop.menu)
-                    putExtra("from_random", true)
-//                    putExtra("store_id", randomShop.name)
+                    putExtra("shopAddress", randomShop.address)
+                    putExtra("shopType", randomShop.type)
+                    putExtra("feeling", randomShop.feeling)
+                    putExtra("concept", randomShop.concept)
+                    putExtra("priceRange", randomShop.priceRange)
+                    putExtra("time", randomShop.time)
+                    putExtra("shopId", randomShop.id)
                 }
                 startActivity(intent)
             }

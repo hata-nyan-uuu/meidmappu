@@ -4,8 +4,9 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.widget.*
-import androidx.core.net.toUri
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.net.toUri
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.activity.enableEdgeToEdge
@@ -15,9 +16,18 @@ import com.google.firebase.ktx.Firebase
 
 class shop_shop : AppCompatActivity() {
 
-    private lateinit var storeId: String             // ← Int から String に変更
+    private lateinit var storeId: String
     private lateinit var reviewContainer: LinearLayout
     private val firestore = Firebase.firestore
+
+//    // 投稿画面から戻ったらレビュー再読み込み
+//    private val reviewLauncher =
+//        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+//            // 投稿したら再読み込み
+//            if (it.resultCode == RESULT_OK) {
+//                loadReviews()
+//            }
+//        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,7 +48,7 @@ class shop_shop : AppCompatActivity() {
             insets
         }
 
-        // ====== ① お店データを受け取る ======
+        // お店情報取得
         val name = intent.getStringExtra("shopName")
         val address = intent.getStringExtra("shopAddress")
         val feeling = intent.getStringExtra("feeling")
@@ -47,17 +57,14 @@ class shop_shop : AppCompatActivity() {
         val time = intent.getStringExtra("time")
         val image1Url = intent.getStringExtra("image")
         val image2Url = intent.getStringExtra("menu")
-        storeId = intent.getStringExtra("shopId") ?: run {     // ← String 型で受け取る
-            Toast.makeText(this, "お店情報が取得できません",
-                Toast.LENGTH_SHORT).show()
+        storeId = intent.getStringExtra("shopId") ?: run {
+            Toast.makeText(this, "お店情報が取得できません", Toast.LENGTH_SHORT).show()
             finish()
             return
         }
 
-        // ====== ② UI 部品 ======
+        // UI部品
         val backBtn = findViewById<ImageButton>(R.id.backbtn)
-        backBtn.setOnClickListener { finish() }
-
         val nameText: TextView = findViewById(R.id.shop_name)
         val addressText: TextView = findViewById(R.id.shop_address)
         val reviewButton: Button = findViewById(R.id.review_button)
@@ -69,7 +76,7 @@ class shop_shop : AppCompatActivity() {
         val menuView: ImageView = findViewById(R.id.imageView5)
         reviewContainer = findViewById(R.id.review_container)
 
-        // ====== ③ お店情報の表示 ======
+        // 表示セット
         nameText.text = name ?: ""
         addressText.text = address ?: ""
         janruText.text = janruname ?: ""
@@ -77,18 +84,10 @@ class shop_shop : AppCompatActivity() {
         timeText.text = time ?: ""
         feelingText.text = feeling ?: ""
 
-        // URL → Glide で画像表示
-        Glide.with(this)
-            .load(image1Url)
-            .placeholder(R.drawable.noimage)
-            .into(imageView)
+        Glide.with(this).load(image1Url).placeholder(R.drawable.noimage).into(imageView)
+        Glide.with(this).load(image2Url).placeholder(R.drawable.noimage).into(menuView)
 
-        Glide.with(this)
-            .load(image2Url)
-            .placeholder(R.drawable.noimage)
-            .into(menuView)
-
-        // --- 住所 → Googleマップを開く ---
+        // Googleマップ
         if (!address.isNullOrEmpty()) {
             addressText.setOnClickListener {
                 val mapUri = "geo:0,0?q=${Uri.encode(address)}".toUri()
@@ -97,23 +96,20 @@ class shop_shop : AppCompatActivity() {
             }
         }
 
-        // ====== ④ レビュー一覧の表示 ======
-        loadReviews()  // ← storeId はフィールドなので引数不要
+        backBtn.setOnClickListener { finish() }
 
-        // ====== ⑤ レビュー投稿ボタン ======
+        // レビュー表示
+        loadReviews()
+
+        // 投稿ボタン
         reviewButton.setOnClickListener {
             val intent = Intent(this, ReviewPostActivity::class.java)
-            intent.putExtra("shopId", storeId)   // ← 文字列のまま渡す
+            intent.putExtra("shopId", storeId)
             startActivity(intent)
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        loadReviews()
-    }
-
-    // ====== レビュー読み込み ======
+    // レビュー読み込み
     private fun loadReviews() {
         reviewContainer.removeAllViews()
 

@@ -20,6 +20,7 @@ class ReviewPostActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_review_post)
 
+
         firestore = Firebase.firestore
         shopId = intent.getStringExtra("shopId") ?: run {
             Toast.makeText(this, "お店情報が取得できません",
@@ -27,6 +28,7 @@ class ReviewPostActivity : AppCompatActivity() {
             finish()
             return
         }
+
 
         ratingBar = findViewById(R.id.reviewRatingBar)
         commentEditText = findViewById(R.id.reviewComment)
@@ -47,6 +49,7 @@ class ReviewPostActivity : AppCompatActivity() {
 
         backButton.setOnClickListener { finish() }
     }
+
 
     private fun postReview(rating: Int, comment: String) {
         val review = hashMapOf(

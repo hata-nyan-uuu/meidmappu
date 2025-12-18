@@ -48,30 +48,34 @@ class KodawariSearchResult : AppCompatActivity() {
             .addOnSuccessListener { result ->
                 shopList.clear()
                 for (document in result) {
-                    val shop = document.toObject(ShopFirestore::class.java)
-                    // Kotlin 側で条件フィルタ
-                    val matchesType = type.isNullOrEmpty() || shop.type == type
-                    val matchesPrice = priceRange == null || shop.priceRange == priceRange.toLong()
-                    val matchesConcept = concept.isNullOrEmpty() || shop.concept == concept
-                    val matchesFeeling = feeling.isNullOrEmpty() || shop.feeling == feeling
-
-                    if (matchesType && matchesPrice && matchesConcept && matchesFeeling) {
-                        shopList.add(shop)
+                    val shop = document.toObject(ShopFirestore::class.java)?.apply {
+                        id = document.id
                     }
 
+                    shop?.let { s ->
+                        val matchesType = type.isNullOrEmpty() || s.type == type
+                        val matchesPrice = priceRange == null || s.priceRange == priceRange
+                        val matchesConcept = concept.isNullOrEmpty() || s.concept == concept
+                        val matchesFeeling = feeling.isNullOrEmpty() || s.feeling == feeling
+
+                        if (matchesType && matchesPrice && matchesConcept && matchesFeeling) {
+                            shopList.add(s)
+                        }
+                    }
                 }
 
                 adapter = ShopFirestoreAdapter(shopList) { shop ->
                     val intent = Intent(this, shop_shop::class.java).apply {
                         putExtra("shopName", shop.name)
-                        putExtra("image", shop.image)       // 店舗画像URL
-                        putExtra("menu", shop.menu)         // メニュー画像URL
+                        putExtra("image", shop.image)
+                        putExtra("menu", shop.menu)
                         putExtra("shopAddress", shop.address)
-                        putExtra("shopType", shop.type)     // お店タイプ
-                        putExtra("feeling", shop.feeling)   // 雰囲気
-                        putExtra("concept", shop.concept)   // コンセプト
+                        putExtra("shopType", shop.type)
+                        putExtra("feeling", shop.feeling)
+                        putExtra("concept", shop.concept)
                         putExtra("priceRange", shop.priceRange)
                         putExtra("time", shop.time)
+                        putExtra("shopId", shop.id)
                     }
                     startActivity(intent)
                 }

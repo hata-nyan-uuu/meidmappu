@@ -13,6 +13,12 @@
         android:orientation="vertical"
         android:padding="16dp">
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp">
+
             <!-- 戻るボタン -->
             <ImageButton
                 android:id="@+id/backbtn"
@@ -22,6 +28,22 @@
                 android:scaleType="fitCenter"
                 android:src="@drawable/modoru2"
                 android:contentDescription="戻るボタン" />
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <ImageButton
+            android:id="@+id/randombtn"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="end"
+            android:background="@android:color/transparent"
+            android:scaleType="fitCenter"
+            android:src="@android:drawable/ic_popup_sync"
+            android:contentDescription="ランダム検索ボタン" />
+    </LinearLayout>
+
 
 
 
@@ -226,6 +248,7 @@
             android:text="レビューを書く"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="24dp" />
+
 
     </LinearLayout>
 </ScrollView>

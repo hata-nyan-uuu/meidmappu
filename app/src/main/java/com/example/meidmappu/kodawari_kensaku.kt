@@ -29,7 +29,7 @@ class kodawari_kensaku : AppCompatActivity() {
         back01.setOnClickListener { finish() }
 
         // 検索ボタン
-        findViewById<Button>(R.id.kensaku).setOnClickListener {
+        findViewById<ImageButton>(R.id.kensaku).setOnClickListener {
             val type = getSpinnerValue(findViewById(R.id.mise_type))
             val priceStr = getSpinnerValue(findViewById(R.id.kakaku))
             val concept = getSpinnerValue(findViewById(R.id.conseputo2))

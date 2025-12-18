@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.firestore.FirebaseFirestore
 import android.util.Log
+import android.widget.ImageButton
 
 class MainActivity : AppCompatActivity() {
 
@@ -106,7 +107,7 @@ class MainActivity : AppCompatActivity() {
         findViewById<MaterialCardView>(R.id.hazimete).setOnClickListener {
             startActivity(Intent(this, tyutoriaru01::class.java))
         }
-        findViewById<Button>(R.id.settingbtn).setOnClickListener {
+        findViewById<ImageButton>(R.id.settingbtn).setOnClickListener {
             startActivity(Intent(this, setting::class.java))
         }
     }

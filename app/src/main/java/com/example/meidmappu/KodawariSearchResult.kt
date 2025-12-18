@@ -3,34 +3,53 @@ package com.example.meidmappu
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.ImageButton
+import android.widget.TextView
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.firestore.FirebaseFirestore
-
 
 
 class KodawariSearchResult : AppCompatActivity() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: ShopFirestoreAdapter
+    private lateinit var emptyText: TextView
+
     private val shopList = mutableListOf<ShopFirestore>()
     private val db = FirebaseFirestore.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_kodawari_search_result)
 
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(
+                systemBars.left,
+                systemBars.top,
+                systemBars.right,
+                systemBars.bottom
+            )
+            insets
+        }
+
         recyclerView = findViewById(R.id.shopRecyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
+
+        emptyText = findViewById(R.id.emptyText)
 
         val back01 = findViewById<ImageButton>(R.id.backbtn3)
         back01.setOnClickListener { finish() }
 
         val type = intent.getStringExtra("type")
-        val priceRange = intent.getLongExtra("priceRange", -1L)
-            .takeIf { it >= 0 }
+        val priceRange = intent.getLongExtra("priceRange", -1L).takeIf { it >= 0 }
         val concept = intent.getStringExtra("concept")
         val feeling = intent.getStringExtra("feeling")
 
@@ -47,6 +66,7 @@ class KodawariSearchResult : AppCompatActivity() {
             .get()
             .addOnSuccessListener { result ->
                 shopList.clear()
+
                 for (document in result) {
                     val shop = document.toObject(ShopFirestore::class.java)?.apply {
                         id = document.id
@@ -64,22 +84,30 @@ class KodawariSearchResult : AppCompatActivity() {
                     }
                 }
 
-                adapter = ShopFirestoreAdapter(shopList) { shop ->
-                    val intent = Intent(this, shop_shop::class.java).apply {
-                        putExtra("shopName", shop.name)
-                        putExtra("image", shop.image)
-                        putExtra("menu", shop.menu)
-                        putExtra("shopAddress", shop.address)
-                        putExtra("shopType", shop.type)
-                        putExtra("feeling", shop.feeling)
-                        putExtra("concept", shop.concept)
-                        putExtra("priceRange", shop.priceRange)
-                        putExtra("time", shop.time)
-                        putExtra("shopId", shop.id)
+                if (shopList.isEmpty()) {
+                    emptyText.visibility = View.VISIBLE
+                    recyclerView.visibility = View.GONE
+                } else {
+                    emptyText.visibility = View.GONE
+                    recyclerView.visibility = View.VISIBLE
+
+                    adapter = ShopFirestoreAdapter(shopList) { shop ->
+                        val intent = Intent(this, shop_shop::class.java).apply {
+                            putExtra("shopName", shop.name)
+                            putExtra("image", shop.image)
+                            putExtra("menu", shop.menu)
+                            putExtra("shopAddress", shop.address)
+                            putExtra("shopType", shop.type)
+                            putExtra("feeling", shop.feeling)
+                            putExtra("concept", shop.concept)
+                            putExtra("priceRange", shop.priceRange)
+                            putExtra("time", shop.time)
+                            putExtra("shopId", shop.id)
+                        }
+                        startActivity(intent)
                     }
-                    startActivity(intent)
+                    recyclerView.adapter = adapter
                 }
-                recyclerView.adapter = adapter
             }
             .addOnFailureListener { e ->
                 Log.e("Firestore", "データ取得失敗", e)

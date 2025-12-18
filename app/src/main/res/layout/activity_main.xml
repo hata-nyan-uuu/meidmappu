@@ -23,12 +23,16 @@
             android:orientation="vertical">
 
             <!-- 設定ボタン（左上） -->
-            <Button
+            <ImageButton
                 android:id="@+id/settingbtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="設定"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="@android:color/transparent"
+                android:contentDescription="設定"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/setteimage"
                 android:layout_margin="8dp"/>
+
 
             <!-- タイトル（中央） -->
 

@@ -2,7 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/kodawariResultLayout"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/midemaphaikei"
@@ -11,18 +11,16 @@
     <!-- RecyclerView（リスト表示） -->
     <ImageButton
         android:id="@+id/backbtn3"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
         android:background="@android:color/transparent"
         android:contentDescription="戻るボタン"
         android:scaleType="fitXY"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.046"
+        app:srcCompat="@drawable/modoru2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.024"
-        app:srcCompat="@drawable/modoru2" />
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="12dp" />
 
     <TextView
         android:id="@+id/resultTitle"
@@ -37,6 +35,21 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/emptyText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="該当する結果はありません"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="50dp"/>
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/shopRecyclerView"

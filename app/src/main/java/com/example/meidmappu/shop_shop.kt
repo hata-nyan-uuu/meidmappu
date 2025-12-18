@@ -4,7 +4,6 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.widget.*
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.net.toUri
 import androidx.core.view.ViewCompat
@@ -13,21 +12,14 @@ import androidx.activity.enableEdgeToEdge
 import com.bumptech.glide.Glide
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import android.view.View
+
 
 class shop_shop : AppCompatActivity() {
 
     private lateinit var storeId: String
     private lateinit var reviewContainer: LinearLayout
     private val firestore = Firebase.firestore
-
-//    // 投稿画面から戻ったらレビュー再読み込み
-//    private val reviewLauncher =
-//        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-//            // 投稿したら再読み込み
-//            if (it.resultCode == RESULT_OK) {
-//                loadReviews()
-//            }
-//        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,6 +38,48 @@ class shop_shop : AppCompatActivity() {
                 paddingInsets.bottom
             )
             insets
+        }
+
+        // ランダム検索ボタン
+        val randomButton = findViewById<ImageButton>(R.id.randombtn)
+        randomButton.visibility = View.GONE
+
+        // Intentのフラグをチェック
+        val fromRandom = intent.getBooleanExtra("FROM_RANDOM", false)
+        if (fromRandom) {
+            randomButton.visibility = View.VISIBLE
+            randomButton.setOnClickListener {
+                // Firestore からランダムにお店を取得して自分自身に遷移
+                firestore.collection("shop").get()
+                    .addOnSuccessListener { result ->
+                        val shops = result.documents.mapNotNull { doc ->
+                            val shop = doc.toObject(ShopFirestore::class.java)
+                            shop?.id = doc.id
+                            shop
+                        }
+                        if (shops.isNotEmpty()) {
+                            val randomShop = shops.random()
+                            val intent = Intent(this, shop_shop::class.java).apply {
+                                putExtra("shopName", randomShop.name)
+                                putExtra("image", randomShop.image)
+                                putExtra("menu", randomShop.menu)
+                                putExtra("shopAddress", randomShop.address)
+                                putExtra("shopType", randomShop.type)
+                                putExtra("feeling", randomShop.feeling)
+                                putExtra("concept", randomShop.concept)
+                                putExtra("priceRange", randomShop.priceRange)
+                                putExtra("time", randomShop.time)
+                                putExtra("shopId", randomShop.id)
+                                putExtra("FROM_RANDOM", true)
+                            }
+                            startActivity(intent)
+                            finish() // 古い画面を閉じる
+                        }
+                    }
+                    .addOnFailureListener {
+                        Toast.makeText(this, "ランダム取得に失敗しました", Toast.LENGTH_SHORT).show()
+                    }
+            }
         }
 
         // お店情報取得
@@ -96,6 +130,7 @@ class shop_shop : AppCompatActivity() {
             }
         }
 
+        // 戻る
         backBtn.setOnClickListener { finish() }
 
         // レビュー表示

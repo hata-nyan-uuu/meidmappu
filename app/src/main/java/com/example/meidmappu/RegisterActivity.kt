@@ -5,13 +5,16 @@ import android.os.Bundle
 import android.util.Patterns
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.Toast
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 
 class RegisterActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
         setContentView(R.layout.activity_register)
 
         // DB
@@ -21,7 +24,7 @@ class RegisterActivity : AppCompatActivity() {
         val emailEdit = findViewById<EditText>(R.id.registerEmail)
         val passwordEdit = findViewById<EditText>(R.id.registerPassword)
         val registerButton = findViewById<Button>(R.id.registerButton)
-        val backButton = findViewById<Button>(R.id.registerBack)
+        val backbtn9 = findViewById<ImageButton>(R.id.backbtn9)
 
         // 登録ボタン
         registerButton.setOnClickListener {
@@ -60,7 +63,7 @@ class RegisterActivity : AppCompatActivity() {
        }
 
         // 戻るボタン
-        backButton.setOnClickListener {
+        backbtn9.setOnClickListener {
             finish()
         }
     }

@@ -64,6 +64,9 @@ class RandomKensaku : AppCompatActivity() {
                     putExtra("priceRange", randomShop.priceRange)
                     putExtra("time", randomShop.time)
                     putExtra("shopId", randomShop.id)
+
+                    //フラグ
+                    putExtra("FROM_RANDOM",true)
                 }
                 startActivity(intent)
             }

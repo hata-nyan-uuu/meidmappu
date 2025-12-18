@@ -1,16 +1,23 @@
-<?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/randamuhaikei"
-    android:fitsSystemWindows="true"
-    tools:context=".RandomKensaku">
+    android:layout_height="match_parent">
 
-    <!-- ランダム開始：透明タップ領域 -->
+    <!-- 背景画像 -->
+    <ImageView
+        android:id="@+id/backgroundImage"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/randamuhaikei"
+        android:scaleType="centerCrop"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <!-- ランダム開始ボタン（透明） -->
     <ImageButton
         android:id="@+id/randomStart"
         android:layout_width="0dp"
@@ -23,13 +30,13 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintVertical_bias="0.399" />
+        app:layout_constraintVertical_bias="0.399"/>
 
-    <!-- 戻るボタン（安全領域内） -->
+    <!-- 戻るボタン -->
     <ImageButton
         android:id="@+id/backbtn1"
-        android:layout_width="56dp"
-        android:layout_height="56dp"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
         android:background="@android:color/transparent"
         android:contentDescription="戻るボタン"
         android:scaleType="fitXY"

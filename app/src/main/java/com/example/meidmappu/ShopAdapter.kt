@@ -7,6 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 
 
 class ShopAdapter(
@@ -37,6 +38,8 @@ class ShopAdapter(
             .load(imageUrl)
             .placeholder(R.drawable.noimage)
             .error(R.drawable.noimage)
+            .centerCrop()                     // アスペクト比を維持して ImageView に収める
+            .diskCacheStrategy(DiskCacheStrategy.ALL) // キャッシュを強化
             .into(holder.image)
 
         holder.itemView.setOnClickListener { onItemClick(shop) }

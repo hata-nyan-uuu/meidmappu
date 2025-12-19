@@ -7,7 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 class ShopFirestoreAdapter(
     private val shopList: List<ShopFirestore>,
     private val onClick: (ShopFirestore) -> Unit
@@ -37,6 +37,8 @@ class ShopFirestoreAdapter(
             .load(imageUrl)
             .placeholder(R.drawable.noimage)
             .error(R.drawable.noimage)
+            .centerCrop()                     // アスペクト比を維持して ImageView に収める
+            .diskCacheStrategy(DiskCacheStrategy.ALL) // ディスクキャッシュを有効化
             .into(holder.image)
 
         holder.itemView.setOnClickListener { onClick(shop) }

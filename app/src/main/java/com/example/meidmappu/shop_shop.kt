@@ -13,6 +13,10 @@ import com.bumptech.glide.Glide
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import android.view.View
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.target.Target
+
+
 
 
 class shop_shop : AppCompatActivity() {
@@ -118,8 +122,18 @@ class shop_shop : AppCompatActivity() {
         timeText.text = time ?: ""
         feelingText.text = feeling ?: ""
 
-        Glide.with(this).load(image1Url).placeholder(R.drawable.noimage).into(imageView)
-        Glide.with(this).load(image2Url).placeholder(R.drawable.noimage).into(menuView)
+        Glide.with(this)
+            .load(image1Url)
+            .placeholder(R.drawable.noimage)
+            .diskCacheStrategy(DiskCacheStrategy.ALL)
+            .into(imageView)
+
+        Glide.with(this)
+            .load(image2Url)
+            .placeholder(R.drawable.noimage)
+            .diskCacheStrategy(DiskCacheStrategy.ALL)
+            .override(Target.SIZE_ORIGINAL)
+            .into(menuView)
 
         // Googleマップ
         if (!address.isNullOrEmpty()) {

@@ -3,7 +3,7 @@ package com.example.meidmappu
 import android.util.Log
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
+import android.widget.ArrayAdapter
 import android.widget.ImageButton
 import android.widget.Spinner
 import androidx.activity.enableEdgeToEdge
@@ -24,11 +24,18 @@ class kodawari_kensaku : AppCompatActivity() {
             insets
         }
 
-        //前の画面にもどる
-        val back01 = findViewById<ImageButton>(R.id.backbtn2)
-        back01.setOnClickListener { finish() }
+        // Spinner 初期化（文字サイズ反映）
+        setupSpinner(R.id.mise_type, R.array.mise_type)
+        setupSpinner(R.id.conseputo2, R.array.conseputo2)
+        setupSpinner(R.id.kakaku, R.array.kakaku)
+        setupSpinner(R.id.feeling, R.array.feeling)
 
-        // 検索ボタン
+        // 戻る
+        findViewById<ImageButton>(R.id.backbtn2).setOnClickListener {
+            finish()
+        }
+
+        // 検索
         findViewById<ImageButton>(R.id.kensaku).setOnClickListener {
             val type = getSpinnerValue(findViewById(R.id.mise_type))
             val priceStr = getSpinnerValue(findViewById(R.id.kakaku))
@@ -40,7 +47,10 @@ class kodawari_kensaku : AppCompatActivity() {
                 ?.replace("円", "")
                 ?.toLongOrNull()
 
-            Log.d("DEBUG", "検索条件: type=$type priceRange=$priceRange concept=$concept feeling=$feeling")
+            Log.d(
+                "DEBUG",
+                "検索条件: type=$type priceRange=$priceRange concept=$concept feeling=$feeling"
+            )
 
             val intent = Intent(this, KodawariSearchResult::class.java).apply {
                 putExtra("type", type)
@@ -52,7 +62,19 @@ class kodawari_kensaku : AppCompatActivity() {
         }
     }
 
-    // Spinner の先頭項目は null（未選択）として扱う安全版
+    // Spinner 共通設定
+    private fun setupSpinner(spinnerId: Int, arrayId: Int) {
+        val spinner = findViewById<Spinner>(spinnerId)
+        val adapter = ArrayAdapter.createFromResource(
+            this,
+            arrayId,
+            R.layout.spinner_item
+        )
+        adapter.setDropDownViewResource(R.layout.spinner_dropdown_item)
+        spinner.adapter = adapter
+    }
+
+    // Spinner の先頭項目は未選択扱い
     private fun getSpinnerValue(spinner: Spinner): String? {
         return if (spinner.selectedItemPosition == 0) {
             null

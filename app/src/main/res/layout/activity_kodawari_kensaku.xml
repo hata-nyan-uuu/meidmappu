@@ -14,14 +14,14 @@
         android:id="@+id/titleImage"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:src="@drawable/kowawarifont2"
         android:adjustViewBounds="true"
-        android:scaleType="fitCenter"
-        app:layout_constraintWidth_percent="0.6"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/kowawarifont2"
+        android:layout_marginTop="30dp"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="24dp"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/backbtn2"
+        app:layout_constraintWidth_percent="0.6" />
 
     <ImageButton
         android:id="@+id/backbtn2"
@@ -41,17 +41,17 @@
     <Spinner
         android:id="@+id/mise_type"
         android:layout_width="0dp"
-        android:layout_height="50dp"
+        android:layout_height="70dp"
         android:layout_marginTop="32dp"
         android:entries="@array/mise_type"
-        app:layout_constraintTop_toBottomOf="@id/titleImage"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@id/titleImage" />
 
     <Spinner
         android:id="@+id/conseputo2"
         android:layout_width="0dp"
-        android:layout_height="50dp"
+        android:layout_height="70dp"
         android:layout_marginTop="20dp"
         android:entries="@array/conseputo2"
         app:layout_constraintTop_toBottomOf="@id/mise_type"
@@ -62,7 +62,7 @@
     <Spinner
         android:id="@+id/kakaku"
         android:layout_width="0dp"
-        android:layout_height="50dp"
+        android:layout_height="70dp"
         android:layout_marginTop="20dp"
         android:entries="@array/kakaku"
         app:layout_constraintTop_toBottomOf="@id/conseputo2"
@@ -73,7 +73,7 @@
     <Spinner
         android:id="@+id/feeling"
         android:layout_width="0dp"
-        android:layout_height="50dp"
+        android:layout_height="70dp"
         android:layout_marginTop="20dp"
         android:entries="@array/feeling"
         app:layout_constraintTop_toBottomOf="@id/kakaku"
@@ -97,12 +97,12 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="129dp"
+        android:layout_height="150dp"
         android:adjustViewBounds="true"
         android:scaleType="fitCenter"
-        app:srcCompat="@drawable/ussi"
-        app:layout_constraintWidth_percent="0.3"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintWidth_percent="0.3"
+        app:srcCompat="@drawable/ussi" />
 </androidx.constraintlayout.widget.ConstraintLayout>

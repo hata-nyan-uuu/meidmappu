@@ -1,9 +1,9 @@
 plugins {
     id("com.android.application")
     alias(libs.plugins.kotlin.android)
-    id("com.google.devtools.ksp") version "1.9.22-1.0.17"
     id("com.google.gms.google-services")
 }
+
 
 android {
     namespace = "com.example.meidmappu"
@@ -12,7 +12,7 @@ android {
     defaultConfig {
         applicationId = "com.example.meidmappu"
         minSdk = 24
-        targetSdk = 36
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
@@ -57,6 +57,7 @@ dependencies {
     implementation(libs.androidx.lifecycle.livedata.ktx)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
 
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -70,12 +71,8 @@ dependencies {
 
     // Firestore
     implementation("com.google.firebase:firebase-firestore-ktx")
-
     implementation("com.google.android.gms:play-services-ads:23.0.0")
+    implementation("com.google.firebase:firebase-auth")
 
-    // Room（あとで削除予定） ← 今は残しておいてOK
-    val room_version = "2.6.1"
-    implementation("androidx.room:room-runtime:$room_version")
-    ksp("androidx.room:room-compiler:$room_version")
-    implementation("androidx.room:room-ktx:$room_version")
+
 }

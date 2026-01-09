@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/midemaphaikei"
+    tools:context=".AccountSetting">
+
+    <ImageButton
+        android:id="@+id/backbtnsetting"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:background="@android:color/transparent"
+        android:contentDescription="1つ前にもどる"
+        android:scaleType="fitCenter"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/modoru2" />
+
+    <ImageButton
+        android:id="@+id/PWchenge"
+        android:layout_width="328dp"
+        android:layout_height="155dp"
+        android:layout_marginTop="24dp"
+        android:background="@android:color/transparent"
+        android:contentDescription="パスワード変更"
+        android:scaleType="fitCenter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/backbtnsetting"
+        app:srcCompat="@drawable/passwordbtn" />
+
+    <ImageButton
+        android:id="@+id/logout"
+        android:layout_width="328dp"
+        android:layout_height="155dp"
+        android:background="@android:color/transparent"
+        android:contentDescription="ログアウト"
+        android:scaleType="fitCenter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/PWchenge"
+        app:srcCompat="@drawable/logoutbtn" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

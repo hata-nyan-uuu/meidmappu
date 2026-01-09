@@ -9,16 +9,19 @@ import android.widget.ImageButton
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.auth.FirebaseAuth
+
 
 class RegisterActivity : AppCompatActivity() {
+
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_register)
 
-        // DB
-//        val db = UserDatabaseHelper(this)
+
 
         // XMLと対応したView取得
         val emailEdit = findViewById<EditText>(R.id.registerEmail)
@@ -50,16 +53,30 @@ class RegisterActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            // --- DB登録 ---
-//            val success = db.registerUser(email, password)
-//
-//            if (success) {
-//                Toast.makeText(this, "登録が完了しました。ログインしてください", Toast.LENGTH_SHORT).show()
-//                startActivity(Intent(this, LoginActivity::class.java))
-//                finish()
-//            } else {
-//                Toast.makeText(this, "このメールアドレスは既に登録されています", Toast.LENGTH_SHORT).show()
-//            }
+// --- Firebase Authentication 登録 ---
+
+            auth = FirebaseAuth.getInstance()
+            auth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this) { task ->
+                    if (task.isSuccessful) {
+                        Toast.makeText(
+                            this,
+                            "登録が完了しました。ログインしてください",
+                            Toast.LENGTH_SHORT
+                        ).show()
+
+                        startActivity(Intent(this, LoginActivity::class.java))
+                        finish()
+
+                    } else {
+                        Toast.makeText(
+                            this,
+                            "登録に失敗しました: ${task.exception?.message}",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+
        }
 
         // 戻るボタン

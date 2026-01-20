@@ -22,7 +22,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="店舗追加"
+            android:text="店舗の編集"
             android:textSize="20sp"
             android:textStyle="bold"
             android:gravity="center"

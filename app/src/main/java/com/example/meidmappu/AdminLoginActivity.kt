@@ -10,6 +10,8 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.google.firebase.auth.FirebaseAuth
+
 
 
 class AdminLoginActivity : AppCompatActivity() {
@@ -33,20 +35,20 @@ class AdminLoginActivity : AppCompatActivity() {
         backBtn7.setOnClickListener { finish() }
 
         loginBtn.setOnClickListener {
-            val id = idEdit.text.toString()
+            val email = idEdit.text.toString()
             val pass = passEdit.text.toString()
 
-            if (id == "abc" && pass == "1234") {
-                // ログイン成功
-                val pref = getSharedPreferences("admin", MODE_PRIVATE)
-                pref.edit().putBoolean("login", true).apply()
-
-                startActivity(Intent(this, AdminHomeActivity::class.java))
-                finish()
-            } else {
-                Toast.makeText(this, "IDかパスワードが違います", Toast.LENGTH_SHORT).show()
-            }
+            FirebaseAuth.getInstance()
+                .signInWithEmailAndPassword(email, pass)
+                .addOnSuccessListener {
+                    startActivity(Intent(this, AdminHomeActivity::class.java))
+                    finish()
+                }
+                .addOnFailureListener {
+                    Toast.makeText(this, "ログイン失敗", Toast.LENGTH_SHORT).show()
+                }
         }
+
 
     }
 }

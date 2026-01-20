@@ -11,5 +11,9 @@ data class ShopFirestore(
     var type: String = "",
     var priceRange: Long = 0L,
     var time: String? = null,
-    var image: String? = null
+    var image: String? = null,
+    var website: String? = null,
+    var x: String? = null,
+    var instagram: String? = null,
+    var tiktok: String? = null
 )

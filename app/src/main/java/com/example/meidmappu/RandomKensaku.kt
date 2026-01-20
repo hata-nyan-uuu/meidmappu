@@ -54,15 +54,6 @@ class RandomKensaku : AppCompatActivity() {
                 val randomShop = shop.random()
 
                 val intent = Intent(this@RandomKensaku, shop_shop::class.java).apply {
-                    putExtra("shopName", randomShop.name)
-                    putExtra("image", randomShop.image)
-                    putExtra("menu", randomShop.menu)
-                    putExtra("shopAddress", randomShop.address)
-                    putExtra("shopType", randomShop.type)
-                    putExtra("feeling", randomShop.feeling)
-                    putExtra("concept", randomShop.concept)
-                    putExtra("priceRange", randomShop.priceRange)
-                    putExtra("time", randomShop.time)
                     putExtra("shopId", randomShop.id)
 
                     //フラグ

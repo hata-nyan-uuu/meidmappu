@@ -3,10 +3,8 @@ package com.example.meidmappu
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
 import com.google.android.gms.ads.MobileAds
-
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
 import com.google.android.material.card.MaterialCardView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -20,7 +18,7 @@ import android.widget.ImageButton
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var adapter: ShopFirestoreAdapter
+    private lateinit var adapter: ShopAdapter
     private val shopList = mutableListOf<ShopFirestore>()   // Firestore から取るデータ
     private val db = FirebaseFirestore.getInstance()
 
@@ -48,7 +46,7 @@ class MainActivity : AppCompatActivity() {
         val recyclerView = findViewById<RecyclerView>(R.id.homeRecyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-        adapter = ShopFirestoreAdapter(shopList) { shop ->
+        adapter = ShopAdapter(shopList) { shop ->
             openShopDetail(shop)
         }
         recyclerView.adapter = adapter
@@ -82,15 +80,6 @@ class MainActivity : AppCompatActivity() {
     /** 詳細画面を開く */
     private fun openShopDetail(shop: ShopFirestore) {
         val intent = Intent(this, shop_shop::class.java).apply {
-            putExtra("shopName", shop.name)
-            putExtra("image", shop.image)
-            putExtra("menu", shop.menu)
-            putExtra("shopAddress", shop.address)
-            putExtra("shopType", shop.type)
-            putExtra("feeling", shop.feeling)
-            putExtra("concept", shop.concept)
-            putExtra("priceRange", shop.priceRange)
-            putExtra("time", shop.time)
             putExtra("shopId", shop.id)
         }
         startActivity(intent)

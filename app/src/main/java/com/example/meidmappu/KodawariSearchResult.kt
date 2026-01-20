@@ -18,7 +18,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 class KodawariSearchResult : AppCompatActivity() {
 
     private lateinit var recyclerView: RecyclerView
-    private lateinit var adapter: ShopFirestoreAdapter
+    private lateinit var adapter: ShopAdapter
     private lateinit var emptyText: TextView
 
     private val shopList = mutableListOf<ShopFirestore>()
@@ -91,17 +91,8 @@ class KodawariSearchResult : AppCompatActivity() {
                     emptyText.visibility = View.GONE
                     recyclerView.visibility = View.VISIBLE
 
-                    adapter = ShopFirestoreAdapter(shopList) { shop ->
+                    adapter = ShopAdapter(shopList) { shop ->
                         val intent = Intent(this, shop_shop::class.java).apply {
-                            putExtra("shopName", shop.name)
-                            putExtra("image", shop.image)
-                            putExtra("menu", shop.menu)
-                            putExtra("shopAddress", shop.address)
-                            putExtra("shopType", shop.type)
-                            putExtra("feeling", shop.feeling)
-                            putExtra("concept", shop.concept)
-                            putExtra("priceRange", shop.priceRange)
-                            putExtra("time", shop.time)
                             putExtra("shopId", shop.id)
                         }
                         startActivity(intent)

@@ -29,12 +29,23 @@
         android:layout_marginTop="32dp"/>
 
     <Button
+        android:id="@+id/btnEditShop"
+        android:layout_width="0dp"
+        android:layout_height="70dp"
+        android:textSize="30sp"
+        android:text="お店を編集"
+        app:layout_constraintTop_toBottomOf="@id/btnAddShop"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"/>
+
+    <Button
         android:id="@+id/btnLogout"
         android:layout_width="0dp"
         android:layout_height="70dp"
         android:textSize="30sp"
         android:text="ログアウト"
-        app:layout_constraintTop_toBottomOf="@id/btnAddShop"
+        app:layout_constraintTop_toBottomOf="@id/btnEditShop"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="16dp"/>

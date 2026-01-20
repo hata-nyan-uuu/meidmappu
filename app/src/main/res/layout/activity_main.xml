@@ -56,48 +56,6 @@
                 android:orientation="vertical"
                 android:padding="16dp">
 
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/random1"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:clickable="true"
-                    android:layout_margin="8dp"
-                    android:foreground="?attr/selectableItemBackground"
-                    app:cardCornerRadius="20dp"
-                    app:cardElevation="4dp">
-
-                    <com.google.android.material.imageview.ShapeableImageView
-                        android:id="@+id/randomImage"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:contentDescription="ランダム検索"
-                        android:adjustViewBounds="true"
-                        android:scaleType="fitCenter"
-                        app:shapeAppearanceOverlay="@style/RoundedImage"
-                        app:srcCompat="@drawable/randombutton" />
-                </com.google.android.material.card.MaterialCardView>
-
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/kodawari"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_margin="8dp"
-                    android:clickable="true"
-                    android:foreground="?attr/selectableItemBackground"
-                    app:cardCornerRadius="20dp"
-                    app:cardElevation="4dp">
-
-                    <com.google.android.material.imageview.ShapeableImageView
-                        android:id="@+id/kodawariImage"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:contentDescription="こだわりけんさく検索"
-                        android:adjustViewBounds="true"
-                        android:scaleType="fitCenter"
-                        app:shapeAppearanceOverlay="@style/RoundedImage"
-                        app:srcCompat="@drawable/kodawaributton" />
-                </com.google.android.material.card.MaterialCardView>
-
 
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/hazimete"
@@ -118,6 +76,48 @@
                         android:scaleType="fitCenter"
                         app:shapeAppearanceOverlay="@style/RoundedImage"
                         app:srcCompat="@drawable/hazimetebutton" />
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/kodawari"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="8dp"
+                    android:clickable="true"
+                    android:foreground="?attr/selectableItemBackground"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="4dp">
+
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/kodawariImage"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:adjustViewBounds="true"
+                        android:contentDescription="こだわりけんさく検索"
+                        android:scaleType="fitCenter"
+                        app:shapeAppearanceOverlay="@style/RoundedImage"
+                        app:srcCompat="@drawable/kodawaributton" />
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/random1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="8dp"
+                    android:clickable="true"
+                    android:foreground="?attr/selectableItemBackground"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="4dp">
+
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/randomImage"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:adjustViewBounds="true"
+                        android:contentDescription="ランダム検索"
+                        android:scaleType="fitCenter"
+                        app:shapeAppearanceOverlay="@style/RoundedImage"
+                        app:srcCompat="@drawable/randombutton" />
                 </com.google.android.material.card.MaterialCardView>
 
             </LinearLayout>

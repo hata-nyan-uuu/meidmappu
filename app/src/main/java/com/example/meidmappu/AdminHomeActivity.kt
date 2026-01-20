@@ -13,10 +13,16 @@ class AdminHomeActivity : AppCompatActivity() {
 
         val btnAddShop = findViewById<Button>(R.id.btnAddShop)
         val btnLogout = findViewById<Button>(R.id.btnLogout)
+        val btnEditShop= findViewById<Button>(R.id.btnEditShop)
 
         // お店追加画面へ
         btnAddShop.setOnClickListener {
             startActivity(Intent(this, AdminAddShopActivity::class.java))
+        }
+
+        //お店の編集へ
+        btnEditShop.setOnClickListener {
+            startActivity(Intent(this, AdminShopSearch::class.java))
         }
 
         // ログアウト

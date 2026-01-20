@@ -15,6 +15,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Meidmappu">
         <activity
+            android:name=".AdminEditShopActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AdminShopSearch"
+            android:exported="false" />
+        <activity
             android:name=".AccountSetting"
             android:exported="false" />
 

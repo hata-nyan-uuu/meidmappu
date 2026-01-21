@@ -48,16 +48,27 @@
 
     <ImageButton
         android:id="@+id/homeback2"
-        android:contentDescription="ホームに戻る"
         android:layout_width="70dp"
         android:layout_height="70dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="15dp"
-        android:scaleType="centerCrop"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="10dp"
         android:background="@android:color/transparent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:contentDescription="ホームに戻る"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/homeicon" />
+
+    <ImageButton
+        android:id="@+id/backTouchArea"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@android:color/transparent"
+        android:contentDescription="戻る"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintWidth_percent="0.2" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

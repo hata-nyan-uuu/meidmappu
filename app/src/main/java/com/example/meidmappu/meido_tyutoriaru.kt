@@ -91,10 +91,24 @@ class meido_tyutoriaru : AppCompatActivity() {
             }
         }
         //ホーム画面に戻る
-        val homeback4=findViewById<ImageButton>(R.id.homeback4)
-        homeback4.setOnClickListener {
-            val intent= Intent(this, MainActivity::class.java)
+        val homeback=findViewById<ImageButton>(R.id.homeback)
+        homeback.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
+            finish()
         }
+
+        //ひとつ前もどる
+        val backTouchArea = findViewById<ImageButton>(R.id.backTouchArea)
+
+        backTouchArea.setOnClickListener {
+            if (currentIndex > 0) {
+                currentIndex--
+                tutorialImage.setImageResource(meidoImages[currentIndex])
+            } else {
+                finish()
+            }
+        }
+
     }
 }

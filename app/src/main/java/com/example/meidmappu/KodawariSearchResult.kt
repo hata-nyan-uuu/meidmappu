@@ -94,6 +94,7 @@ class KodawariSearchResult : AppCompatActivity() {
                     adapter = ShopAdapter(shopList) { shop ->
                         val intent = Intent(this, shop_shop::class.java).apply {
                             putExtra("shopId", shop.id)
+                            putExtra("FROM","SEARCH")
                         }
                         startActivity(intent)
                     }
@@ -103,5 +104,11 @@ class KodawariSearchResult : AppCompatActivity() {
             .addOnFailureListener { e ->
                 Log.e("Firestore", "データ取得失敗", e)
             }
+        //ホームにもどる
+        val homeback1=findViewById<ImageButton>(R.id.homeback1)
+        homeback1.setOnClickListener {
+            val intent= Intent(this, MainActivity::class.java)
+            startActivity(intent)
+        }
     }
 }

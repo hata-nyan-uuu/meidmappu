@@ -28,8 +28,14 @@ class tyutoriaru02 : AppCompatActivity() {
         //ホーム画面に戻る
         val homeback1=findViewById<ImageButton>(R.id.homeback1)
         homeback1.setOnClickListener {
-            val intent= Intent(this, MainActivity::class.java)
+            val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
+            finish()
+        }
+
+        val backTouchArea=findViewById<ImageButton>(R.id.backTouchArea)
+        backTouchArea.setOnClickListener {
+            finish()
         }
     }
 }

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">meidmappu</string>
+    <string name="app_name">めいどまっぷ</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
@@ -70,9 +70,8 @@
         <item>ナース系</item>
         <item>魔法少女系</item>
         <item>チャイナ系</item>
-
-
     </string-array>
+
 
     <string-array name="feeling">
         <item>いまの気分は？</item>
@@ -80,6 +79,9 @@
         <item>ゆっくりしたい</item>
         <item>だれかとはなしたい</item>
     </string-array>
+
+    <string name="review_text">★%1$d  %2$s</string>
+
     <string name="title_activity_admin_login">AdminLoginActivity</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>

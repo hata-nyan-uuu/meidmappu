@@ -30,12 +30,10 @@
         android:background="@android:color/transparent"
         android:contentDescription="戻るボタン"
         android:scaleType="fitXY"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.046"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="10dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.024"
         app:srcCompat="@drawable/modoru2" />
 
     <Spinner

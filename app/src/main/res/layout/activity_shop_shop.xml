@@ -46,6 +46,16 @@
             android:src="@drawable/reload"
             android:contentDescription="ランダム検索ボタン"
             android:layout_gravity="center_vertical|end"/>
+
+            <ImageButton
+                android:id="@+id/homeback2"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:background="@android:color/transparent"
+                android:contentDescription="ホームに戻る"
+                android:scaleType="centerCrop"
+                app:srcCompat="@drawable/homeicon" />
+
     </LinearLayout>
 
 
@@ -70,7 +80,7 @@
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
             android:scaleType="fitCenter"
-            android:src="@drawable/komorebiout"
+            android:src="@drawable/noimage"
             android:layout_marginTop="12dp" />
 
         <!-- メニュータイトル -->
@@ -92,7 +102,7 @@
             android:layout_marginTop="10dp"
             android:adjustViewBounds="true"
             android:scaleType="fitCenter"
-            android:src="@drawable/komorebi" />
+            android:src="@drawable/noimage" />
 
         <!-- 住所 -->
 

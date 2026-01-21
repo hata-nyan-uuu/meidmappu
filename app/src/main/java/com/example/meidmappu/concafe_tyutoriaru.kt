@@ -62,6 +62,19 @@ class concafe_tyutoriaru : AppCompatActivity() {
         homeback3.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
+            finish()
         }
+        //ひとつまえもどる
+        val backTouchArea = findViewById<ImageButton>(R.id.backTouchArea)
+
+        backTouchArea.setOnClickListener {
+            if (currentIndex > 0) {
+                currentIndex--
+                tutorialImage.setImageResource(concafeImages[currentIndex])
+            } else {
+                finish()
+            }
+        }
+
     }
 }

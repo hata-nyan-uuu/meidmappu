@@ -19,40 +19,39 @@ class shop_shop : AppCompatActivity() {
     private lateinit var storeId: String
     private lateinit var reviewContainer: LinearLayout
 
+    private lateinit var randomButton: ImageButton
+    private lateinit var homeBackButton: ImageButton
+
+    // SNS
     private lateinit var linkSite: TextView
     private lateinit var linkX: TextView
     private lateinit var linkInstagram: TextView
     private lateinit var linkTiktok: TextView
     private lateinit var socialLinks: LinearLayout
 
-    private lateinit var randomButton: ImageButton
-
     private val firestore = Firebase.firestore
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        // ===== Edge to Edge =====
         enableEdgeToEdge()
         setContentView(R.layout.activity_shop_shop)
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            v.setPadding(
+                systemBars.left,
+                systemBars.top,
+                systemBars.right,
+                systemBars.bottom
+            )
             insets
         }
 
-        // ===== Intent（shopIdのみ + ランダムフラグ） =====
-        storeId = intent.getStringExtra("shopId") ?: run {
-            Toast.makeText(this, "お店情報が取得できません", Toast.LENGTH_SHORT).show()
-            finish()
-            return
-        }
-
-        val fromRandom = intent.getBooleanExtra("FROM_RANDOM", false)
-
         // ===== View =====
         val backBtn = findViewById<ImageButton>(R.id.backbtn)
+        randomButton = findViewById(R.id.randombtn)
+        homeBackButton = findViewById(R.id.homeback2)
+
         val nameText = findViewById<TextView>(R.id.shop_name)
         val addressText = findViewById<TextView>(R.id.shop_address)
         val janruText = findViewById<TextView>(R.id.janru_name)
@@ -62,49 +61,76 @@ class shop_shop : AppCompatActivity() {
         val imageView = findViewById<ImageView>(R.id.imageView4)
         val menuView = findViewById<ImageView>(R.id.imageView5)
         val reviewButton = findViewById<Button>(R.id.review_button)
-        randomButton = findViewById(R.id.randombtn)
 
         reviewContainer = findViewById(R.id.review_container)
 
+        // SNS
         linkSite = findViewById(R.id.link_site)
         linkX = findViewById(R.id.link_x)
         linkInstagram = findViewById(R.id.link_instagram)
         linkTiktok = findViewById(R.id.link_tiktok)
         socialLinks = findViewById(R.id.social_links)
 
-        // ===== 戻るボタン =====
-        backBtn.setOnClickListener { finish() }
-
-        // ===== レビュー投稿ボタン =====
-        reviewButton.setOnClickListener {
-            startActivity(Intent(this, ReviewPostActivity::class.java).putExtra("shopId", storeId))
+        // ===== Intent =====
+        storeId = intent.getStringExtra("shopId") ?: run {
+            Toast.makeText(this, "お店情報が取得できません", Toast.LENGTH_SHORT).show()
+            finish()
+            return
         }
 
-        // ===== ランダムボタン表示制御 =====
-        if (fromRandom) {
-            randomButton.visibility = View.VISIBLE
-            randomButton.setOnClickListener {
-                // Firestoreから全店舗取得してランダムで1件選ぶ
-                firestore.collection("shop")
-                    .get()
-                    .addOnSuccessListener { result ->
-                        val shops = result.documents.mapNotNull { doc ->
-                            val shop = doc.toObject(ShopFirestore::class.java)
-                            shop?.id = doc.id
-                            shop
-                        }
-                        if (shops.isNotEmpty()) {
-                            val randomShop = shops.random()
-                            startActivity(Intent(this, shop_shop::class.java).apply {
-                                putExtra("shopId", randomShop.id)
-                                putExtra("FROM_RANDOM", true)
-                            })
-                            finish() // 今の画面を閉じて切り替え
-                        }
-                    }
+        val from = intent.getStringExtra("FROM")
+
+        // ===== ボタン初期状態 =====
+        randomButton.visibility = View.GONE
+        homeBackButton.visibility = View.GONE
+
+        when (from) {
+            "RANDOM" -> randomButton.visibility = View.VISIBLE
+            "SEARCH" -> homeBackButton.visibility = View.VISIBLE
+            else -> {
+                // 戻るボタンのみ
             }
-        } else {
-            randomButton.visibility = View.GONE
+        }
+
+        // ===== 戻る =====
+        backBtn.setOnClickListener { finish() }
+
+        // ===== ホーム =====
+        homeBackButton.setOnClickListener {
+            startActivity(Intent(this, MainActivity::class.java))
+            finish()
+        }
+
+        // ===== ランダム =====
+        randomButton.setOnClickListener {
+            firestore.collection("shop")
+                .get()
+                .addOnSuccessListener { result ->
+                    val shops = result.documents.mapNotNull { doc ->
+                        val shop = doc.toObject(ShopFirestore::class.java)
+                        shop?.id = doc.id
+                        shop
+                    }
+
+                    if (shops.isNotEmpty()) {
+                        val randomShop = shops.random()
+                        startActivity(
+                            Intent(this, shop_shop::class.java).apply {
+                                putExtra("shopId", randomShop.id)
+                                putExtra("FROM", "RANDOM")
+                            }
+                        )
+                        finish()
+                    }
+                }
+        }
+
+        // ===== レビュー投稿 =====
+        reviewButton.setOnClickListener {
+            startActivity(
+                Intent(this, ReviewPostActivity::class.java)
+                    .putExtra("shopId", storeId)
+            )
         }
 
         // ===== 店情報取得 =====
@@ -112,50 +138,54 @@ class shop_shop : AppCompatActivity() {
             .document(storeId)
             .get()
             .addOnSuccessListener { doc ->
+                nameText.text = doc.getString("name") ?: ""
+                addressText.text = doc.getString("address") ?: ""
+                janruText.text = doc.getString("type") ?: ""
+                conceptText.text = doc.getString("concept") ?: ""
+                timeText.text = doc.getString("time") ?: ""
+                feelingText.text = doc.getString("feeling") ?: ""
 
-                val name = doc.getString("name")
-                val address = doc.getString("address")
-                val type = doc.getString("type")
-                val concept = doc.getString("concept")
-                val time = doc.getString("time")
-                val feeling = doc.getString("feeling")
-                val image = doc.getString("image")
-                val menu = doc.getString("menu")
+                Glide.with(this)
+                    .load(doc.getString("image"))
+                    .placeholder(R.drawable.noimage)
+                    .into(imageView)
 
-                nameText.text = name ?: ""
-                addressText.text = address ?: ""
-                janruText.text = type ?: ""
-                conceptText.text = concept ?: ""
-                timeText.text = time ?: ""
-                feelingText.text = feeling ?: ""
+                Glide.with(this)
+                    .load(doc.getString("menu"))
+                    .placeholder(R.drawable.noimage)
+                    .into(menuView)
 
-                Glide.with(this).load(image).placeholder(R.drawable.noimage).into(imageView)
-                Glide.with(this).load(menu).placeholder(R.drawable.noimage).into(menuView)
-
-                // 住所クリックでマップ
-                if (!address.isNullOrBlank()) {
+                if (!doc.getString("address").isNullOrBlank()) {
                     addressText.setOnClickListener {
-                        val uri = "geo:0,0?q=${Uri.encode(address)}".toUri()
+                        val uri =
+                            "geo:0,0?q=${Uri.encode(doc.getString("address"))}".toUri()
                         startActivity(Intent(Intent.ACTION_VIEW, uri))
                     }
                 }
 
-                // SNS / 公式リンク
-                setupLink(linkSite, doc.getString("website"))
-                setupLink(linkX, doc.getString("x"))
-                setupLink(linkInstagram, doc.getString("instagram"))
-                setupLink(linkTiktok, doc.getString("tiktok"))
+                // ===== SNS =====
+                val website = doc.getString("website")
+                val x = doc.getString("x")
+                val instagram = doc.getString("instagram")
+                val tiktok = doc.getString("tiktok")
 
-                if (doc.getString("website").isNullOrBlank() &&
-                    doc.getString("x").isNullOrBlank() &&
-                    doc.getString("instagram").isNullOrBlank() &&
-                    doc.getString("tiktok").isNullOrBlank()
+                setupLink(linkSite, website)
+                setupLink(linkX, x)
+                setupLink(linkInstagram, instagram)
+                setupLink(linkTiktok, tiktok)
+
+                // 全部空ならまとめて非表示
+                if (website.isNullOrBlank()
+                    && x.isNullOrBlank()
+                    && instagram.isNullOrBlank()
+                    && tiktok.isNullOrBlank()
                 ) {
                     socialLinks.visibility = View.GONE
+                } else {
+                    socialLinks.visibility = View.VISIBLE
                 }
             }
 
-        // ===== レビュー読み込み =====
         loadReviews()
     }
 
@@ -173,14 +203,14 @@ class shop_shop : AppCompatActivity() {
                     val rating = doc.getLong("rating")?.toInt() ?: 0
                     val comment = doc.getString("comment") ?: ""
                     val tv = TextView(this)
-                    tv.text = "★$rating  $comment"
+                    tv.text = getString(R.string.review_text, rating, comment)
                     tv.textSize = 16f
                     reviewContainer.addView(tv)
                 }
             }
     }
 
-    // ===== 共通リンク処理 =====
+    // ===== SNSリンク =====
     private fun setupLink(textView: TextView, url: String?) {
         if (url.isNullOrBlank()) {
             textView.visibility = View.GONE

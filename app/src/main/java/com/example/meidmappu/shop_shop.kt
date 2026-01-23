@@ -61,6 +61,8 @@ class shop_shop : AppCompatActivity() {
         val imageView = findViewById<ImageView>(R.id.imageView4)
         val menuView = findViewById<ImageView>(R.id.imageView5)
         val reviewButton = findViewById<Button>(R.id.review_button)
+        val priceValue = findViewById<TextView>(R.id.price_value)
+
 
         reviewContainer = findViewById(R.id.review_container)
 
@@ -143,7 +145,12 @@ class shop_shop : AppCompatActivity() {
                 janruText.text = doc.getString("type") ?: ""
                 conceptText.text = doc.getString("concept") ?: ""
                 timeText.text = doc.getString("time") ?: ""
-                feelingText.text = doc.getString("feeling") ?: ""
+                val feelings = doc.get("feeling") as? List<*>
+
+                feelingText.text = feelings
+                    ?.filterIsInstance<String>()
+                    ?.joinToString("\n") { "#$it" }
+                    ?: ""
 
                 Glide.with(this)
                     .load(doc.getString("image"))
@@ -184,6 +191,14 @@ class shop_shop : AppCompatActivity() {
                 } else {
                     socialLinks.visibility = View.VISIBLE
                 }
+                //priceRange
+                val price = doc.getLong("priceRange")
+
+                priceValue.text = if (price != null) {
+                    "～${String.format("%,d", price)}円"
+                } else {
+                    "未設定"
+                }
             }
 
         loadReviews()
@@ -203,7 +218,8 @@ class shop_shop : AppCompatActivity() {
                     val rating = doc.getLong("rating")?.toInt() ?: 0
                     val comment = doc.getString("comment") ?: ""
                     val tv = TextView(this)
-                    tv.text = getString(R.string.review_text, rating, comment)
+                    tv.text = getString(R.string.review_text,
+                        rating, comment)
                     tv.textSize = 16f
                     reviewContainer.addView(tv)
                 }

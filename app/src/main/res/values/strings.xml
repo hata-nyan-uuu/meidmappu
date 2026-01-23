@@ -78,6 +78,7 @@
         <item>ごはんをたべたい</item>
         <item>ゆっくりしたい</item>
         <item>だれかとはなしたい</item>
+        <item>お酒をのみたい</item>
     </string-array>
 
     <string name="review_text">★%1$d  %2$s</string>

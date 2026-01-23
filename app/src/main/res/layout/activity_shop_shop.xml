@@ -134,6 +134,8 @@
             android:textColor="#666666"
             android:layout_marginTop="2dp" />
 
+        <!--コンセプトゾーン-->
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -159,7 +161,6 @@
             android:layout_marginTop="12dp" />
         </LinearLayout>
 
-<!--コンセプトゾーン-->
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -193,14 +194,6 @@
         android:orientation="horizontal"
         android:layout_marginTop="8dp">
         <TextView
-            android:id="@+id/fellintitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="#"
-            android:textStyle="bold"
-            android:textSize="25sp"
-            android:layout_marginTop="4dp"/>
-        <TextView
             android:id="@+id/feeling_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -210,30 +203,28 @@
             android:layout_marginTop="4dp"/>
     </LinearLayout>
 
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_marginTop="8dp">
-
             <TextView
                 android:id="@+id/price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="予算目安"
-                android:textSize="25sp"
+                android:text="#"
                 android:textStyle="bold"
-                android:layout_marginTop="14dp"/>
-
+                android:textSize="25sp"
+                android:layout_marginTop="4dp"/>
             <TextView
                 android:id="@+id/price_value"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=""
-                android:textStyle="bold"
+                android:text="~3000円"
                 android:textSize="25sp"
-                android:layout_marginTop="14dp" />
-
+                android:textStyle="bold"
+                android:layout_marginTop="4dp"/>
         </LinearLayout>
 
 

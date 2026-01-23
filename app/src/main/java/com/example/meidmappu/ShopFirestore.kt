@@ -5,7 +5,7 @@ data class ShopFirestore(
     var id: String = "",
     var name: String = "",
     var address: String = "",
-    var feeling: String = "",
+    var feeling: List<String> = emptyList(),
     var concept: String = "",
     var menu: String? = null,
     var type: String = "",

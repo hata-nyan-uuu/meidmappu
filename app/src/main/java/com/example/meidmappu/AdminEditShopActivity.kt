@@ -12,6 +12,24 @@ class AdminEditShopActivity : AppCompatActivity() {
 
     private val db = FirebaseFirestore.getInstance()
     private lateinit var shopId: String
+    private fun getSelectedFeelings(): List<String> {
+        val list = mutableListOf<String>()
+
+        if (findViewById<CheckBox>(R.id.feeling).isChecked)
+            list.add("ごはんをたべたい")
+
+        if (findViewById<CheckBox>(R.id.feeling1).isChecked)
+            list.add("ゆっくりしたい")
+
+        if (findViewById<CheckBox>(R.id.feeling2).isChecked)
+            list.add("だれかとはなしたい")
+
+        if (findViewById<CheckBox>(R.id.feeling3).isChecked)
+            list.add("お酒をのみたい")
+
+        return list
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,7 +72,6 @@ class AdminEditShopActivity : AppCompatActivity() {
 
         val spinnerType = findViewById<Spinner>(R.id.spinnerType)
         val spinnerConcept = findViewById<Spinner>(R.id.spinnerConcept)
-        val spinnerFeeling = findViewById<Spinner>(R.id.spinnerFeeling)
         val spinnerPrice = findViewById<Spinner>(R.id.spinnerPrice)
 
         val btnSave = findViewById<Button>(R.id.btnSaveShop)
@@ -79,17 +96,38 @@ class AdminEditShopActivity : AppCompatActivity() {
 
                 setSpinner(spinnerType, doc.getString("type"))
                 setSpinner(spinnerConcept, doc.getString("concept"))
-                setSpinner(spinnerFeeling, doc.getString("feeling"))
                 setSpinnerPrice(spinnerPrice, doc.getLong("priceRange"))
+
+                val feelings = doc.get("feeling") as? List<*>
+
+                findViewById<CheckBox>(R.id.feeling).isChecked =
+                    feelings?.contains("ごはんをたべたい") == true
+
+                findViewById<CheckBox>(R.id.feeling1).isChecked =
+                    feelings?.contains("ゆっくりしたい") == true
+
+                findViewById<CheckBox>(R.id.feeling2).isChecked =
+                    feelings?.contains("だれかとはなしたい") == true
+
+                findViewById<CheckBox>(R.id.feeling3).isChecked =
+                    feelings?.contains("お酒をのみたい") == true
+
             }
 
         // ===== 保存（更新） =====
         btnSave.setOnClickListener {
+            //気分のやつ
+            val selectedFeelings = getSelectedFeelings()
+
+            if (selectedFeelings.isEmpty()) {
+                Toast.makeText(this, "気分を1つ以上選んでください",
+                    Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
 
             if (
                 spinnerType.selectedItemPosition == 0 ||
                 spinnerConcept.selectedItemPosition == 0 ||
-                spinnerFeeling.selectedItemPosition == 0 ||
                 spinnerPrice.selectedItemPosition == 0
             ) {
                 Toast.makeText(this, "すべて選択してください", Toast.LENGTH_SHORT).show()
@@ -116,7 +154,8 @@ class AdminEditShopActivity : AppCompatActivity() {
                 "priceRange" to price,
                 "type" to spinnerType.selectedItem.toString(),
                 "concept" to spinnerConcept.selectedItem.toString(),
-                "feeling" to spinnerFeeling.selectedItem.toString()
+                "feeling" to selectedFeelings
+
             )
 
 

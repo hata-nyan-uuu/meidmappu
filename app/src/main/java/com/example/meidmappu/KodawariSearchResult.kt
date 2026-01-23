@@ -74,7 +74,7 @@ class KodawariSearchResult : AppCompatActivity() {
 
                     shop?.let { s ->
                         val matchesType = type.isNullOrEmpty() || s.type == type
-                        val matchesPrice = priceRange == null || s.priceRange == priceRange
+                        val matchesPrice = priceRange == null || s.priceRange <= priceRange
                         val matchesConcept = concept.isNullOrEmpty() || s.concept == concept
                         val matchesFeeling = feeling.isNullOrEmpty() || s.feeling == feeling
 

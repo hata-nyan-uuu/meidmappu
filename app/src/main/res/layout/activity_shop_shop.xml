@@ -210,6 +210,33 @@
             android:layout_marginTop="4dp"/>
     </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp">
+
+            <TextView
+                android:id="@+id/price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="予算目安"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                android:layout_marginTop="14dp"/>
+
+            <TextView
+                android:id="@+id/price_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textStyle="bold"
+                android:textSize="25sp"
+                android:layout_marginTop="14dp" />
+
+        </LinearLayout>
+
+
         <!-- 営業時間 一列表示 -->
         <LinearLayout
             android:layout_width="wrap_content"

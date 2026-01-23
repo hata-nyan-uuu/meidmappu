@@ -43,6 +43,7 @@ class kodawari_kensaku : AppCompatActivity() {
             val feeling = getSpinnerValue(findViewById(R.id.feeling))
 
             val priceRange = priceStr
+                ?.replace("～", "")
                 ?.replace(",", "")
                 ?.replace("円", "")
                 ?.toLongOrNull()

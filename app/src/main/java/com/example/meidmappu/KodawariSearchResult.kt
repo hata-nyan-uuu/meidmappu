@@ -62,55 +62,41 @@ class KodawariSearchResult : AppCompatActivity() {
         concept: String?,
         feeling: String?
     ) {
-        db.collection("shop")
-            .get()
-            .addOnSuccessListener { result ->
-                shopList.clear()
+        val allShops = ShopRepository.getAll()
+        shopList.clear()
 
-                for (document in result) {
-                    val shop = document.toObject(ShopFirestore::class.java)?.apply {
-                        id = document.id
-                    }
+        for (s in allShops) {
+            val matchesType = type.isNullOrEmpty() || s.type == type
+            val matchesPrice = priceRange == null || s.priceRange <= priceRange
+            val matchesConcept = concept.isNullOrEmpty() || s.concept == concept
+            val matchesFeeling =
+                feeling.isNullOrEmpty() || s.feeling.contains(feeling)
 
-                    shop?.let { s ->
-                        val matchesType = type.isNullOrEmpty() || s.type == type
-                        val matchesPrice = priceRange == null || s.priceRange <= priceRange
-                        val matchesConcept = concept.isNullOrEmpty() || s.concept == concept
-                        val matchesFeeling =
-                            feeling.isNullOrEmpty() || s.feeling.contains(feeling)
-
-
-                        if (matchesType && matchesPrice && matchesConcept && matchesFeeling) {
-                            shopList.add(s)
-                        }
-                    }
-                }
-
-                if (shopList.isEmpty()) {
-                    emptyText.visibility = View.VISIBLE
-                    recyclerView.visibility = View.GONE
-                } else {
-                    emptyText.visibility = View.GONE
-                    recyclerView.visibility = View.VISIBLE
-
-                    adapter = ShopAdapter(shopList) { shop ->
-                        val intent = Intent(this, shop_shop::class.java).apply {
-                            putExtra("shopId", shop.id)
-                            putExtra("FROM","SEARCH")
-                        }
-                        startActivity(intent)
-                    }
-                    recyclerView.adapter = adapter
-                }
+            if (matchesType && matchesPrice && matchesConcept && matchesFeeling) {
+                shopList.add(s)
             }
-            .addOnFailureListener { e ->
-                Log.e("Firestore", "データ取得失敗", e)
+        }
+        shopList.sortBy { it.timestamp }
+
+        if (shopList.isEmpty()) {
+            emptyText.visibility = View.VISIBLE
+            recyclerView.visibility = View.GONE
+        } else {
+            emptyText.visibility = View.GONE
+            recyclerView.visibility = View.VISIBLE
+
+            adapter = ShopAdapter(shopList) { shop ->
+                val intent = Intent(this, shop_shop::class.java).apply {
+                    putExtra("shopId", shop.id)
+                    putExtra("FROM", "SEARCH")
+                }
+                startActivity(intent)
             }
-        //ホームにもどる
-        val homeback1=findViewById<ImageButton>(R.id.homeback1)
-        homeback1.setOnClickListener {
-            val intent= Intent(this, MainActivity::class.java)
-            startActivity(intent)
+            recyclerView.adapter = adapter
+        }
+
+        findViewById<ImageButton>(R.id.homeback1).setOnClickListener {
+            startActivity(Intent(this, MainActivity::class.java))
         }
     }
 }

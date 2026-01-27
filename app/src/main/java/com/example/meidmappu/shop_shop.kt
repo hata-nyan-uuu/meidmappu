@@ -90,7 +90,7 @@ class shop_shop : AppCompatActivity() {
             "RANDOM" -> randomButton.visibility = View.VISIBLE
             "SEARCH" -> homeBackButton.visibility = View.VISIBLE
             else -> {
-                // 戻るボタンのみ
+
             }
         }
 
@@ -105,26 +105,21 @@ class shop_shop : AppCompatActivity() {
 
         // ===== ランダム =====
         randomButton.setOnClickListener {
-            firestore.collection("shop")
-                .get()
-                .addOnSuccessListener { result ->
-                    val shops = result.documents.mapNotNull { doc ->
-                        val shop = doc.toObject(ShopFirestore::class.java)
-                        shop?.id = doc.id
-                        shop
-                    }
+            val shops = ShopRepository.getAll()
 
-                    if (shops.isNotEmpty()) {
-                        val randomShop = shops.random()
-                        startActivity(
-                            Intent(this, shop_shop::class.java).apply {
-                                putExtra("shopId", randomShop.id)
-                                putExtra("FROM", "RANDOM")
-                            }
-                        )
-                        finish()
+            if (shops.isNotEmpty()) {
+                val randomShop = shops.random()
+
+                startActivity(
+                    Intent(this, shop_shop::class.java).apply {
+                        putExtra("shopId", randomShop.id)
+                        putExtra("FROM", "RANDOM")
                     }
-                }
+                )
+                finish()
+            } else {
+                Toast.makeText(this, "お店データがありません", Toast.LENGTH_SHORT).show()
+            }
         }
 
         // ===== レビュー投稿 =====
@@ -136,70 +131,58 @@ class shop_shop : AppCompatActivity() {
         }
 
         // ===== 店情報取得 =====
-        firestore.collection("shop")
-            .document(storeId)
-            .get()
-            .addOnSuccessListener { doc ->
-                nameText.text = doc.getString("name") ?: ""
-                addressText.text = doc.getString("address") ?: ""
-                janruText.text = doc.getString("type") ?: ""
-                conceptText.text = doc.getString("concept") ?: ""
-                timeText.text = doc.getString("time") ?: ""
-                val feelings = doc.get("feeling") as? List<*>
-
-                feelingText.text = feelings
-                    ?.filterIsInstance<String>()
-                    ?.joinToString("\n") { "#$it" }
-                    ?: ""
-
-                Glide.with(this)
-                    .load(doc.getString("image"))
-                    .placeholder(R.drawable.noimage)
-                    .into(imageView)
-
-                Glide.with(this)
-                    .load(doc.getString("menu"))
-                    .placeholder(R.drawable.noimage)
-                    .into(menuView)
-
-                if (!doc.getString("address").isNullOrBlank()) {
-                    addressText.setOnClickListener {
-                        val uri =
-                            "geo:0,0?q=${Uri.encode(doc.getString("address"))}".toUri()
-                        startActivity(Intent(Intent.ACTION_VIEW, uri))
-                    }
-                }
-
-                // ===== SNS =====
-                val website = doc.getString("website")
-                val x = doc.getString("x")
-                val instagram = doc.getString("instagram")
-                val tiktok = doc.getString("tiktok")
-
-                setupLink(linkSite, website)
-                setupLink(linkX, x)
-                setupLink(linkInstagram, instagram)
-                setupLink(linkTiktok, tiktok)
-
-                // 全部空ならまとめて非表示
-                if (website.isNullOrBlank()
-                    && x.isNullOrBlank()
-                    && instagram.isNullOrBlank()
-                    && tiktok.isNullOrBlank()
-                ) {
-                    socialLinks.visibility = View.GONE
-                } else {
-                    socialLinks.visibility = View.VISIBLE
-                }
-                //priceRange
-                val price = doc.getLong("priceRange")
-
-                priceValue.text = if (price != null) {
-                    "～${String.format("%,d", price)}円"
-                } else {
-                    "未設定"
-                }
+        val shop = ShopRepository.getById(storeId)
+            ?: run {
+                Toast.makeText(this, "お店情報が取得できません", Toast.LENGTH_SHORT).show()
+                finish()
+                return
             }
+
+        nameText.text = shop.name ?: ""
+        addressText.text = shop.address ?: ""
+        janruText.text = shop.type ?: ""
+        conceptText.text = shop.concept ?: ""
+        timeText.text = shop.time ?: ""
+
+        feelingText.text = shop.feeling
+            ?.joinToString("\n") { "#$it" }
+            ?: ""
+
+        Glide.with(this)
+            .load(shop.image)
+            .placeholder(R.drawable.noimage)
+            .into(imageView)
+
+        Glide.with(this)
+            .load(shop.menu)
+            .placeholder(R.drawable.noimage)
+            .into(menuView)
+
+// 地図
+        if (!shop.address.isNullOrBlank()) {
+            addressText.setOnClickListener {
+                val uri = "geo:0,0?q=${Uri.encode(shop.address)}".toUri()
+                startActivity(Intent(Intent.ACTION_VIEW, uri))
+            }
+        }
+
+// SNS
+        setupLink(linkSite, shop.website)
+        setupLink(linkX, shop.x)
+        setupLink(linkInstagram, shop.instagram)
+        setupLink(linkTiktok, shop.tiktok)
+
+// まとめて非表示
+        socialLinks.visibility =
+            if (shop.website.isNullOrBlank()
+                && shop.x.isNullOrBlank()
+                && shop.instagram.isNullOrBlank()
+                && shop.tiktok.isNullOrBlank()
+            ) View.GONE else View.VISIBLE
+
+// 価格
+        priceValue.text =
+            shop.priceRange?.let { "～${String.format("%,d", it)}円" } ?: "未設定"
 
         loadReviews()
     }

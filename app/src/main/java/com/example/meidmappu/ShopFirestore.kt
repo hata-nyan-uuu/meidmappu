@@ -1,5 +1,7 @@
 package com.example.meidmappu
 
+import com.google.firebase.Timestamp
+
 
 data class ShopFirestore(
     var id: String = "",
@@ -12,8 +14,10 @@ data class ShopFirestore(
     var priceRange: Long = 0L,
     var time: String? = null,
     var image: String? = null,
+    var number: String? = null,
     var website: String? = null,
     var x: String? = null,
     var instagram: String? = null,
-    var tiktok: String? = null
+    var tiktok: String? = null,
+    var timestamp: Timestamp?=null
 )

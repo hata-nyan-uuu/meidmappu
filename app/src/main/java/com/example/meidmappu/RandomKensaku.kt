@@ -39,30 +39,17 @@ class RandomKensaku : AppCompatActivity() {
         }
     }
 
-    private suspend fun fetchRandomShop() {
-        val db = FirebaseFirestore.getInstance()
-        try {
-            val result = db.collection("shop").get().await()
-            val shop = result.documents.mapNotNull { doc ->
-                val shop = doc.toObject(ShopFirestore::class.java)
-                shop?.id = doc.id
-                shop
-            }
+    private fun fetchRandomShop() {
+        val shops = ShopRepository.getAll()
 
+        if (shops.isEmpty()) return
 
-            if (shop.isNotEmpty()) {
-                val randomShop = shop.random()
+        val randomShop = shops.random()
 
-                val intent = Intent(this@RandomKensaku, shop_shop::class.java).apply {
-                    putExtra("shopId", randomShop.id)
-
-                    //フラグ
-                    putExtra("FROM","RANDOM")
-                }
-                startActivity(intent)
-            }
-        } catch (e: Exception) {
-            e.printStackTrace()
+        val intent = Intent(this, shop_shop::class.java).apply {
+            putExtra("shopId", randomShop.id)
+            putExtra("FROM", "RANDOM")
         }
+        startActivity(intent)
     }
 }

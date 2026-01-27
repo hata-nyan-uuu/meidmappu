@@ -61,6 +61,7 @@ class AdminAddShopActivity : AppCompatActivity() {
         val editTime = findViewById<EditText>(R.id.editTime)
         val editImage = findViewById<EditText>(R.id.editImage)
         val editMenu = findViewById<EditText>(R.id.editMenu)
+        val editNumber=findViewById<EditText>(R.id.editNumber)
         val editWebsite = findViewById<EditText>(R.id.edit_website)
         val editInstagram = findViewById<EditText>(R.id.edit_instagram)
         val editX = findViewById<EditText>(R.id.edit_x)
@@ -106,12 +107,14 @@ class AdminAddShopActivity : AppCompatActivity() {
                 else -> 0
             }
 
+
             val shopData = hashMapOf(
                 "name" to editName.text.toString(),
                 "address" to editAddress.text.toString(),
                 "time" to editTime.text.toString(),
                 "image" to editImage.text.toString(),
                 "menu" to editMenu.text.toString(),
+                "number" to editNumber.text.toString(),
                 "website" to editWebsite.text.toString(),
                 "instagram" to editInstagram.text.toString(),
                 "x" to editX.text.toString(),
@@ -119,8 +122,10 @@ class AdminAddShopActivity : AppCompatActivity() {
                 "priceRange" to price,
                 "type" to spinnerType.selectedItem.toString(),
                 "concept" to spinnerConcept.selectedItem.toString(),
-                "feeling" to selectedFeelings
+                "feeling" to selectedFeelings,
+                "timestamp" to com.google.firebase.firestore.FieldValue.serverTimestamp()
             )
+
 
             db.collection("shop")
                 .add(shopData)

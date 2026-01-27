@@ -59,17 +59,25 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    /** Firestoreから全店舗を取得してRecyclerViewに表示 */
+    // Firestoreから全店舗を取得してRecyclerViewに表示
     private fun loadAllShops() {
         db.collection("shop")
+            .orderBy("timestamp",
+                com.google.firebase.firestore.Query.Direction.ASCENDING)
             .get()
             .addOnSuccessListener { result ->
                 shopList.clear()
+
                 for (document in result) {
-                    val shop = document.toObject(ShopFirestore::class.java)
+                    val shop = document.toObject(ShopFirestore::class.java).apply {
+                        id = document.id
+                    }
                     shopList.add(shop)
-                    shop.id=document.id
                 }
+
+                //オフライン用に保存
+                ShopRepository.setShops(shopList)
+
                 adapter.notifyDataSetChanged()
             }
             .addOnFailureListener { e ->
@@ -77,7 +85,7 @@ class MainActivity : AppCompatActivity() {
             }
     }
 
-    /** 詳細画面を開く */
+    // 詳細画面を開く
     private fun openShopDetail(shop: ShopFirestore) {
         val intent = Intent(this, shop_shop::class.java).apply {
             putExtra("shopId", shop.id)
@@ -85,7 +93,7 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    /** ボタン設定（Roomの時と同じ） */
+    // ボタン設定（Roomの時と同じ）
     private fun setButtonListeners() {
         findViewById<MaterialCardView>(R.id.random1).setOnClickListener {
             startActivity(Intent(this, RandomKensaku::class.java))

@@ -49,6 +49,15 @@
             android:layout_marginTop="12dp"/>
 
         <EditText
+            android:id="@+id/editNumber"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:hint="電話番号"
+            android:inputType="phone"
+            android:maxLines="1"
+            android:layout_marginTop="12dp"/>
+
+        <EditText
             android:id="@+id/edit_website"
             android:layout_width="match_parent"
             android:layout_height="60dp"

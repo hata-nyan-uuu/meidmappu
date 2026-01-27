@@ -64,6 +64,7 @@ class AdminEditShopActivity : AppCompatActivity() {
         val editAddress = findViewById<EditText>(R.id.editAddress)
         val editTime = findViewById<EditText>(R.id.editTime)
         val editImage = findViewById<EditText>(R.id.editImage)
+        val editNumber=findViewById<EditText>(R.id.editNumber)
         val editMenu = findViewById<EditText>(R.id.editMenu)
         val editWebsite = findViewById<EditText>(R.id.edit_website)
         val editInstagram = findViewById<EditText>(R.id.edit_instagram)
@@ -89,6 +90,7 @@ class AdminEditShopActivity : AppCompatActivity() {
                 editTime.setText(doc.getString("time"))
                 editImage.setText(doc.getString("image"))
                 editMenu.setText(doc.getString("menu"))
+                editNumber.setText(doc.getString("number"))
                 editWebsite.setText(doc.getString("website"))
                 editInstagram.setText(doc.getString("instagram"))
                 editX.setText(doc.getString("x"))
@@ -147,6 +149,7 @@ class AdminEditShopActivity : AppCompatActivity() {
                 "time" to editTime.text.toString(),
                 "image" to editImage.text.toString(),
                 "menu" to editMenu.text.toString(),
+                "number" to editNumber.text.toString(),
                 "website" to editWebsite.text.toString(),
                 "instagram" to editInstagram.text.toString(),
                 "x" to editX.text.toString(),
@@ -154,7 +157,8 @@ class AdminEditShopActivity : AppCompatActivity() {
                 "priceRange" to price,
                 "type" to spinnerType.selectedItem.toString(),
                 "concept" to spinnerConcept.selectedItem.toString(),
-                "feeling" to selectedFeelings
+                "feeling" to selectedFeelings,
+                "timestamp" to com.google.firebase.firestore.FieldValue.serverTimestamp()
 
             )
 

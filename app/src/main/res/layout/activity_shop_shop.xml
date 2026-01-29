@@ -80,7 +80,6 @@
             android:layout_height="wrap_content"
             android:text="店名"
             android:textSize="35sp"
-            android:textStyle="bold"
             android:gravity="center"
             android:fontFamily="@font/cp_family"
             android:layout_marginTop="16dp" />
@@ -102,7 +101,6 @@
             android:layout_height="wrap_content"
             android:text="MENU"
             android:textSize="35sp"
-            android:textStyle="bold"
             android:gravity="center"
             android:fontFamily="@font/cp_family"
             android:layout_marginTop="8dp" />
@@ -135,7 +133,6 @@
             android:layout_height="wrap_content"
             android:text="〇〇県〇〇市"
             android:textSize="25sp"
-            android:textStyle="bold"
             android:fontFamily="@font/cp_family"
             android:layout_marginTop="4dp" />
 
@@ -163,7 +160,6 @@
             android:layout_height="wrap_content"
             android:text="#"
             android:textSize="25sp"
-            android:textStyle="bold"
             android:fontFamily="@font/cp_family"
             android:layout_marginTop="12dp"
             />
@@ -174,7 +170,6 @@
             android:text="メイドカフェ"
             android:fontFamily="@font/cp_family"
             android:textSize="25sp"
-            android:textStyle="bold"
             android:layout_marginTop="12dp" />
         </LinearLayout>
 
@@ -190,7 +185,6 @@
             android:layout_height="wrap_content"
             android:text="#"
             android:textSize="25sp"
-            android:textStyle="bold"
             android:fontFamily="@font/cp_family"
             android:layout_marginTop="4dp"
             />
@@ -201,7 +195,6 @@
             android:layout_height="wrap_content"
             android:text="メイド系"
             android:textSize="25sp"
-            android:textStyle="bold"
             android:fontFamily="@font/cp_family"
             android:layout_marginTop="4dp" />
 
@@ -218,7 +211,6 @@
             android:layout_height="wrap_content"
             android:text="ゆっくりしたい"
             android:textSize="25sp"
-            android:textStyle="bold"
             android:fontFamily="@font/cp_family"
             android:layout_marginTop="4dp"/>
     </LinearLayout>
@@ -234,7 +226,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="#"
-                android:textStyle="bold"
                 android:textSize="25sp"
                 android:fontFamily="@font/cp_family"
                 android:layout_marginTop="4dp"/>
@@ -244,7 +235,6 @@
                 android:layout_height="wrap_content"
                 android:text="～3000円"
                 android:textSize="25sp"
-                android:textStyle="bold"
                 android:fontFamily="@font/cp_family"
                 android:layout_marginTop="4dp"/>
         </LinearLayout>
@@ -263,7 +253,6 @@
                 android:layout_height="wrap_content"
                 android:text="営業時間"
                 android:textSize="25sp"
-                android:textStyle="bold"
                 android:fontFamily="@font/cp_family"
                 android:layout_marginTop="14dp"/>
 
@@ -272,7 +261,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="10:00~22:00"
-                android:textStyle="bold"
                 android:textSize="25sp"
                 android:fontFamily="@font/cp_family"
                 android:layout_marginTop="14dp" />
@@ -291,7 +279,6 @@
                 android:layout_height="wrap_content"
                 android:text="電話番号"
                 android:textSize="25sp"
-                android:textStyle="bold"
                 android:fontFamily="@font/cp_family"
                 android:layout_marginTop="14dp"/>
 
@@ -300,7 +287,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="010-1234-999"
-                android:textStyle="bold"
                 android:textSize="25sp"
                 android:fontFamily="@font/cp_family"
                 android:layout_marginTop="14dp" />
@@ -358,7 +344,6 @@
             android:layout_height="wrap_content"
             android:text="レビュー"
             android:textSize="25sp"
-            android:textStyle="bold"
             android:fontFamily="@font/cp_family"
             android:layout_marginTop="16dp" />
 

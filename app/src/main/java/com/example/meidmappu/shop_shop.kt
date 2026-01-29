@@ -17,6 +17,8 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import androidx.appcompat.app.AlertDialog
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+
 
 
 class shop_shop : AppCompatActivity() {
@@ -241,11 +243,14 @@ class shop_shop : AppCompatActivity() {
         Glide.with(this)
             .load(shop.image)
             .placeholder(R.drawable.noimage)
+            .diskCacheStrategy(DiskCacheStrategy.ALL)
             .into(imageView)
 
         Glide.with(this)
             .load(shop.menu)
             .placeholder(R.drawable.noimage)
+            .error(R.drawable.noimage)
+            .diskCacheStrategy(DiskCacheStrategy.ALL)
             .into(menuView)
 
 // 地図

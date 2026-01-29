@@ -21,29 +21,100 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/modoru2" />
 
-    <ImageButton
-        android:id="@+id/PWchenge"
-        android:layout_width="328dp"
-        android:layout_height="155dp"
-        android:layout_marginTop="24dp"
-        android:background="@android:color/transparent"
-        android:contentDescription="パスワード変更"
-        android:scaleType="fitCenter"
+    <Button
+        android:id="@+id/PWchange"
+        android:layout_width="300dp"
+        android:layout_height="60dp"
+        android:layout_marginBottom="30dp"
+        android:backgroundTint="#F6A6E9"
+        android:fontFamily="@font/cp_family"
+        android:text="パスワード変更"
+        android:textColor="@color/black"
+        android:textSize="30sp"
+        android:layout_marginTop="30dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/backbtnsetting"
-        app:srcCompat="@drawable/passwordbtn" />
+        app:layout_constraintTop_toBottomOf="@+id/favorites" />
+
+
+    <Button
+        android:id="@+id/logout"
+        android:layout_width="300dp"
+        android:layout_height="60dp"
+        android:backgroundTint="#FAA9EC"
+        android:fontFamily="@font/cp_family"
+        android:text="ログアウト"
+        android:textColor="@color/black"
+        android:textSize="30sp"
+        android:layout_marginTop="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/PWchange" />
+
+    <Button
+        android:id="@+id/namechange"
+        android:layout_width="300dp"
+        android:layout_height="60dp"
+        android:backgroundTint="#F6A2E8"
+        android:fontFamily="@font/cp_family"
+        android:layout_marginTop="15dp"
+        android:text="名前変更"
+        android:textSize="30sp"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/username" />
+
+    <Button
+        android:id="@+id/favorites"
+        android:layout_width="300dp"
+        android:layout_height="60dp"
+        android:backgroundTint="#F2A3E4"
+        android:fontFamily="@font/cp_family"
+        android:layout_marginTop="30dp"
+        android:text="お気に入り店舗"
+        android:textSize="30sp"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/namechange" />
+
+    <TextView
+        android:id="@+id/username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/cp_family"
+        android:text="name"
+        android:textSize="40sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:fontFamily="@font/cp_family"
+        android:text="マイページ"
+        android:textSize="50sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/backbtnsetting" />
 
     <ImageButton
-        android:id="@+id/logout"
-        android:layout_width="328dp"
-        android:layout_height="155dp"
+        android:id="@+id/homeback"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
         android:background="@android:color/transparent"
-        android:contentDescription="ログアウト"
-        android:scaleType="fitCenter"
+        android:contentDescription="ホームに戻る"
+        android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/PWchenge"
-        app:srcCompat="@drawable/logoutbtn" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/homeicon" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

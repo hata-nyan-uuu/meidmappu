@@ -3,6 +3,7 @@ package com.example.meidmappu
 import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -20,15 +21,12 @@ class ReviewPostActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_review_post)
 
-
         firestore = Firebase.firestore
         shopId = intent.getStringExtra("shopId") ?: run {
-            Toast.makeText(this, "お店情報が取得できません",
-                Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "お店情報が取得できません", Toast.LENGTH_SHORT).show()
             finish()
             return
         }
-
 
         ratingBar = findViewById(R.id.reviewRatingBar)
         commentEditText = findViewById(R.id.reviewComment)
@@ -37,23 +35,33 @@ class ReviewPostActivity : AppCompatActivity() {
 
         // 投稿処理
         postButton.setOnClickListener {
+            val user = FirebaseAuth.getInstance().currentUser
+
+            val userId = user?.uid ?: "guest"
+            val name = user?.displayName ?: "名無し"
+
             val rating = ratingBar.rating.toInt()
             val comment = commentEditText.text.toString()
+
             if (comment.isBlank()) {
                 Toast.makeText(this, "コメントを入力してください",
                     Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
-            postReview(rating, comment)
+
+            postReview(userId, name, rating, comment)
         }
 
-        backButton.setOnClickListener { finish() }
+        backButton.setOnClickListener {
+            finish()
+        }
     }
 
-
-    private fun postReview(rating: Int, comment: String) {
+    // ★ onCreate の外に出す
+    private fun postReview(userId: String, name: String, rating: Int, comment: String) {
         val review = hashMapOf(
-            "userId" to "", // 後でログイン機能を追加する場合に Firebase UID
+            "userId" to userId,
+            "name" to name,
             "rating" to rating,
             "comment" to comment,
             "timestamp" to System.currentTimeMillis()
@@ -64,11 +72,14 @@ class ReviewPostActivity : AppCompatActivity() {
             .collection("reviews")
             .add(review)
             .addOnSuccessListener {
-                Toast.makeText(this, "レビューを投稿しました", Toast.LENGTH_SHORT).show()
-                finish() // shop_shop に戻る
+                Toast.makeText(this, "レビューを投稿しました",
+                    Toast.LENGTH_SHORT).show()
+                finish()
             }
             .addOnFailureListener {
-                Toast.makeText(this, "投稿に失敗しました", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "投稿に失敗しました",
+                    Toast.LENGTH_SHORT).show()
             }
+
     }
 }

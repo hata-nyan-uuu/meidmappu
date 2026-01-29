@@ -15,6 +15,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.firestore.FirebaseFirestore
 import android.util.Log
 import android.widget.ImageButton
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import androidx.core.widget.NestedScrollView
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -81,10 +84,20 @@ class MainActivity : AppCompatActivity() {
                 adapter.notifyDataSetChanged()
             }
             .addOnFailureListener { e ->
-                Log.e("Firestore", "データ取得失敗: ", e)
+                Log.e("Firestore", "Firestore失敗 → ローカルから復元", e)
+
+                // Firestore失敗時はローカルを使う
+                val localShops = ShopRepository.getAll()
+
+                if (localShops.isNotEmpty()) {
+                    shopList.clear()
+                    shopList.addAll(localShops)
+                    adapter.notifyDataSetChanged()
+                } else {
+                    Log.e("Firestore", "ローカルにもデータなし")
+                }
             }
     }
-
     // 詳細画面を開く
     private fun openShopDetail(shop: ShopFirestore) {
         val intent = Intent(this, shop_shop::class.java).apply {
@@ -107,5 +120,20 @@ class MainActivity : AppCompatActivity() {
         findViewById<ImageButton>(R.id.settingbtn).setOnClickListener {
             startActivity(Intent(this, setting::class.java))
         }
+
+        val scrollView = findViewById<NestedScrollView>(R.id.mainScrollView)
+        val scrollTopBtn = findViewById<FloatingActionButton>(R.id.scrollTopBtn)
+
+// スクロールに応じて表示・非表示
+        scrollView.setOnScrollChangeListener { _, _, scrollY, _, _ ->
+            if (scrollY > 300) scrollTopBtn.show() else scrollTopBtn.hide()
+        }
+
+// ボタンを押したらトップに戻る
+        scrollTopBtn.setOnClickListener {
+            scrollView.smoothScrollTo(0, 0)
+        }
+
     }
+
 }

@@ -13,6 +13,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 
 class KodawariSearchResult : AppCompatActivity() {
@@ -54,6 +55,26 @@ class KodawariSearchResult : AppCompatActivity() {
         val feeling = intent.getStringExtra("feeling")
 
         loadFilteredShops(type, priceRange, concept, feeling)
+
+        val scrollTopBtn = findViewById<FloatingActionButton>(R.id.scrollTopBtn)
+
+// RecyclerView のスクロールに応じて表示/非表示
+        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(rv: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(rv, dx, dy)
+                if (rv.computeVerticalScrollOffset() > 300) {
+                    scrollTopBtn.show()
+                } else {
+                    scrollTopBtn.hide()
+                }
+            }
+        })
+
+// ボタンを押したらトップに戻る
+        scrollTopBtn.setOnClickListener {
+            recyclerView.smoothScrollToPosition(0)
+        }
+
     }
 
     private fun loadFilteredShops(

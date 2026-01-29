@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.auth.FirebaseAuth
 
 class AdminHomeActivity : AppCompatActivity() {
 
@@ -29,9 +30,11 @@ class AdminHomeActivity : AppCompatActivity() {
         btnLogout.setOnClickListener {
             val pref = getSharedPreferences("admin", MODE_PRIVATE)
             pref.edit().clear().apply()
+            FirebaseAuth.getInstance().signOut()
 
-            startActivity(Intent(this, MainActivity::class.java))
-            finish()
+            val intent = Intent(this, MainActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
         }
     }
 }

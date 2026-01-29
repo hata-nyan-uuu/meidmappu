@@ -9,6 +9,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.firebase.auth.FirebaseAuth
+import android.widget.Button
+import android.widget.EditText
+import androidx.appcompat.app.AlertDialog
+import com.google.firebase.auth.UserProfileChangeRequest
+import android.widget.TextView
+
+
 
 class AccountSetting : AppCompatActivity() {
 
@@ -29,8 +36,15 @@ class AccountSetting : AppCompatActivity() {
 
         // ボタン取得
         val backButton = findViewById<ImageButton>(R.id.backbtnsetting)
-        val passwordButton = findViewById<ImageButton>(R.id.PWchenge)
-        val logoutButton = findViewById<ImageButton>(R.id.logout)
+        val usernameText = findViewById<TextView>(R.id.username)
+        val nameChangeButton = findViewById<Button>(R.id.namechange)
+        val favoritesButton = findViewById<Button>(R.id.favorites)
+//        val reviewButton = findViewById<Button>(R.id.user_review)
+        val passwordButton = findViewById<Button>(R.id.PWchange)
+        val logoutButton = findViewById<Button>(R.id.logout)
+        val user = auth.currentUser
+        usernameText.text = user?.displayName ?: "ユーザー名未設定"
+
 
         // 戻るボタン
         backButton.setOnClickListener {
@@ -71,5 +85,49 @@ class AccountSetting : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
+
+        //レビュー履歴
+
+//        reviewButton.setOnClickListener {
+//            val intent = Intent(this, ReviewHistoryActivity::class.java)
+//            startActivity(intent)
+//        }
+        //お気に入り
+
+        favoritesButton.setOnClickListener {
+            val intent = Intent(this, FavoritesShopActivity::class.java)
+            startActivity(intent)
+        }
+        //名前を変える
+        // 名前変更
+        nameChangeButton.setOnClickListener {
+            val editText = EditText(this)
+            editText.hint = "新しいユーザー名"
+
+            AlertDialog.Builder(this)
+                .setTitle("ユーザー名変更")
+                .setView(editText)
+                .setPositiveButton("変更") { _, _ ->
+                    val newName = editText.text.toString().trim()
+                    if (newName.isEmpty()) return@setPositiveButton
+
+                    val user = auth.currentUser ?: return@setPositiveButton
+
+                    val profileUpdates = UserProfileChangeRequest.Builder()
+                        .setDisplayName(newName)
+                        .build()
+
+                    user.updateProfile(profileUpdates)
+                        .addOnCompleteListener { task ->
+                            if (task.isSuccessful) {
+                                usernameText.text = newName
+                                Toast.makeText(this, "名前を変更しました", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                }
+                .setNegativeButton("キャンセル", null)
+                .show()
+        }
+
     }
 }

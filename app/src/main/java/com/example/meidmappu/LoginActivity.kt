@@ -17,6 +17,25 @@ import com.google.firebase.auth.FirebaseAuth
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
+    //shop_shopからのデータを受け取る
+    private fun onLoginSuccess() {
+        val returnTo = intent.getStringExtra("RETURN_TO")
+        val returnShopId = intent.getStringExtra("shopId")
+
+        if (returnTo == "SHOP" && returnShopId != null) {
+            startActivity(
+                Intent(this, shop_shop::class.java).apply {
+                    putExtra("shopId", returnShopId)
+                }
+            )
+        } else {
+            // 通常ログイン（ホームへ）
+            startActivity(Intent(this, MainActivity::class.java))
+        }
+
+        finish()
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,10 +58,11 @@ class LoginActivity : AppCompatActivity() {
 
         // すでにログインしていたら MainActivity へ
         if (auth.currentUser != null) {
-            startActivity(Intent(this, MainActivity::class.java))
-            finish()
+            onLoginSuccess()
             return
         }
+
+
 
         // View取得
         val emailEdit = findViewById<EditText>(R.id.editEmail)
@@ -71,8 +91,7 @@ class LoginActivity : AppCompatActivity() {
                 .addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
                         Toast.makeText(this, "ログイン成功！", Toast.LENGTH_SHORT).show()
-                        startActivity(Intent(this, MainActivity::class.java))
-                        finish()
+                        onLoginSuccess()
                     } else {
                         Toast.makeText(
                             this,

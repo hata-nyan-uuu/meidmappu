@@ -16,8 +16,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="6dp"
         android:text="店名"
-        android:textSize="18sp"
+        android:textSize="22sp"
         android:textStyle="bold"
+        android:fontFamily="@font/cp_family"
         android:textColor="#000000" />
     <!-- 店舗画像 -->
     <ImageView

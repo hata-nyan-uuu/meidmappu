@@ -37,19 +37,22 @@ class RegisterActivity : AppCompatActivity() {
 
             // --- 未入力チェック ---
             if (email.isEmpty() || password.isEmpty()) {
-                Toast.makeText(this, "メールアドレスとパスワードを入力してください", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "メールアドレスとパスワードを入力してください",
+                    Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
             // --- メールアドレス形式チェック（重要） ---
             if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                Toast.makeText(this, "正しいメールアドレスを入力してください", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "正しいメールアドレスを入力してください",
+                    Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
             // --- パスワード最低文字数 ---
             if (password.length < 6) {
-                Toast.makeText(this, "パスワードは6文字以上にしてください", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "パスワードは6文字以上にしてください",
+                    Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 

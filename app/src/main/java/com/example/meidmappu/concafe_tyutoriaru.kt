@@ -2,6 +2,7 @@ package com.example.meidmappu
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
@@ -29,6 +30,10 @@ class concafe_tyutoriaru : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_concafe_tyutoriaru)
 
+        window.statusBarColor = android.graphics.Color.WHITE
+        window.navigationBarColor = android.graphics.Color.WHITE
+
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(
@@ -41,12 +46,12 @@ class concafe_tyutoriaru : AppCompatActivity() {
         }
 
         val tutorialImage = findViewById<ImageView>(R.id.concafeImage)
-
+        tutorialImage.setBackgroundColor(android.graphics.Color.WHITE)
         // 最初の画像
         tutorialImage.setImageResource(concafeImages[currentIndex])
 
         // 画像タップで次へ
-        tutorialImage.setOnClickListener {
+            findViewById<Button>(R.id.nextbtn).setOnClickListener {
             currentIndex++
             if (currentIndex < concafeImages.size) {
                 tutorialImage.setImageResource(concafeImages[currentIndex])

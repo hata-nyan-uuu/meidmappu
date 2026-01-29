@@ -11,10 +11,30 @@ import androidx.core.net.toUri
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.bumptech.glide.Glide
+import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import androidx.appcompat.app.AlertDialog
+
 
 class shop_shop : AppCompatActivity() {
+
+    private fun showLoginRequiredDialog() {
+        AlertDialog.Builder(this)
+            .setTitle("ログインが必要です")
+            .setMessage("この機能を利用するにはログインが必要です。")
+            .setPositiveButton("ログイン") { _, _ ->
+                startActivity(Intent(this, LoginActivity::class.java).apply {
+                    putExtra("RETURN_TO","SHOP")
+                    putExtra("shopId",storeId)
+                })
+            }
+            .setNegativeButton("キャンセル", null)
+            .show()
+    }
+
 
     private lateinit var storeId: String
     private lateinit var reviewContainer: LinearLayout
@@ -30,6 +50,18 @@ class shop_shop : AppCompatActivity() {
     private lateinit var socialLinks: LinearLayout
 
     private val firestore = Firebase.firestore
+    private fun normalizeTilde(text: String?): String {
+        return text
+            ?.replace("〜", "～") // 波ダッシュ → 全角チルダ
+            ?.replace("~","～") //半角から全角チルダ
+            ?: ""
+    }
+    private lateinit var favoriteButton: ImageButton
+    private val auth = FirebaseAuth.getInstance()
+    private val db = FirebaseFirestore.getInstance()
+
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,7 +82,7 @@ class shop_shop : AppCompatActivity() {
         // ===== View =====
         val backBtn = findViewById<ImageButton>(R.id.backbtn)
         randomButton = findViewById(R.id.randombtn)
-        homeBackButton = findViewById(R.id.homeback2)
+        homeBackButton = findViewById(R.id.homeback)
 
         val nameText = findViewById<TextView>(R.id.shop_name)
         val addressText = findViewById<TextView>(R.id.shop_address)
@@ -85,12 +117,18 @@ class shop_shop : AppCompatActivity() {
         // ===== ボタン初期状態 =====
         randomButton.visibility = View.GONE
         homeBackButton.visibility = View.GONE
+        backBtn.visibility= View.GONE
 
         when (from) {
-            "RANDOM" -> randomButton.visibility = View.VISIBLE
-            "SEARCH" -> homeBackButton.visibility = View.VISIBLE
+            "RANDOM" ->{
+                randomButton.visibility = View.VISIBLE
+                homeBackButton.visibility= View.VISIBLE
+                backBtn.visibility= View.GONE
+                }
             else -> {
-
+                randomButton.visibility = View.GONE
+                homeBackButton.visibility = View.VISIBLE
+                backBtn.visibility=View.VISIBLE
             }
         }
 
@@ -124,12 +162,16 @@ class shop_shop : AppCompatActivity() {
 
         // ===== レビュー投稿 =====
         reviewButton.setOnClickListener {
+            if (auth.currentUser == null) {
+                showLoginRequiredDialog()
+                return@setOnClickListener
+            }
+
             startActivity(
                 Intent(this, ReviewPostActivity::class.java)
                     .putExtra("shopId", storeId)
             )
         }
-
         // ===== 店情報取得 =====
         val shop = ShopRepository.getById(storeId)
             ?: run {
@@ -137,12 +179,60 @@ class shop_shop : AppCompatActivity() {
                 finish()
                 return
             }
+        // ===== お気に入り =====
+        favoriteButton = findViewById(R.id.favoriteButton)
 
-        nameText.text = shop.name ?: ""
-        addressText.text = shop.address ?: ""
-        janruText.text = shop.type ?: ""
-        conceptText.text = shop.concept ?: ""
-        timeText.text = shop.time ?: ""
+        val user = auth.currentUser
+        if (user == null) {
+            favoriteButton.setImageResource(R.drawable.heart_off)
+            favoriteButton.setOnClickListener {
+                showLoginRequiredDialog()
+            }
+        } else {
+
+            val favoriteRef = db.collection("users")
+                .document(user.uid)
+                .collection("favorites")
+                .document(storeId)
+
+            // 初期状態
+            favoriteRef.get().addOnSuccessListener { doc ->
+                if (doc.exists()) {
+                    favoriteButton.setImageResource(R.drawable.heart_on)
+                } else {
+                    favoriteButton.setImageResource(R.drawable.heart_off)
+                }
+            }
+
+            // クリック
+            favoriteButton.setOnClickListener {
+                favoriteRef.get().addOnSuccessListener { doc ->
+                    if (doc.exists()) {
+                        favoriteRef.delete()
+                        favoriteButton.setImageResource(R.drawable.heart_off)
+                        Toast.makeText(this, "お気に入り解除", Toast.LENGTH_SHORT).show()
+                    } else {
+                        val data = hashMapOf(
+                            "shopId" to storeId,
+                            "name" to shop.name,
+                            "image" to shop.image,
+                            "timestamp" to System.currentTimeMillis()
+                        )
+                        favoriteRef.set(data)
+                        favoriteButton.setImageResource(R.drawable.heart_on)
+                        Toast.makeText(this, "お気に入り追加", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+        }
+
+
+
+        nameText.text = normalizeTilde(shop.name)
+        addressText.text = normalizeTilde(shop.address)
+        janruText.text = normalizeTilde(shop.type)
+        conceptText.text = normalizeTilde(shop.concept)
+        timeText.text = normalizeTilde(shop.time)
 
         feelingText.text = shop.feeling
             ?.joinToString("\n") { "#$it" }
@@ -194,20 +284,28 @@ class shop_shop : AppCompatActivity() {
         firestore.collection("shop")
             .document(storeId)
             .collection("reviews")
-            .orderBy("timestamp")
-            .get()
-            .addOnSuccessListener { result ->
-                for (doc in result) {
+            .orderBy("timestamp", Query.Direction.DESCENDING)
+            .addSnapshotListener { snapshots, error ->
+                if (error != null) {
+                    Toast.makeText(this, "レビューの読み込みに失敗しました", Toast.LENGTH_SHORT).show()
+                    return@addSnapshotListener
+                }
+
+                reviewContainer.removeAllViews() // 毎回更新
+                snapshots?.forEach { doc ->
+                    val name = doc.getString("name") ?: "名無し"
                     val rating = doc.getLong("rating")?.toInt() ?: 0
                     val comment = doc.getString("comment") ?: ""
+
                     val tv = TextView(this)
-                    tv.text = getString(R.string.review_text,
-                        rating, comment)
+                    tv.text = "$name: ★$rating\n$comment"
                     tv.textSize = 16f
                     reviewContainer.addView(tv)
                 }
             }
     }
+
+
 
     // ===== SNSリンク =====
     private fun setupLink(textView: TextView, url: String?) {
@@ -219,5 +317,8 @@ class shop_shop : AppCompatActivity() {
                 startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
             }
         }
+
+
+
     }
 }

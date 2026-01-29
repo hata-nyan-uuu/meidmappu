@@ -3,6 +3,7 @@ package com.example.meidmappu
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ImageView
 import androidx.activity.enableEdgeToEdge
@@ -74,12 +75,12 @@ class meido_tyutoriaru : AppCompatActivity() {
 
 
         val tutorialImage = findViewById<ImageView>(R.id.maidImage)
-
+        tutorialImage.setBackgroundColor(android.graphics.Color.WHITE)
         // 最初の画像設定
         tutorialImage.setImageResource(meidoImages[currentIndex])
 
         // タップで次へ
-        tutorialImage.setOnClickListener {
+        findViewById<Button>(R.id.nextbtn).setOnClickListener {
             currentIndex++
             if (currentIndex < meidoImages.size) {
                 tutorialImage.setImageResource(meidoImages[currentIndex])

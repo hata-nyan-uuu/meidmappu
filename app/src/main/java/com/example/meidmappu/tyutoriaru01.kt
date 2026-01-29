@@ -20,7 +20,7 @@ class tyutoriaru01 : AppCompatActivity() {
             insets
         }
         //02画面に移動
-        val nextbtn01 = findViewById<Button>(R.id.nextbtn01)
+        val nextbtn01 = findViewById<Button>(R.id.nextbtn)
         nextbtn01.setOnClickListener {
             val intent = Intent(this,tyutoriaru02::class.java)
             startActivity(intent)

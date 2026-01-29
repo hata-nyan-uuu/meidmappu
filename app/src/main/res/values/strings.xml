@@ -43,7 +43,7 @@
         vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
     </string>
 
-    //こだわりけんさく画面のプルダウンデータ
+
     <string-array name="mise_type">
         <item>お店のジャンルは？</item>
         <item>メイドカフェ</item>

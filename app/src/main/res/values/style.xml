@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!-- 角丸画像用 -->
     <style name="RoundedImage" parent="ShapeAppearance.Material3.LargeComponent">
-    <item name="cornerFamily">rounded</item>
-    <item name="cornerSize">20dp</item>
-</style>
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">20dp</item>
+    </style>
+
+    <!-- リンクテキスト用 -->
     <style name="LinkText">
         <item name="android:textSize">25sp</item>
         <item name="android:textStyle">bold</item>
@@ -12,5 +16,32 @@
         <item name="android:paddingBottom">12dp</item>
         <item name="android:clickable">true</item>
         <item name="android:focusable">true</item>
+        <item name="android:fontFamily">@font/cp_family</item>
     </style>
+
+    <!-- アプリ全体ライト固定テーマ -->
+    <style name="Theme.Meidmappu.Light" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- プライマリカラー -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryVariant">@color/colorPrimaryVariant</item>
+        <item name="colorOnPrimary">@color/colorOnPrimary</item>
+
+        <!-- セカンダリカラー -->
+        <item name="colorSecondary">@color/colorSecondary</item>
+        <item name="colorOnSecondary">@color/colorOnSecondary</item>
+
+        <!-- 背景色と文字色 -->
+        <item name="android:windowBackground">@color/colorBackground</item>
+        <item name="colorSurface">@color/colorSurface</item>
+        <item name="colorOnBackground">@color/colorOnBackground</item>
+        <item name="colorOnSurface">@color/colorOnSurface</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textColorPrimary">@color/black</item>
+        <item name="android:textColorSecondary">@color/black</item>
+
+        <!-- ステータスバー・ナビゲーションバー -->
+        <item name="android:statusBarColor">@color/colorPrimaryVariant</item>
+        <item name="android:navigationBarColor">@color/colorPrimary</item>
+    </style>
+
 </resources>

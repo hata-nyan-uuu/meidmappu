@@ -31,24 +31,35 @@
                 android:src="@drawable/modoru2"
                 android:contentDescription="戻るボタン"
                 android:layout_gravity="center_vertical"/>
-        <View
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
-
-        <ImageButton
-            android:id="@+id/randombtn"
-            android:layout_width="150dp"
-            android:layout_height="65dp"
-            android:visibility="gone"
-            android:background="@android:color/transparent"
-            android:scaleType="fitCenter"
-            android:src="@drawable/reload"
-            android:contentDescription="ランダム検索ボタン"
-            android:layout_gravity="center_vertical|end"/>
 
             <ImageButton
-                android:id="@+id/homeback2"
+                android:id="@+id/randombtn"
+                android:layout_width="150dp"
+                android:layout_height="65dp"
+                android:layout_gravity="center_vertical|end"
+                android:background="@android:color/transparent"
+                android:contentDescription="ランダム検索ボタン"
+                android:scaleType="fitCenter"
+                android:src="@drawable/reload"
+                android:visibility="visible" />
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+
+            <ImageButton
+                android:id="@+id/favoriteButton"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:background="@android:color/transparent"
+                android:contentDescription="お気に入り"
+                android:scaleType="fitCenter"
+                android:layout_marginEnd="15dp"
+                app:srcCompat="@drawable/heart_off" />
+
+            <ImageButton
+                android:id="@+id/homeback"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
                 android:background="@android:color/transparent"
@@ -71,6 +82,7 @@
             android:textSize="35sp"
             android:textStyle="bold"
             android:gravity="center"
+            android:fontFamily="@font/cp_family"
             android:layout_marginTop="16dp" />
 
         <!-- 店舗画像 -->
@@ -92,6 +104,7 @@
             android:textSize="35sp"
             android:textStyle="bold"
             android:gravity="center"
+            android:fontFamily="@font/cp_family"
             android:layout_marginTop="8dp" />
 
         <!-- メニュー画像 -->
@@ -113,6 +126,7 @@
             android:text="住所"
             android:textSize="25sp"
             android:textColor="@android:color/black"
+            android:fontFamily="@font/cp_family"
             android:layout_marginTop="16dp" />
 
         <TextView
@@ -122,6 +136,7 @@
             android:text="〇〇県〇〇市"
             android:textSize="25sp"
             android:textStyle="bold"
+            android:fontFamily="@font/cp_family"
             android:layout_marginTop="4dp" />
 
         <TextView
@@ -149,6 +164,7 @@
             android:text="#"
             android:textSize="25sp"
             android:textStyle="bold"
+            android:fontFamily="@font/cp_family"
             android:layout_marginTop="12dp"
             />
         <TextView
@@ -156,6 +172,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="メイドカフェ"
+            android:fontFamily="@font/cp_family"
             android:textSize="25sp"
             android:textStyle="bold"
             android:layout_marginTop="12dp" />
@@ -174,6 +191,7 @@
             android:text="#"
             android:textSize="25sp"
             android:textStyle="bold"
+            android:fontFamily="@font/cp_family"
             android:layout_marginTop="4dp"
             />
 
@@ -184,6 +202,7 @@
             android:text="メイド系"
             android:textSize="25sp"
             android:textStyle="bold"
+            android:fontFamily="@font/cp_family"
             android:layout_marginTop="4dp" />
 
     </LinearLayout>
@@ -200,6 +219,7 @@
             android:text="ゆっくりしたい"
             android:textSize="25sp"
             android:textStyle="bold"
+            android:fontFamily="@font/cp_family"
             android:layout_marginTop="4dp"/>
     </LinearLayout>
 
@@ -216,14 +236,16 @@
                 android:text="#"
                 android:textStyle="bold"
                 android:textSize="25sp"
+                android:fontFamily="@font/cp_family"
                 android:layout_marginTop="4dp"/>
             <TextView
                 android:id="@+id/price_value"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="~3000円"
+                android:text="～3000円"
                 android:textSize="25sp"
                 android:textStyle="bold"
+                android:fontFamily="@font/cp_family"
                 android:layout_marginTop="4dp"/>
         </LinearLayout>
 
@@ -242,6 +264,7 @@
                 android:text="営業時間"
                 android:textSize="25sp"
                 android:textStyle="bold"
+                android:fontFamily="@font/cp_family"
                 android:layout_marginTop="14dp"/>
 
             <TextView
@@ -251,6 +274,7 @@
                 android:text="10:00~22:00"
                 android:textStyle="bold"
                 android:textSize="25sp"
+                android:fontFamily="@font/cp_family"
                 android:layout_marginTop="14dp" />
 
         </LinearLayout>
@@ -268,6 +292,7 @@
                 android:text="電話番号"
                 android:textSize="25sp"
                 android:textStyle="bold"
+                android:fontFamily="@font/cp_family"
                 android:layout_marginTop="14dp"/>
 
             <TextView
@@ -277,6 +302,7 @@
                 android:text="010-1234-999"
                 android:textStyle="bold"
                 android:textSize="25sp"
+                android:fontFamily="@font/cp_family"
                 android:layout_marginTop="14dp" />
 
         </LinearLayout>
@@ -295,6 +321,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="公式サイト"
+                android:fontFamily="@font/cp_family"
                 style="@style/LinkText" />
 
             <TextView
@@ -302,6 +329,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="X（旧ツイッター）"
+                android:fontFamily="@font/cp_family"
                 style="@style/LinkText" />
 
             <TextView
@@ -309,6 +337,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Instagram"
+                android:fontFamily="@font/cp_family"
                 style="@style/LinkText" />
 
             <TextView
@@ -316,6 +345,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="TikTok"
+                android:fontFamily="@font/cp_family"
                 style="@style/LinkText" />
         </LinearLayout>
 
@@ -329,6 +359,7 @@
             android:text="レビュー"
             android:textSize="25sp"
             android:textStyle="bold"
+            android:fontFamily="@font/cp_family"
             android:layout_marginTop="16dp" />
 
         <LinearLayout
@@ -346,6 +377,7 @@
             android:layout_height="wrap_content"
             android:text="レビューを書く"
             android:layout_marginTop="16dp"
+            android:fontFamily="@font/cp_family"
             android:layout_marginBottom="24dp" />
 
 

@@ -38,6 +38,11 @@ class AdminLoginActivity : AppCompatActivity() {
             val email = idEdit.text.toString()
             val pass = passEdit.text.toString()
 
+            if(email != "abc@test.com"){
+                Toast.makeText(this, "管理者専用ログインです", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
             FirebaseAuth.getInstance()
                 .signInWithEmailAndPassword(email, pass)
                 .addOnSuccessListener {

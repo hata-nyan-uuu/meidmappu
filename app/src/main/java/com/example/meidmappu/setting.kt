@@ -46,6 +46,16 @@ class setting : AppCompatActivity() {
             startActivity(intent)
         }
 
+        //ホームボタン
+        findViewById<ImageButton>(R.id.homeback).setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            intent.addFlags(
+                Intent.FLAG_ACTIVITY_CLEAR_TOP or
+                        Intent.FLAG_ACTIVITY_SINGLE_TOP
+            )
+            startActivity(intent)
+        }
+
         // 管理者ログイン
         findViewById<ImageButton>(R.id.buttonSetting5).setOnClickListener {
             startActivity(Intent(this, AdminLoginActivity::class.java))
@@ -58,7 +68,7 @@ class setting : AppCompatActivity() {
 
         if (auth.currentUser != null) {
             // ログイン中
-            loginButton.setImageResource(R.drawable.akauntosetting)
+            loginButton.setImageResource(R.drawable.mypagebtn)
             loginButton.setOnClickListener {
                 startActivity(Intent(this, AccountSetting::class.java))
             }

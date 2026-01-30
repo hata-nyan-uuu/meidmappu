@@ -50,6 +50,15 @@ class AccountSetting : AppCompatActivity() {
         backButton.setOnClickListener {
             finish() // 1つ前の画面に戻る
         }
+        //ホームボタン
+        findViewById<ImageButton>(R.id.homeback).setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            intent.addFlags(
+                Intent.FLAG_ACTIVITY_CLEAR_TOP or
+                        Intent.FLAG_ACTIVITY_SINGLE_TOP
+            )
+            startActivity(intent)
+        }
 
         //パスワード変更（メール送信）
         passwordButton.setOnClickListener {

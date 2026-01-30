@@ -10,8 +10,24 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import android.view.View
+import android.widget.AdapterView
+
 
 class kodawari_kensaku : AppCompatActivity() {
+
+    private fun updateSpinner(spinner: Spinner, arrayId: Int) {
+        val adapter = ArrayAdapter.createFromResource(
+            this,
+            arrayId,
+            R.layout.spinner_item
+        )
+        adapter.setDropDownViewResource(R.layout.spinner_dropdown_item)
+        spinner.adapter = adapter
+        spinner.setSelection(0)
+    }
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,6 +45,40 @@ class kodawari_kensaku : AppCompatActivity() {
         setupSpinner(R.id.conseputo2, R.array.conseputo2)
         setupSpinner(R.id.kakaku, R.array.kakaku)
         setupSpinner(R.id.feeling, R.array.feeling)
+
+        val miseTypeSpinner = findViewById<Spinner>(R.id.mise_type)
+        val conceptSpinner = findViewById<Spinner>(R.id.conseputo2)
+        val feelingSpinner = findViewById<Spinner>(R.id.feeling)
+
+        miseTypeSpinner.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+
+                override fun onItemSelected(
+                    parent: AdapterView<*>,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+                    when (position) {
+                        1 -> { // メイドカフェ
+                            updateSpinner(conceptSpinner, R.array.meid_conseputo)
+                            updateSpinner(feelingSpinner, R.array.meid_feeling)
+                        }
+                        2 -> { // コンカフェ
+                            updateSpinner(conceptSpinner, R.array.conseputo2)
+                            updateSpinner(feelingSpinner, R.array.concafe_feeling)
+                        }
+                        else -> {
+                            // 「お店のジャンルは？」のとき
+                            updateSpinner(conceptSpinner, R.array.conseputo2)
+                            updateSpinner(feelingSpinner, R.array.feeling)
+                        }
+                    }
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>) {}
+            }
+
 
         // 戻る
         findViewById<ImageButton>(R.id.backbtn2).setOnClickListener {

@@ -39,6 +39,17 @@ class FavoritesShopActivity : AppCompatActivity() {
             finish()
         }
 
+        //ホームボタン
+        findViewById<ImageButton>(R.id.homeback).setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            intent.addFlags(
+                Intent.FLAG_ACTIVITY_CLEAR_TOP or
+                        Intent.FLAG_ACTIVITY_SINGLE_TOP
+            )
+            startActivity(intent)
+        }
+
+
         val recyclerView = findViewById<RecyclerView>(R.id.favoriteRecycler)
         recyclerView.layoutManager = LinearLayoutManager(this)
 

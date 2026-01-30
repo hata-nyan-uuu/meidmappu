@@ -64,7 +64,6 @@ class shop_shop : AppCompatActivity() {
 
 
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -96,7 +95,7 @@ class shop_shop : AppCompatActivity() {
         val menuView = findViewById<ImageView>(R.id.imageView5)
         val reviewButton = findViewById<Button>(R.id.review_button)
         val priceValue = findViewById<TextView>(R.id.price_value)
-
+        val mapImage = findViewById<ImageView>(R.id.static_map)
 
         reviewContainer = findViewById(R.id.review_container)
 
@@ -254,12 +253,37 @@ class shop_shop : AppCompatActivity() {
             .into(menuView)
 
 // 地図
+        // ===== 静止マップ =====
         if (!shop.address.isNullOrBlank()) {
-            addressText.setOnClickListener {
-                val uri = "geo:0,0?q=${Uri.encode(shop.address)}".toUri()
-                startActivity(Intent(Intent.ACTION_VIEW, uri))
+
+            val encodedAddress = Uri.encode(shop.address)
+
+            val staticMapUrl =
+                "https://maps.googleapis.com/maps/api/staticmap" +
+                        "?center=$encodedAddress" +
+                        "&zoom=16" +
+                        "&size=600x300" +
+                        "&scale=2" +
+                        "&markers=color:red|$encodedAddress" +
+                        "&key=${BuildConfig.MAPS_API_KEY}"
+
+            Glide.with(this)
+                .load(staticMapUrl)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(mapImage)
+
+            // タップでGoogleマップ起動
+            mapImage.setOnClickListener {
+                val uri = "geo:0,0?q=$encodedAddress".toUri()
+                val intent = Intent(Intent.ACTION_VIEW, uri)
+                intent.setPackage("com.google.android.apps.maps")
+                startActivity(intent)
             }
+
+        } else {
+            mapImage.visibility = View.GONE
         }
+
 
 // SNS
         setupLink(linkSite, shop.website)

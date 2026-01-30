@@ -72,10 +72,35 @@
         <item>チャイナ系</item>
     </string-array>
 
+    <string-array name="meid_conseputo">
+        <item>コンセプトは？</item>
+        <item>メイド系</item>
+        <item>クラシカルメイド系</item>
+        <item>天使系</item>
+        <item>和風系</item>
+        <item>妖精系</item>
+        <item>魔法少女系</item>
+        <item>チャイナ系</item>
+    </string-array>
+
 
     <string-array name="feeling">
         <item>いまの気分は？</item>
         <item>ごはんをたべたい</item>
+        <item>ゆっくりしたい</item>
+        <item>だれかとはなしたい</item>
+        <item>お酒をのみたい</item>
+    </string-array>
+
+    <string-array name="meid_feeling">
+         <item>いまの気分は？</item>
+        <item>ごはんをたべたい</item>
+        <item>ゆっくりしたい</item>
+        <item>だれかとはなしたい</item>
+    </string-array>
+
+    <string-array name="concafe_feeling">
+        <item>いまの気分は？</item>
         <item>ゆっくりしたい</item>
         <item>だれかとはなしたい</item>
         <item>お酒をのみたい</item>

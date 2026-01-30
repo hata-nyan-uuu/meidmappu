@@ -16,6 +16,14 @@ android {
         versionCode = 1
         versionName = "1.0"
 
+        //apiキー
+        buildConfigField(
+            "String",
+            "MAPS_API_KEY",
+            "\"ここにあなたのAPIキー\""
+        )
+
+
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -38,8 +46,11 @@ android {
         jvmTarget = "17"
     }
 
+
+
     buildFeatures {
         viewBinding = true
+        buildConfig = true
     }
 }
 

@@ -20,7 +20,7 @@ android {
         buildConfigField(
             "String",
             "MAPS_API_KEY",
-            "\"ここにあなたのAPIキー\""
+            "\"AIzaSyBghZVv1soo6u_tByn6xaVc2VwsTv0w-FU\""
         )
 
 

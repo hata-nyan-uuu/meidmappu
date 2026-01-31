@@ -17,6 +17,7 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import androidx.appcompat.app.AlertDialog
+import androidx.core.view.ScrollingView
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 
 
@@ -96,6 +97,28 @@ class shop_shop : AppCompatActivity() {
         val reviewButton = findViewById<Button>(R.id.review_button)
         val priceValue = findViewById<TextView>(R.id.price_value)
         val mapImage = findViewById<ImageView>(R.id.static_map)
+        //押したらスクロールがトップに戻る
+        val scrollView = findViewById<ScrollView>(R.id.main)
+        val scrollTopBtn =
+            findViewById<com.google.android.material.floatingactionbutton.FloatingActionButton>(
+                R.id.scrollTopBtn
+            )
+
+        scrollView.viewTreeObserver.addOnScrollChangedListener {
+            val scrollY = scrollView.scrollY
+
+            if (scrollY > 300) {
+                scrollTopBtn.show()
+            } else {
+                scrollTopBtn.hide()
+            }
+        }
+
+        scrollTopBtn.setOnClickListener {
+            scrollView.smoothScrollTo(0, 0)
+        }
+
+
 
         reviewContainer = findViewById(R.id.review_container)
 
@@ -279,6 +302,12 @@ class shop_shop : AppCompatActivity() {
                 intent.setPackage("com.google.android.apps.maps")
                 startActivity(intent)
             }
+            addressText.setOnClickListener {
+                val uri = "geo:0,0?q=$encodedAddress".toUri()
+                val intent = Intent(Intent.ACTION_VIEW, uri)
+                intent.setPackage("com.google.android.apps.maps")
+                startActivity(intent)
+            }
 
         } else {
             mapImage.visibility = View.GONE
@@ -332,6 +361,7 @@ class shop_shop : AppCompatActivity() {
                     reviewContainer.addView(tv)
                 }
             }
+
     }
 
 
@@ -346,8 +376,6 @@ class shop_shop : AppCompatActivity() {
                 startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
             }
         }
-
-
-
     }
+
 }

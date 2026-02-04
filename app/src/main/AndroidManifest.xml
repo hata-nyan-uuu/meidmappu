@@ -16,6 +16,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Meidmappu.Light">
         <activity
+            android:name=".MainActivity"
+            android:exported="false" />
+        <activity
             android:name=".FavoritesShopActivity"
             android:exported="false" />
         <activity
@@ -82,7 +85,8 @@
             android:name=".RandomKensaku"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".SplashActivity"
+            android:theme="@style/Theme.Meidmappu.Splash"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -17,11 +17,13 @@ import android.util.Log
 import android.widget.ImageButton
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import androidx.core.widget.NestedScrollView
+import androidx.recyclerview.widget.ConcatAdapter
 
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var adapter: ShopAdapter
+    private lateinit var headerAdapter: HeaderAdapter
     private val shopList = mutableListOf<ShopFirestore>()   // Firestore から取るデータ
     private val db = FirebaseFirestore.getInstance()
 
@@ -32,10 +34,8 @@ class MainActivity : AppCompatActivity() {
 
         //AD
         MobileAds.initialize(this)
-
         val adView = findViewById<AdView>(R.id.adView)
-        val adRequest = AdRequest.Builder().build()
-        adView.loadAd(adRequest)
+        adView.loadAd(AdRequest.Builder().build())
 
 
         // インセット調整
@@ -48,53 +48,72 @@ class MainActivity : AppCompatActivity() {
         // RecyclerView 初期化
         val recyclerView = findViewById<RecyclerView>(R.id.homeRecyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
+        // 1. ヘッダーアダプターの初期化（ボタン処理をここへ移動）
+        headerAdapter = HeaderAdapter { id ->
+            when (id) {
+                R.id.random1 -> startActivity(Intent(this, RandomKensaku::class.java))
+                R.id.kodawari -> startActivity(Intent(this, kodawari_kensaku::class.java))
+                R.id.hazimete -> startActivity(Intent(this, tyutoriaru01::class.java))
+                R.id.settingbtn -> startActivity(Intent(this, setting::class.java))
+            }
+        }
 
+        // 2. 店舗リスト
         adapter = ShopAdapter(shopList) { shop ->
             openShopDetail(shop)
         }
-        recyclerView.adapter = adapter
 
-        // Firestore から店舗データ読み込み
+        // 3. 合体
+        val concatAdapter = ConcatAdapter(headerAdapter, adapter)
+        recyclerView.adapter = concatAdapter
+
         loadAllShops()
+        setScrollButtons() // 新しいスクロール監視を開始
+    }
 
-        // ボタン設定
-        setButtonListeners()
+    // スクロールボタン（FAB）の制御
+    private fun setScrollButtons() {
+        val recyclerView = findViewById<RecyclerView>(R.id.homeRecyclerView)
+        val scrollTopBtn = findViewById<FloatingActionButton>(R.id.scrollTopBtn)
+
+        // NestedScrollViewではなくRecyclerViewのスクロールを監視
+        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                // 縦のスクロール量を取得
+                val offset = recyclerView.computeVerticalScrollOffset()
+                if (offset > 300) scrollTopBtn.show() else scrollTopBtn.hide()
+            }
+        })
+
+        scrollTopBtn.setOnClickListener {
+            recyclerView.smoothScrollToPosition(0) // 0番目（ヘッダー）まで戻る
+        }
     }
 
 
     // Firestoreから全店舗を取得してRecyclerViewに表示
     private fun loadAllShops() {
         db.collection("shop")
-            .orderBy("timestamp",
-                com.google.firebase.firestore.Query.Direction.ASCENDING)
+            .orderBy("timestamp", com.google.firebase.firestore.Query.Direction.ASCENDING)
             .get()
             .addOnSuccessListener { result ->
                 shopList.clear()
-
                 for (document in result) {
                     val shop = document.toObject(ShopFirestore::class.java).apply {
                         id = document.id
                     }
-                    shopList.add(shop)
+                    shopList.add(shop) // 追加を忘れずに
                 }
-
-                //オフライン用に保存
                 ShopRepository.setShops(shopList)
-
-                adapter.notifyDataSetChanged()
+                adapter.notifyDataSetChanged() // 変数名を adapter に修正
             }
             .addOnFailureListener { e ->
-                Log.e("Firestore", "Firestore失敗 → ローカルから復元", e)
-
-                // Firestore失敗時はローカルを使う
+                Log.e("Firestore", "Firestore失敗", e)
                 val localShops = ShopRepository.getAll()
-
                 if (localShops.isNotEmpty()) {
                     shopList.clear()
                     shopList.addAll(localShops)
                     adapter.notifyDataSetChanged()
-                } else {
-                    Log.e("Firestore", "ローカルにもデータなし")
                 }
             }
     }
@@ -105,35 +124,4 @@ class MainActivity : AppCompatActivity() {
         }
         startActivity(intent)
     }
-
-    // ボタン設定（Roomの時と同じ）
-    private fun setButtonListeners() {
-        findViewById<MaterialCardView>(R.id.random1).setOnClickListener {
-            startActivity(Intent(this, RandomKensaku::class.java))
-        }
-        findViewById<MaterialCardView>(R.id.kodawari).setOnClickListener {
-            startActivity(Intent(this, kodawari_kensaku::class.java))
-        }
-        findViewById<MaterialCardView>(R.id.hazimete).setOnClickListener {
-            startActivity(Intent(this, tyutoriaru01::class.java))
-        }
-        findViewById<ImageButton>(R.id.settingbtn).setOnClickListener {
-            startActivity(Intent(this, setting::class.java))
-        }
-
-        val scrollView = findViewById<NestedScrollView>(R.id.mainScrollView)
-        val scrollTopBtn = findViewById<FloatingActionButton>(R.id.scrollTopBtn)
-
-// スクロールに応じて表示・非表示
-        scrollView.setOnScrollChangeListener { _, _, scrollY, _, _ ->
-            if (scrollY > 300) scrollTopBtn.show() else scrollTopBtn.hide()
-        }
-
-// ボタンを押したらトップに戻る
-        scrollTopBtn.setOnClickListener {
-            scrollView.smoothScrollTo(0, 0)
-        }
-
-    }
-
 }
